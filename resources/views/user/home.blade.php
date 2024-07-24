@@ -7,7 +7,7 @@
             <div class="product-image-wrapper">
                 <div class="single-products">
                     <div class="productinfo text-center">
-                        <img src="{{ 'public/frontend/images/home/product1.jpg' }}" alt="" />
+                        <img src="{{ 'frontend/images/home/product1.jpg' }}" alt="" />
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
@@ -35,7 +35,7 @@
             <div class="product-image-wrapper">
                 <div class="single-products">
                     <div class="productinfo text-center">
-                        <img src="{{ 'public/frontend/images/home/product2.jpg' }}" alt="" />
+                        <img src="{{ 'frontend/images/home/product2.jpg' }}" alt="" />
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
@@ -63,7 +63,7 @@
             <div class="product-image-wrapper">
                 <div class="single-products">
                     <div class="productinfo text-center">
-                        <img src="{{ 'public/frontend/images/home/product3.jpg' }}" alt="" />
+                        <img src="{{ 'frontend/images/home/product3.jpg' }}" alt="" />
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
@@ -91,7 +91,7 @@
             <div class="product-image-wrapper">
                 <div class="single-products">
                     <div class="productinfo text-center">
-                        <img src="{{ 'public/frontend/images/home/product4.jpg' }}" alt="" />
+                        <img src="{{ 'frontend/images/home/product4.jpg' }}" alt="" />
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
@@ -105,7 +105,7 @@
                                 cart</a>
                         </div>
                     </div>
-                    <img src="{{ 'public/frontend/images/home/new.png' }}" class="new" alt="" />
+                    <img src="{{ 'frontend/images/home/new.png' }}" class="new" alt="" />
                 </div>
                 <div class="choose">
                     <ul class="nav nav-pills nav-justified">
@@ -120,7 +120,7 @@
             <div class="product-image-wrapper">
                 <div class="single-products">
                     <div class="productinfo text-center">
-                        <img src="{{ 'public/frontend/images/home/product5.jpg' }}" alt="" />
+                        <img src="{{ 'frontend/images/home/product5.jpg' }}" alt="" />
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
@@ -134,7 +134,7 @@
                                 cart</a>
                         </div>
                     </div>
-                    <img src="{{ 'public/frontend/images/home/sale.png' }}" class="new" alt="" />
+                    <img src="{{ 'frontend/images/home/sale.png' }}" class="new" alt="" />
                 </div>
                 <div class="choose">
                     <ul class="nav nav-pills nav-justified">
@@ -149,7 +149,7 @@
             <div class="product-image-wrapper">
                 <div class="single-products">
                     <div class="productinfo text-center">
-                        <img src="{{ 'public/frontend/images/home/product6.jpg' }}" alt="" />
+                        <img src="{{ 'frontend/images/home/product6.jpg' }}" alt="" />
                         <h2>$56</h2>
                         <p>Easy Polo Black Edition</p>
                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
@@ -194,7 +194,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery1.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery1.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -208,7 +208,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery2.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery2.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -222,7 +222,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery3.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery3.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -236,7 +236,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery4.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery4.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -253,7 +253,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery4.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery4.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -267,7 +267,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery3.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery3.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -281,7 +281,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery2.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery2.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -295,7 +295,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery1.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery1.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -312,7 +312,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery3.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery3.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -326,7 +326,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery4.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery4.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -340,7 +340,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery1.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery1.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -354,7 +354,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery2.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery2.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -371,7 +371,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery1.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery1.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -385,7 +385,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery2.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery2.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -399,7 +399,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery3.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery3.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -413,7 +413,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery4.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery4.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -430,7 +430,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery2.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery2.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -444,7 +444,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery4.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery4.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -458,7 +458,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery3.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery3.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -472,7 +472,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="{{ 'public/frontend/images/home/gallery1.jpg' }}" alt="" />
+                                <img src="{{ 'frontend/images/home/gallery1.jpg' }}" alt="" />
                                 <h2>$56</h2>
                                 <p>Easy Polo Black Edition</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -498,7 +498,7 @@
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <img src="{{ 'public/frontend/images/home/recommend1.jpg' }}" alt="" />
+                                    <img src="{{ 'frontend/images/home/recommend1.jpg' }}" alt="" />
                                     <h2>$56</h2>
                                     <p>Easy Polo Black Edition</p>
                                     <a href="#" class="btn btn-default add-to-cart"><i
@@ -512,7 +512,7 @@
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <img src="{{ 'public/frontend/images/home/recommend2.jpg' }}" alt="" />
+                                    <img src="{{ 'frontend/images/home/recommend2.jpg' }}" alt="" />
                                     <h2>$56</h2>
                                     <p>Easy Polo Black Edition</p>
                                     <a href="#" class="btn btn-default add-to-cart"><i
@@ -526,7 +526,7 @@
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <img src="{{ 'public/frontend/images/home/recommend3.jpg' }}" alt="" />
+                                    <img src="{{ 'frontend/images/home/recommend3.jpg' }}" alt="" />
                                     <h2>$56</h2>
                                     <p>Easy Polo Black Edition</p>
                                     <a href="#" class="btn btn-default add-to-cart"><i
@@ -542,7 +542,7 @@
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <img src="{{ 'public/frontend/images/home/recommend1.jpg' }}" alt="" />
+                                    <img src="{{ 'frontend/images/home/recommend1.jpg' }}" alt="" />
                                     <h2>$56</h2>
                                     <p>Easy Polo Black Edition</p>
                                     <a href="#" class="btn btn-default add-to-cart"><i
@@ -556,7 +556,7 @@
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <img src="{{ 'public/frontend/images/home/recommend2.jpg' }}" alt="" />
+                                    <img src="{{ 'frontend/images/home/recommend2.jpg' }}" alt="" />
                                     <h2>$56</h2>
                                     <p>Easy Polo Black Edition</p>
                                     <a href="#" class="btn btn-default add-to-cart"><i
@@ -570,7 +570,7 @@
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <img src="{{ 'public/frontend/images/home/recommend3.jpg' }}" alt="" />
+                                    <img src="{{ 'frontend/images/home/recommend3.jpg' }}" alt="" />
                                     <h2>$56</h2>
                                     <p>Easy Polo Black Edition</p>
                                     <a href="#" class="btn btn-default add-to-cart"><i

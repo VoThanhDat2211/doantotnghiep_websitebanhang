@@ -17,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[HomeController::class,'index']);
 
 @require('user-route.php');
+@require ('admin-route.php');
