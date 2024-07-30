@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('vouchers', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement();
             $table->string('applicable_object');
-            $table->datetimes('start_date');
-            $table->datetimes('end_date');
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
             $table->unsignedInteger('quantity')->default(0);
             $table->string('title');
+            $table->unsignedTinyInteger('value');
         });
     }
 

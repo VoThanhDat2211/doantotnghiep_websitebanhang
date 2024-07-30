@@ -15,7 +15,7 @@ html, body {
     font-family: 'Roboto', sans-serif;
     font-size: 100%;
     overflow-x: hidden;
-    background: url(../images/background-login-admin.jpg) no-repeat 0px 0px;
+    background: url(../images/login-admin.jpg) no-repeat 0px 0px;
     background-size: cover;
 }
 
@@ -1219,150 +1219,6 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
     transition: width 0.6s ease;
 }
 
-.progress-striped .yellow {
-    background: #f0ad4e;
-}
-
-.progress-striped .green {
-    background: #5cb85c;
-}
-
-.progress-striped .light-blue {
-    background: #4F52BA;
-}
-
-.progress-striped .red {
-    background: #d9534f;
-}
-
-.progress-striped .blue {
-    background: #428bca;
-}
-
-.progress-striped .orange {
-    background: #e94e02;
-}
-
-.progress-striped .bar {
-    background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-    -webkit-background-size: 40px 40px;
-    -moz-background-size: 40px 40px;
-    -o-background-size: 40px 40px;
-    background-size: 40px 40px;
-}
-
-.progress.active .bar {
-    -webkit-animation: progress-bar-stripes 2s linear infinite;
-    -moz-animation: progress-bar-stripes 2s linear infinite;
-    -ms-animation: progress-bar-stripes 2s linear infinite;
-    -o-animation: progress-bar-stripes 2s linear infinite;
-    animation: progress-bar-stripes 2s linear infinite;
-}
-
-@-webkit-keyframes progress-bar-stripes {
-    from {
-        background-position: 40px 0;
-    }
-
-    to {
-        background-position: 0 0;
-    }
-}
-
-@-moz-keyframes progress-bar-stripes {
-    from {
-        background-position: 40px 0;
-    }
-
-    to {
-        background-position: 0 0;
-    }
-}
-
-@-ms-keyframes progress-bar-stripes {
-    from {
-        background-position: 40px 0;
-    }
-
-    to {
-        background-position: 0 0;
-    }
-}
-
-@-o-keyframes progress-bar-stripes {
-    from {
-        background-position: 0 0;
-    }
-
-    to {
-        background-position: 40px 0;
-    }
-}
-
-@keyframes progress-bar-stripes {
-    from {
-        background-position: 40px 0;
-    }
-
-    to {
-        background-position: 0 0;
-    }
-}
-
-/*--Progress bars--*/
-.stats-info-agileits {
-    background: #eef9f0;
-    padding: 2em;
-    border-radius: 4px;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-}
-
-.agileits-w3layouts-stats {
-    margin: 1.5em 0;
-}
-
-h4.title {
-    font-size: 20px;
-    color: #000;
-    text-align: center;
-    margin-bottom: 2em;
-    text-transform: uppercase;
-}
-
-.stats-last-agile {
-    background: #eef9f0;
-    padding: 2em;
-    border-radius: 4px;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-}
-
-.w3-agile-google_map {
-    background: #eef9f0;
-    padding: 2em;
-    border-radius: 4px;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-}
-
-.w3-agile-map-left iframe {
-    width: 100%;
-    min-height: 450px;
-    border: 15px solid #ffffff;
-    outline: none;
-}
-
-.w3-agile-map-right iframe {
-    width: 100%;
-    min-height: 450px;
-    border: 15px solid #ffffff;
-    outline: none;
-}
 
 /*button*/
 .btn-row {
@@ -2814,8 +2670,8 @@ ul.inbox-pagination li {
 }
 
 /*-- gallery --*/
-.w3layouts-main h2 {
-    color: #8b5c7e;
+.login-main h2 {
+    color: #e9b197;
     font-size: 29px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -2823,10 +2679,10 @@ ul.inbox-pagination li {
     text-align: center;
 }
 
-.w3layouts-main {
+.login-main {
     width: 30%;
     margin: 5em auto;
-    background: rgba(171, 119, 157, 0.27);
+    background: rgba(255, 255, 255, 0.15);
     padding: 42px 35px;
 }
 
@@ -2839,29 +2695,57 @@ input.ggg {
     outline: none;
     font-size: 14px;
     color: #fff;
-    margin: 14px 0px;
+    margin-top: 14px;
     background: none;
 }
 
-.w3layouts-main span {
+input[name='password'] {
+    margin-top: 28px;
+}
+
+input.ggg:focus {
+    border: 2px solid #fdded0;
+}
+
+.login-main .error {
+    font-size: 14px;
+    color: #bc0000;
+    float: left;
+    width: 100%;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+.remember-password {
+    margin-top: 28px;
+}
+
+.forget-password {
+    margin-top: 28px;
+}
+
+.login-main span {
     font-size: 16px;
     color: #fff;
     float: left;
     width: 32%;
-    margin-top: 8px;
 }
 
-.w3layouts-main h6 {
+
+.error {
+    font-size: 14px;
+    color: red;
+    float: left;
+}
+
+.login-main h6 {
     font-size: 16px;
     float: right;
-    width: 37%;
     color: #fff;
-    letter-spacing: 1px;
-    margin-top: 8px;
-    text-decoration: underline;
+    margin-top: 30px;
 }
 
-.w3layouts-main a {
+.login-main a {
     color: #fff;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
@@ -2870,21 +2754,22 @@ input.ggg {
     -ms-transition: 0.5s all;
 }
 
-.w3layouts-main a:hover {
-    color: #f0bcb4;
+.login-main a:hover {
+    color: #d85315;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -o-transition: 0.5s all;
     -moz-transition: 0.5s all;
     -ms-transition: 0.5s all;
+    text-decoration: none;
 }
 
-.w3layouts-main input[type="submit"] {
+.login-main input[type="submit"] {
     padding: 12px 38px;
     font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    background: #f0bcb4;
+    background: rgb(216, 118, 72);
     color: white;
     border: none;
     outline: none;
@@ -2898,8 +2783,8 @@ input.ggg {
     -ms-transition: 0.5s all;
 }
 
-.w3layouts-main input[type="submit"]:hover {
-    background: #8b5c7e;
+.login-main input[type="submit"]:hover {
+    background: #ffb703;
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -o-transition: 0.5s all;
@@ -2907,16 +2792,18 @@ input.ggg {
     -ms-transition: 0.5s all;
 }
 
-.w3layouts-main p a {
-    color: #f0bcb4;
+.login-main p a {
+    color: #d85315;
     padding: 10px;
+    font-weight: 600;
+    text-decoration: dashed;
 }
 
-.w3layouts-main p a:hover {
+.login-main p a:hover {
     color: #fff;
 }
 
-.w3layouts-main p {
+.login-main p {
     font-size: 17px;
     color: #fff;
     text-align: center;
@@ -2927,7 +2814,7 @@ h4 input[type="checkbox"] {
     margin-right: 10px;
 }
 
-.w3layouts-main h4 {
+.login-main h4 {
     margin-right: 10px;
     color: #fff;
     font-weight: 400;
@@ -3028,7 +2915,7 @@ div#graph10, div#graph11 {
 
 /*-- responsive design --*/
 @media (max-width: 1440px) {
-    .w3layouts-main {
+    .login-main {
         width: 33%;
     }
 
@@ -3040,7 +2927,7 @@ div#graph10, div#graph11 {
 }
 
 @media (max-width: 1366px) {
-    .w3layouts-main {
+    .login-main {
         width: 35%;
     }
 
@@ -3051,7 +2938,7 @@ div#graph10, div#graph11 {
 }
 
 @media (max-width: 1280px) {
-    .w3layouts-main {
+    .login-main {
         width: 38%;
     }
 
@@ -3075,7 +2962,7 @@ div#graph10, div#graph11 {
 }
 
 @media (max-width: 1080px) {
-    .w3layouts-main {
+    .login-main {
         width: 45%;
     }
 
@@ -3143,7 +3030,7 @@ div#graph10, div#graph11 {
 }
 
 @media (max-width: 1024px) {
-    .w3layouts-main {
+    .login-main {
         width: 47%;
     }
 
@@ -3178,7 +3065,7 @@ div#graph10, div#graph11 {
 }
 
 @media (max-width: 800px) {
-    .w3layouts-main {
+    .login-main {
         width: 62%;
     }
 
@@ -3258,7 +3145,7 @@ div#graph10, div#graph11 {
         padding: 0;
     }
 
-    .w3layouts-main {
+    .login-main {
         margin: 14.3em auto;
     }
 
@@ -3272,7 +3159,7 @@ div#graph10, div#graph11 {
 }
 
 @media (max-width: 736px) {
-    .w3layouts-main {
+    .login-main {
         width: 65%;
     }
 
@@ -3305,13 +3192,13 @@ div#graph10, div#graph11 {
         margin: 0px auto 50px;
     }
 
-    .w3layouts-main {
+    .login-main {
         margin: 5em auto;
     }
 }
 
 @media (max-width: 667px) {
-    .w3layouts-main {
+    .login-main {
         width: 72%;
     }
 
@@ -3340,7 +3227,7 @@ div#graph10, div#graph11 {
 }
 
 @media (max-width: 640px) {
-    .w3layouts-main {
+    .login-main {
         width: 75%;
     }
 
@@ -3359,7 +3246,7 @@ div#graph10, div#graph11 {
 }
 
 @media (max-width: 600px) {
-    .w3layouts-main {
+    .login-main {
         width: 80%;
     }
 
@@ -3374,7 +3261,7 @@ div#graph10, div#graph11 {
 }
 
 @media (max-width: 568px) {
-    .w3layouts-main {
+    .login-main {
         width: 84%;
     }
 
@@ -3393,7 +3280,7 @@ div#graph10, div#graph11 {
 }
 
 @media (max-width: 480px) {
-    .w3layouts-main {
+    .login-main {
         width: 92%;
         margin: 3em auto;
         padding: 30px 20px;
@@ -3442,16 +3329,16 @@ div#graph10, div#graph11 {
 }
 
 @media (max-width: 414px) {
-    .w3layouts-main h2 {
+    .login-main h2 {
         font-size: 24px;
     }
 
-    .w3layouts-main h6 {
+    .login-main h6 {
         font-size: 14px;
         width: 45%;
     }
 
-    .w3layouts-main span {
+    .login-main span {
         font-size: 14px;
         width: 37%;
         margin-top: 2px;
@@ -3469,7 +3356,7 @@ div#graph10, div#graph11 {
         padding: 5em 2em 11.3em;
     }
 
-    .w3layouts-main {
+    .login-main {
         margin: 0em auto 11.4em;
         padding: 30px 20px;
     }
@@ -3597,7 +3484,7 @@ div#graph10, div#graph11 {
         padding: 5.9em 2em;
     }
 
-    .w3layouts-main {
+    .login-main {
         margin: 0em auto 5.4em;
     }
 
@@ -3644,21 +3531,21 @@ div#graph10, div#graph11 {
 }
 
 @media (max-width: 320px) {
-    .w3layouts-main {
+    .login-main {
         width: 95%;
         margin: 0em auto 2em;
     }
 
-    .w3layouts-main h6 {
+    .login-main h6 {
         font-size: 13px;
         width: 49%;
     }
 
-    .w3layouts-main span {
+    .login-main span {
         width: 45%;
     }
 
-    .w3layouts-main input[type="submit"] {
+    .login-main input[type="submit"] {
         padding: 10px 26px;
         font-size: 16px;
         margin: 45px auto 18px;
