@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -26,9 +27,13 @@ class AdminController extends Controller
 
 
         $credentials = $request->only("username", "password");
-        dd($credentials);
-        if (Auth::guard('admin')->attempt($credentials, $request->has("remember"))) {
-            return redirect()->route('admin-dasboard');
+        $credentials["role"] = 2;
+        $credentials['password'] = Hash::make($request->password);
+      
+
+        if (Auth::attempt($credentials, $request->has("remember"))) {
+            $request->session()->regenerate();
+             return redirect()->route('admin-dasboard');
         } else {
             return back()->withInput()->withErrors([
                 "username" => "Tên đăng nhập hoặc mật khẩu không đúng!",
