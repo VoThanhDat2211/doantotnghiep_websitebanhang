@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <head>
     <title>Admin | Đăng nhập</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,22 +20,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="{{ asset('admin/css/font.css') }}" type="text/css" />
     <link href="{{ asset('admin/css/font-awesome.css') }}" rel="stylesheet">
     <!-- //font-awesome icons -->
-    <script src="{{ asset('js/jquery2.0.3.min.js') }}"></script>
 </head>
 
 <body>
     <div class="login">
         <div class="login-main">
-            <h2>ĐĂNG NHẬP</h2>
-            <form action="{{ route('admin.login') }}" method="post">
+            <h2>ĐĂNG NHẬP TÀI KHOẢN</h2>
+            <form action="{{ route('admin-login') }}" method="post">
                 @csrf
                 <input type="text" class="ggg" name="username" placeholder="Tên đăng nhập..." required=""
                     value="{{ old('username') }}">
                 @error('username')
                     <span class="error">{{ $message }}</span>
                 @enderror
-                <input type="password" class="ggg" name="password" placeholder="Mật khẩu..." required=""
-                    value="{{ old('password') }}">
+                <input type="password" class="ggg" name="password" placeholder="Mật khẩu..." required="">
                 @error('password')
                     <span class="error">{{ $message }}</span>
                 @enderror
@@ -48,13 +45,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <p>Nếu bạn chưa có tài khoản ?<a href="registration.html">Tạo tài khoản</a></p>
         </div>
     </div>
-    <script src="{{ asset('js/bootstrap.js') }}'"></script>
-    <script src="{{ asset('js/jquery.dcjqaccordion.2.7.js') }}"></script>
-    <script src="{{ asset('js/scripts.js') }}"></script>
-    <script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
-    <script src="{{ asset('js/jquery.nicescroll.js') }}"></script>
-    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="{{ asset('js/flot-chart/excanvas.min.js') }}"></script><![endif]-->
-    <script src="{{ asset('js/jquery.scrollTo.js') }}"></script>
 </body>
 
 </html>
