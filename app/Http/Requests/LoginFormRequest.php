@@ -23,7 +23,7 @@ class LoginFormRequest extends FormRequest
     {
         return [
             "username" => "bail|required|max:255",
-            "password" => "bail|required|max:255|min:6",
+            "password" => "bail|required|max:255",
         ];
     }
 

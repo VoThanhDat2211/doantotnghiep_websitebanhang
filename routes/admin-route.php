@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
 Route::prefix('admin')->group(function () {
-    Route::get('/login', [AdminController::class, 'getLogin']);
+    Route::get('/login', [AdminController::class, 'getLogin'])->name('admin-form-login')->middleware('guest:admin');
     Route::post("/post-login", [AdminController::class, 'authenticate'])->name('admin-login');
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin-logout');
     // dashboard
@@ -14,5 +14,3 @@ Route::prefix('admin')->group(function () {
         Route::get('/list', [AdminController::class, 'getCategoryList'])->name('admin-category-list');
     });
 });
-
-

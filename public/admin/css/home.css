@@ -47,10 +47,10 @@ body a:hover {
 
 /*sidebar navigation*/
 #sidebar {
-    width: 240px;
+    width: 280px;
     height: 100%;
     position: fixed;
-    background: rgba(52, 48, 48, 0.78);
+    background-image: linear-gradient(195deg, #42424a, #403d3d);
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
     -o-transition: all .3s ease-in-out;
@@ -59,11 +59,12 @@ body a:hover {
 
 #sidebar ul li {
     position: relative;
+    width: 85%;
 }
 
 .leftside-navigation, .right-stat-bar {
     height: 100%;
-    background-color: #101A33;
+    background-image: linear-gradient(195deg, #42424a, #1c1a1a);
 }
 
 .right-stat-bar ul {
@@ -126,6 +127,11 @@ ul.sidebar-menu, ul.sidebar-menu li ul.sub {
 
 ul.sidebar-menu {
     padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
 
 }
 
@@ -134,7 +140,11 @@ ul.sidebar-menu {
 }
 
 #sidebar .sub-menu>.sub li a {
-    padding-left: 46px;
+    margin-left: 20px;
+}
+
+#sidebar .sub-menu>.sub li a:hover {
+    background-color: #504e5b;
 }
 
 #sidebar>ul>li.active>ul.sub, #sidebar>ul>li>ul.sub>li>a {
@@ -149,7 +159,7 @@ ul.sidebar-menu li ul.sub li {
 }
 
 ul.sidebar-menu li ul.sub li a {
-    font-size: 12px;
+    font-size: 13px;
     padding-top: 13px;
     padding-bottom: 13px;
     -webkit-transition: all 0.3s ease;
@@ -168,12 +178,9 @@ ul.sidebar-menu li ul.sub li a:hover, ul.sidebar-menu li ul.sub li.active a {
     -ms-transition: all 0.3s ease;
     transition: all 0.3s ease;
     display: block;
-    background: rgba(40, 40, 46, 0.28);
 }
 
-ul.sidebar-menu li {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
+ul.sidebar-menu li {}
 
 ul.sidebar-menu li.sub-menu {
     line-height: 15px;
@@ -191,14 +198,15 @@ ul.sidebar-menu li a {
     color: #fff;
     text-decoration: none;
     display: block;
-    padding: 18px 0 18px 25px;
-    font-size: 12px;
+    padding: 16px 0 16px 25px;
+    font-size: 14px;
     outline: none;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    border-radius: 10px;
 }
 
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
@@ -210,6 +218,10 @@ ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:fo
     -o-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     transition: all 0.3s ease;
+}
+
+ul.sidebar-menu li a.active {
+    background: linear-gradient(to right, #031B88, #235ac0);
 }
 
 ul.sidebar-menu li a i {
@@ -232,11 +244,12 @@ ul.sidebar-menu li a.active i {
 
 /*main content*/
 #main-content {
-    margin-left: 240px;
+    margin-left: 280px;
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
     -o-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
+    background-color: #F0F2F5;
 }
 
 .footer {
@@ -285,9 +298,9 @@ ul.sidebar-menu li a.active i {
 }
 
 .brand {
-    background: #1A2342;
+    background: #38383d;
     float: left;
-    width: 240px;
+    width: 280px;
     height: 80px;
     position: relative;
 }
@@ -1727,7 +1740,7 @@ section#tables p {
 
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
     font-size: 0.9em;
-    color: #999;
+    color: #000;
     border-top: none !important;
 }
 
@@ -1952,7 +1965,6 @@ ul.bs-glyphicons-list {
 }
 
 .table-agile-info {
-    background: #eef9f0;
     padding: 2em;
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
@@ -1968,10 +1980,17 @@ ul.bs-glyphicons-list {
 }
 
 .panel-default>.panel-heading {
-    color: #000000 ! important;
-    background-color: #ddede0 ! important;
-    border-color: #ddede0 ! important;
-    font-size: 20px;
+    color: #fff ! important;
+    background-color: #0025b6 ! important;
+    border-color: #0025b6 ! important;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 12px;
+    text-align: left;
+    padding-left: 40px;
+    display: flex;
+    align-items: center;
+    height: 80px;
 }
 
 p.hd-title {
@@ -3608,7 +3627,7 @@ div#graph10, div#graph11 {
 
     .w3ls_head {
         margin-bottom: 0.5em;
-    ;
+        ;
     }
 
     .table td, .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
