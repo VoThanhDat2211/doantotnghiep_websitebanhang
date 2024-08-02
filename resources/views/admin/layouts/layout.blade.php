@@ -85,17 +85,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="sub-menu">
-                            <a href="javascript:;">
+                        <li>
+                            <a class="{{ Request::is('admin/category*') ? 'active' : '' }}"
+                                href="{{ route('admin-category-list') }}">
                                 <i class="fa fa-book"></i>
                                 <span>Quản lý danh mục</span>
                             </a>
-                            <ul class="sub">
-                                <li><a href="{{ route('admin-category-list') }}"
-                                        class="{{ Request::is('admin/category*') ? 'active' : '' }}">Danh sách danh
-                                        mục</a></li>
-                                <li><a href="glyphicon.html">Thêm danh mục</a></li>
-                            </ul>
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
@@ -191,7 +186,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <!--main content start-->
         <section id="main-content">
             <section class="wrapper">
-                @yield('admin-content');
+                @yield('admin-content')
             </section>
             <!-- footer -->
         </section>

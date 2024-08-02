@@ -15,8 +15,9 @@ html, body {
     font-family: 'Roboto', sans-serif;
     font-size: 100%;
     overflow-x: hidden;
-    background: url(../images/background-login-admin.jpg) no-repeat 0px 0px;
+    background-color: #F0F2F5;
     background-size: cover;
+    height: 100vh;
 }
 
 body a {
@@ -250,6 +251,7 @@ ul.sidebar-menu li a.active i {
     -o-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
     background-color: #F0F2F5;
+
 }
 
 .footer {
@@ -3829,4 +3831,26 @@ div#graph10, div#graph11 {
     .chart_agile_bottom {
         padding: 0;
     }
+}
+
+.heading-form-common {
+    background-color: #0025b6;
+    color: #fff;
+    font-weight: 600;
+}
+
+.mt-form-common {
+    margin-top: 50px;
+}
+
+.redirect-common {
+    margin-top: 1rem;
+    padding-right: 2em;
+    text-align: right;
+}
+
+.link-redirect-common {
+     font-size: 16px !important;
+     font-weight: 500 !important;
+     padding: 8px 12px
 }

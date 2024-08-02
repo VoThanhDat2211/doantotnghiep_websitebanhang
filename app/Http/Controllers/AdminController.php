@@ -47,4 +47,9 @@ class AdminController extends Controller
     {
         return view('admin.category.list-category');
     }
+
+    public function getFormCreateCategory() :View 
+    {
+        return view('admin.category.form-create');
+    }
 }

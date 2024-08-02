@@ -1,5 +1,10 @@
 @extends('admin/layouts/layout')
 @section('admin-content')
+    <link href="{{ asset('admin/css/category.css') }}" rel="stylesheet" />
+
+    <div class="add-category">
+        <a  href="{{ route('admin-category-form-create') }}" class="btn btn-primary link-redirect-common">THÊM DANH MỤC</a>
+    </div>
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -21,100 +26,52 @@
                     <div class="input-group">
                         <input type="text" class="input-sm form-control" placeholder="Search">
                         <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">Go!</button>
-          </span>
+                            <button class="btn btn-sm btn-default" type="button">Go!</button>
+                        </span>
                     </div>
                 </div>
             </div>
-            {{--TABLE--}}
+            {{-- TABLE --}}
             <div class="table-responsive">
-                <table class="table table-striped b-t b-light">
+                <table class="table text-center">
                     <thead>
-                    <tr>
-                        <th style="width:20px;">
-                            <label class="i-checks m-b-none">
-                                <input type="checkbox"><i></i>
-                            </label>
-                        </th>
-                        <th>Project</th>
-                        <th>Task</th>
-                        <th>Date</th>
-                        <th style="width:30px;"></th>
-                    </tr>
+                        <tr>
+                            <th class="text-center" style="width:20px;"></th>
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Tên Danh Mục</th>
+                            <th class="text-center">Số Lượng Sản Phẩm</th>
+                            <th class="text-center" style="">Tùy Chọn</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                        <td>Idrawfast prototype design prototype design prototype design prototype design prototype design</td>
-                        <td><span class="text-ellipsis">{item.PrHelpText1}</span></td>
-                        <td><span class="text-ellipsis">{item.PrHelpText1}</span></td>
-                        <td>
+                       <tr>
+                            <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+                            <td>1</td>
+                            <td class="max-width: 100px"><span class="text-ellipsis">Quần áo nam</span></td>
+                            <td><span class="text-ellipsis">Jul 11, 2013</span></td>
+                            {{--  <td>
                             <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                        <td>Formasa</td>
-                        <td>8c</td>
-                        <td>Jul 22, 2013</td>
-                        <td>
-                            <a href="" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                        <td>Avatar system</td>
-                        <td>15c</td>
-                        <td>Jul 15, 2013</td>
-                        <td>
+                        </td>  --}}
+                            <td> 
+                                <a  title="Sửa danh mục" href="" style="margin-right: 12px"><i class="fa-regular fa-pen-to-square" style="color: #0c9636;"></i>
+                                <a  title="Xóa danh mục" href="" class="ml-2"><i class="fa-solid fa-trash" style="color: #E9423F;"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+                            <td>1</td>
+                            <td class="max-width: 100px"><span class="text-ellipsis">Quần áo nam</span></td>
+                            <td><span class="text-ellipsis">Jul 11, 2013</span></td>
+                            {{--  <td>
                             <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                        <td>Throwdown</td>
-                        <td>4c</td>
-                        <td>Jul 11, 2013</td>
-                        <td>
-                            <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                        <td>Idrawfast</td>
-                        <td>4c</td>
-                        <td>Jul 7, 2013</td>
-                        <td>
-                            <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                        <td>Formasa</td>
-                        <td>8c</td>
-                        <td>Jul 3, 2013</td>
-                        <td>
-                            <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                        <td>Avatar system</td>
-                        <td>15c</td>
-                        <td>Jul 2, 2013</td>
-                        <td>
-                            <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                        <td>Videodown</td>
-                        <td>4c</td>
-                        <td>Jul 1, 2013</td>
-                        <td>
-                            <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
-                        </td>
-                    </tr>
+                        </td>  --}}
+                            <td> 
+                                <a  title="Sửa danh mục" href="" style="margin-right: 12px"><i class="fa-regular fa-pen-to-square" style="color: #0c9636;"></i>
+                                <a  title="Xóa danh mục" href="" class="ml-2"><i class="fa-solid fa-trash" style="color: #E9423F;"></i>
+                                </a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
