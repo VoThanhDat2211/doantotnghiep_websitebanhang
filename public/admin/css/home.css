@@ -3850,7 +3850,11 @@ div#graph10, div#graph11 {
 }
 
 .link-redirect-common {
-     font-size: 16px !important;
-     font-weight: 500 !important;
-     padding: 8px 12px
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    padding: 8px 12px
+}
+
+.mt-12 {
+    margin-top: 12px;
 }

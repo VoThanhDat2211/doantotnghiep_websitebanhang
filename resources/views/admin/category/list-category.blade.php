@@ -2,8 +2,9 @@
 @section('admin-content')
     <link href="{{ asset('admin/css/category.css') }}" rel="stylesheet" />
 
-    <div class="add-category">
-        <a  href="{{ route('admin-category-form-create') }}" class="btn btn-primary link-redirect-common">THÊM DANH MỤC</a>
+    <div class="redirect-common text-end">
+        <a href="{{ route('admin-category-form-create') }}" class="btn btn-primary link-redirect-common"><i
+                class="fa-solid fa-circle-plus"></i> THÊM DANH MỤC</a>
     </div>
     <div class="table-agile-info">
         <div class="panel panel-default">
@@ -44,7 +45,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                       <tr>
+                        <tr>
                             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
                             <td>1</td>
                             <td class="max-width: 100px"><span class="text-ellipsis">Quần áo nam</span></td>
@@ -52,10 +53,12 @@
                             {{--  <td>
                             <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
                         </td>  --}}
-                            <td> 
-                                <a  title="Sửa danh mục" href="" style="margin-right: 12px"><i class="fa-regular fa-pen-to-square" style="color: #0c9636;"></i>
-                                <a  title="Xóa danh mục" href="" class="ml-2"><i class="fa-solid fa-trash" style="color: #E9423F;"></i>
-                                </a>
+                            <td>
+                                <a title="Sửa danh mục" href="" style="margin-right: 12px"><i
+                                        class="fa-regular fa-pen-to-square" style="color: #0c9636;"></i>
+                                    <a title="Xóa danh mục" href="" class="ml-2"><i class="fa-solid fa-trash"
+                                            style="color: #E9423F;"></i>
+                                    </a>
                             </td>
                         </tr>
                         <tr>
@@ -66,10 +69,12 @@
                             {{--  <td>
                             <a href="" class="active" ui-toggle-class=""><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
                         </td>  --}}
-                            <td> 
-                                <a  title="Sửa danh mục" href="" style="margin-right: 12px"><i class="fa-regular fa-pen-to-square" style="color: #0c9636;"></i>
-                                <a  title="Xóa danh mục" href="" class="ml-2"><i class="fa-solid fa-trash" style="color: #E9423F;"></i>
-                                </a>
+                            <td>
+                                <a title="Sửa danh mục" href="" style="margin-right: 12px"><i
+                                        class="fa-regular fa-pen-to-square" style="color: #0c9636;"></i>
+                                    <a title="Xóa danh mục" href="" class="ml-2"><i class="fa-solid fa-trash"
+                                            style="color: #E9423F;"></i>
+                                    </a>
                             </td>
                         </tr>
                     </tbody>
@@ -77,4 +82,12 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#myBtn").click(function() {
+                $("#myModal").modal();
+            });
+        });
+    </script>
 @endsection

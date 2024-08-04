@@ -13,5 +13,6 @@ Route::prefix('admin')->group(function () {
     Route::prefix('category')->middleware('auth:admin')->group(function () {
         Route::get('/list', [AdminController::class, 'getCategoryList'])->name('admin-category-list');
         Route::get('/form-create-category', [AdminController::class, 'getFormCreateCategory'])->name('admin-category-form-create');
+        Route::post('/create', [AdminController::class, 'createCategory'])->name('admin-category-create');
     });
 });
