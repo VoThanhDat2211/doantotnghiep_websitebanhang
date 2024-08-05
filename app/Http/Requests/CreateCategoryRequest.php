@@ -30,10 +30,10 @@ class CreateCategoryRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "username.required" => "Tên danh mục không được để trống.",
-            "username.max" => "Tên danh mục không vượt quá 255 ký tự.",
-            "parent_category.parent_category" => "Loại danh mục không được để trống.",
-            "parent_category.between" => "Dữ liệu không hợp lệ.",
+            "name.required" => "Tên danh mục không được để trống !",
+            "name.max" => "Tên danh mục không vượt quá 255 ký tự !",
+            "parent_category.parent_category" => "Loại danh mục không được để trống !",
+            "parent_category.between" => "Dữ liệu không hợp lệ !",
         ];
     }
 }

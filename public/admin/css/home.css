@@ -3858,3 +3858,18 @@ div#graph10, div#graph11 {
 .mt-12 {
     margin-top: 12px;
 }
+
+form > .error {
+    font-size: 14px;
+    color: #fb2424;
+    font-weight: 500;
+}
+
+.error {
+    font-size: 14px;
+    color: #fb2424;
+    display: inline-block;
+    margin-top: 2px;
+    padding-left: 4px;
+}
+

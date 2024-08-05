@@ -2,7 +2,7 @@
 namespace App\Repositories;
 use App\Models\Category;
 
-class CategoryRepository 
+class CategoryRepository
 {
     private $category;
 
@@ -15,17 +15,24 @@ class CategoryRepository
     {
         return $this->category
                 ->where(['name' => $data['name'], 'parent_category' => $data['parent_category']])
-                ->limit(1)
-                ->get();
+                ->first();
+    }
+
+    public function getAllCategories()
+    {
+        return $this->category->with('products')->get();
+    }
+
+    public function getCategoryIds()
+    {
+        return $this->category->pluck('id')->toArray();
     }
 
     public function createCategory($data)
     {
-        $category = $this->category->create([
+        return $this->category->create([
             'name' => $data['name'],
             'parent_category' => $data['parent_category'],
         ]);
-    
-        return $category;
     }
 }

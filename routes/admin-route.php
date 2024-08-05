@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminController::class, 'getLogin'])->name('admin-form-login')->middleware('guest:admin');
@@ -14,5 +15,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/list', [AdminController::class, 'getCategoryList'])->name('admin-category-list');
         Route::get('/form-create-category', [AdminController::class, 'getFormCreateCategory'])->name('admin-category-form-create');
         Route::post('/create', [AdminController::class, 'createCategory'])->name('admin-category-create');
+    });
+    // product
+    Route::prefix('product')->middleware('auth:admin')->group(function () {
+        Route::get('/list', [ProductController::class, 'index'])->name('admin-product-list');
+        Route::get('/form-create-product', [ProductController::class, 'create'])->name('admin-product-form-create');
+        Route::post('/create', [ProductController::class, 'store'])->name('admin-product-create');
     });
 });

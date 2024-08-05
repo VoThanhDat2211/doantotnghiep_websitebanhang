@@ -92,6 +92,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Quản lý danh mục</span>
                             </a>
                         </li>
+                        <li>
+                            <a class="{{ Request::is('admin/product*') ? 'active' : '' }}"
+                               href="{{ route('admin-product-list') }}">
+                                <i class="fa fa-book"></i>
+                                <span>Quản lý sản phẩm</span>
+                            </a>
+                        </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
