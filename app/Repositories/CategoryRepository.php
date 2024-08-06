@@ -11,16 +11,21 @@ class CategoryRepository
         $this->category = $category;
     }
 
-    public function getCategoryByNameAndParentCategory($data)
+    public function getCategoryByName($data)
     {
         return $this->category
-                ->where(['name' => $data['name'], 'parent_category' => $data['parent_category']])
+                ->where(['name' => $data['name']])
                 ->first();
     }
 
-    public function getAllCategories()
+    public function getAllCategoriesWithProducts()
     {
         return $this->category->with('products')->get();
+    }
+
+    public function getCategories()
+    {
+        return $this->category->select('id','name')->get();
     }
 
     public function getCategoryIds()

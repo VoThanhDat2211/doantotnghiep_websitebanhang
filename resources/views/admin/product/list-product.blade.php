@@ -33,41 +33,52 @@
                 </div>
             </div>
             {{-- TABLE --}}
-            <div class="table-responsive">
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th class="text-center" style="width:20px;"></th>
-                            <th class="text-center">STT</th>
-                            <th class="text-center">Tên sản phẩm</th>
-                            <th class="text-center">Số lượng đã bán</th>
-                            <th class="text-center">Số lượng còn lại</th>
-                            <th class="text-center">Giảm giá(%)</th>
-                            <th class="text-center" style="">Tùy Chọn</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if(isset($categories))
-                            @foreach($categories as $category)
+            @if ($products)
+                <div class="table-responsive">
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th class="text-center">STT</th>
+                                <th class="text-center">Tên sản phẩm</th>
+                                <th class="text-center">Danh mục</th>
+                                <th class="text-center">Số lượng đã bán</th>
+                                <th class="text-center">Số lượng còn lại</th>
+                                <th class="text-center">Giảm giá(%)</th>
+                                <th class="text-center" style="">Tùy Chọn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($products as $product)
                                 <tr>
-                                    <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                                    <td>1</td>
-                                    <td class="max-width: 100px"><span class="text-ellipsis">{{$category->name}}</span></td>
-                                    <td><span class="text-ellipsis">{{$category->parent_category}}</span></td>
+                                    <td>{{ ++$increment }}</td>
+                                    <td class="max-width: 100px"><span class="text-ellipsis">{{ $product->name }}</span>
+                                    </td>
+                                    <td><span class="text-ellipsis">{{ $product->category->name }}</span></td>
+                                    <td><span class="text-ellipsis">{{ $product->sold_quantity }}</span></td>
+                                    <td><span class="text-ellipsis">{{ $product->remain_quantity }}</span></td>
+                                    <td><span class="text-ellipsis">{{ $product->discount }}</span></td>
                                     <td>
-                                        <a title="Sửa danh mục" href="" style="margin-right: 12px"><i
-                                                class="fa-regular fa-pen-to-square" style="color: #0c9636;"></i>
+                                        <a title="Sửa danh mục"
+                                            href="{{ route('admin-product-form-update', ['id' => $product->id]) }}"
+                                            style="margin-right: 12px"><i class="fa-regular fa-pen-to-square"
+                                                style="color: #0c9636;"></i>
                                         </a>
-                                        <a title="Xóa danh mục" href="" class="ml-2"><i class="fa-solid fa-trash"
-                                                                                        style="color: #E9423F;"></i>
+                                        <a title="Xóa danh mục" href="" class="ml-2" style="margin-right: 12px"><i
+                                                class="fa-solid fa-trash" style="color: #E9423F;"></i>
+                                        </a>
+                                        <a title="Biến thể sản phẩm" href="" class="ml-2"
+                                            style="margin-right: 12px"><i class="fa-solid fa-circle-info"></i>
+                                        </a>
+                                        <a title="Hình ảnh" href="" class="ml-2"><i class="fa-solid fa-image"
+                                                class="fa-solid fa-trash" style="color: #b1720d;"></i>
                                         </a>
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
-                    </tbody>
-                </table>
-            </div>
+                        </tbody>
+                    </table>
+                </div>
+            @endif
         </div>
     </div>
 

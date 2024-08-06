@@ -36,6 +36,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <body>
     <section id="container">
+        @include('toast')
         <!--header start-->
         <header class="header fixed-top clearfix">
             <!--logo start-->
@@ -94,7 +95,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li>
                             <a class="{{ Request::is('admin/product*') ? 'active' : '' }}"
-                               href="{{ route('admin-product-list') }}">
+                                href="{{ route('admin-product-list') }}">
                                 <i class="fa fa-book"></i>
                                 <span>Quản lý sản phẩm</span>
                             </a>
@@ -339,7 +340,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         });
     </script>
-    <!-- //calendar -->
+
+
+
 </body>
 
 </html>

@@ -6,6 +6,12 @@
         <a href="{{ route('admin-category-form-create') }}" class="btn btn-primary link-redirect-common"><i
                 class="fa-solid fa-circle-plus"></i> THÊM DANH MỤC</a>
     </div>
+
+    <div>
+        <button type="button" data-toggle="modal" data-target="#myModal">Open Small Modal</button>
+        @include('admin.category.model-form-create');
+    </div>
+
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -45,19 +51,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if(isset($categories))
-                            @foreach($categories as $category)
+                        @if (isset($categories))
+                            @foreach ($categories as $category)
                                 <tr>
-                                    <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                                    <td>{{++$increment}}</td>
-                                    <td class="max-width: 100px"><span class="text-ellipsis">{{$category->name}}</span></td>
-                                    <td><span class="text-ellipsis">{{$category->parent_category}}</span></td>
+                                    <td><label class="i-checks m-b-none"><input type="checkbox"
+                                                name="post[]"><i></i></label></td>
+                                    <td>{{ ++$increment }}</td>
+                                    <td class="max-width: 100px"><span class="text-ellipsis">{{ $category->name }}</span>
+                                    </td>
+                                    <td><span class="text-ellipsis">{{ $category->parent_category }}</span></td>
                                     <td>
                                         <a title="Sửa danh mục" href="" style="margin-right: 12px"><i
                                                 class="fa-regular fa-pen-to-square" style="color: #0c9636;"></i>
                                         </a>
                                         <a title="Xóa danh mục" href="" class="ml-2"><i class="fa-solid fa-trash"
-                                                                                        style="color: #E9423F;"></i>
+                                                style="color: #E9423F;"></i>
                                         </a>
                                     </td>
                                 </tr>

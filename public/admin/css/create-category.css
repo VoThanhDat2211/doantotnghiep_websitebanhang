@@ -3,9 +3,9 @@
     margin: 0 auto;
     border-radius: 14px;
 }
+
 @media screen and (max-width: 1400px) {
     .panel {
         width: 60% !important;
     }
 }
-

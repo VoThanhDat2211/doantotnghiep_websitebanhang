@@ -5,6 +5,7 @@
     <div class="redirect-common text-end">
         <a href="{{ route('admin-category-list') }}" class="btn btn-primary link-redirect-common">DANH SÁCH DANH MỤC</a>
     </div>
+    
     <div class="row mt-form-common">
         <div class="col-lg-12">
             <section class="panel">
@@ -14,7 +15,7 @@
                 <div class="panel-body">
                     <div class=" form">
                         <form class="cmxform form-horizontal " id="" method="post"
-                              action="{{ route('admin-category-create') }}">
+                            action="{{ route('admin-category-create') }}">
                             <div class="form-group ">
                                 @csrf
                                 <label for="cname" class="control-label col-lg-4">Tên danh mục (<span
@@ -23,7 +24,7 @@
                                     <input class=" form-control" id="cname" name="name" minlength="2" type="text"
                                         required value="{{ old('name') }}">
                                     @error('name')
-                                    <span class="error">{{ $message }}</span>
+                                        <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -37,7 +38,7 @@
                                         <option value="3">Đồ Thể Thao</option>
                                     </select>
                                     @error('parent_category')
-                                    <span class="error">{{ $message }}</span>
+                                        <span class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>

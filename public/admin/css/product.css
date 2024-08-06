@@ -18,6 +18,12 @@ select.input-sm {
     width: 200px;
 }
 
+.btn-icon {
+    border: 0px;
+    background: #fff;
+    padding: 0;
+}
+
 .modal-header, h4, .close {
     background-color: #5cb85c;
     color: white !important;

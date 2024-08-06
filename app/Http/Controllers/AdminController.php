@@ -54,7 +54,7 @@ class AdminController extends Controller
 
     public function getCategoryList() : View
     {
-        $categories = $this->categoryService->getAllCategories();
+        $categories = $this->categoryService->getAllCategoriesWithProducts();
         return view('admin.category.list-category',['categories'=>$categories, 'increment' => 0]);
     }
 
@@ -67,17 +67,25 @@ class AdminController extends Controller
     {
         $data['name'] =  Str::upper($request->input('name'));
         $data['parent_category'] = $request->input('parent_category');
-        $categoryExists = $this->categoryService->getCategoryByNameAndParentCategory($data);
+        $categoryExists = $this->categoryService->getCategoryByName($data);
         if (!empty($categoryExists)) {
-            return back()->withInput()->withErrors(["name" => "Danh mục đã tồn tại !"])->with('error','Danh mục đã tồn tại');
+            return back()->withInput()->withErrors(["name" => "Danh mục đã tồn tại !"]);
         }
 
-        $createCategory = $this->categoryService->createCategory($data);
+        $createCategory = $this->categoryService->create($data);
         if ($createCategory) {
-            return redirect()->route('admin-category-list')->with('create_success','Tạo danh mục thành công');
+            $result = [
+                $message = "Tạo danh mục thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('admin-category-list')->with('result',$result);
         }
         else {
-            return redirect()->route('category.list')->with('create_error','Tạo danh mục thất bại');
+            $result = [
+                $message = "Tạo danh mục thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('admin-category-list')->with('result',$result);
         }
     }
 }

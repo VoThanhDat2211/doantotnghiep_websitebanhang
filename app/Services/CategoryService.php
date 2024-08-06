@@ -12,24 +12,29 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function createCategory($data)
+    public function create($data)
     {
         return $this->categoryRepository->createCategory($data);
     }
 
-    public function getCategoryByNameAndParentCategory($data)
+    public function getCategoryByName($data)
     {
-        return $this->categoryRepository->getCategoryByNameAndParentCategory($data);
+        return $this->categoryRepository->getCategoryByName($data);
     }
 
-    public function getAllCategories()
+    public function getAllCategoriesWithProducts()
     {
-        return $this->categoryRepository->getAllCategories();
+        return $this->categoryRepository->getAllCategoriesWithProducts();
     }
 
-    public function getCategoryIds()
+    public function getCategoryIds() : array
     {
         return $this->categoryRepository->getCategoryIds();
+    }
+
+    public function getCategories()
+    {
+        return $this->categoryRepository->getCategories();
     }
 
 }

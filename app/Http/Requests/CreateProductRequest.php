@@ -24,9 +24,8 @@ class CreateProductRequest extends FormRequest
         return [
             "name" => "bail|required|max:255",
             "category_id" => "bail|required|max:255",
-            "description" => "bail|required|max:255",
-            "discount" => "bail|required|between:0,99.99",
-            "image" => "bail|mimes:jpg,png,jpeg|max:5048"
+            "discount" => "bail|numeric|min:0|max:99.99",
+            "images.*" => "bail|mimes:jpg,png,jpeg|max:5048"
         ];
     }
 
@@ -37,9 +36,11 @@ class CreateProductRequest extends FormRequest
             "name.max" => "Không vượt quá 255 ký tự !",
             "category_id.required" => "Không được để trống !",
             "category_id.max" => "Không vượt quá 255 ký tự !",
-            "discount.max" => "Không vượt quá 255 ký tự !",
-            "discount.between" => "Dữ liệu không hợp lệ (0 - 99.99) !",
-            "image.mimes" => "Định dạng file không hợp lệ(jpg, png, jpeg)",
+            "discount.numeric" => "Dữ liệu phải ở dạng số",
+            "discount.min" => "Dữ liệu không hợp lệ!",
+            "discount.max" => "Dữ liệu không hợp lệ!",
+            'images.*.mimes' => 'Định dạng file không hợp lệ(jpg, png, jpeg) !',
+            'images.*.max' => 'Mỗi file nhỏ hơn 5MB !',
         ];
     }
 }
