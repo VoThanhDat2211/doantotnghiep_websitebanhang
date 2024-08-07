@@ -15,8 +15,9 @@
                     <div class="panel-body">
                         <div class="form">
                             <form class="cmxform form-horizontal" id="" method="post"
-                                action="{{ route('admin-product-create') }}">
+                                action="{{ route('admin-product-update') }}">
                                 @csrf
+                                @method('PUT')
                                 <div class="form-group">
                                     <label for="cname" class="control-label col-lg-12">Tên sản phẩm</label>
                                     <div class="col-lg-12">
@@ -82,7 +83,7 @@
                                                 <option value="0">Không có biến thể sản phẩm</option>
                                             @endif
                                         </select>
-                                        @error('discount')
+                                        @error('default_product_variant_id')
                                             <span class="error">{{ $message }}</span>
                                         @enderror
                                     </div>

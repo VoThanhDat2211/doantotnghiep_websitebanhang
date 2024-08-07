@@ -6,12 +6,6 @@
         <a href="{{ route('admin-category-form-create') }}" class="btn btn-primary link-redirect-common"><i
                 class="fa-solid fa-circle-plus"></i> THÊM DANH MỤC</a>
     </div>
-
-    <div>
-        <button type="button" data-toggle="modal" data-target="#myModal">Open Small Modal</button>
-        @include('admin.category.model-form-create');
-    </div>
-
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -61,7 +55,7 @@
                                     </td>
                                     <td><span class="text-ellipsis">{{ $category->parent_category }}</span></td>
                                     <td>
-                                        <a title="Sửa danh mục" href="" style="margin-right: 12px"><i
+                                        <a title="Sửa danh mục" href="{{ route('admin-category-form-update', ['id' => $category->id]) }}" style="margin-right: 12px"><i
                                                 class="fa-regular fa-pen-to-square" style="color: #0c9636;"></i>
                                         </a>
                                         <a title="Xóa danh mục" href="" class="ml-2"><i class="fa-solid fa-trash"

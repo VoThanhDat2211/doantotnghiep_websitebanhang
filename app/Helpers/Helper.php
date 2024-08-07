@@ -1,7 +1,8 @@
 <?
+use Illuminate\Support\Str;
 if(!function_exists('toUpperCase')) {
     function toUpperCase($str) 
     {
-        return strtoupper($str);
+        return Str::upper($str);
     }
 }

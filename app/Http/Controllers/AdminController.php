@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
-
 class AdminController extends Controller
 {
     protected $categoryService;
@@ -87,5 +87,53 @@ class AdminController extends Controller
             ];
             return redirect()->route('admin-category-list')->with('result',$result);
         }
+    }
+
+    public function getFormUpdateCategory($id)
+    {
+        $category = $this->categoryService->getById($id);
+        if(is_null($category)) {
+            return view('admin.category.form-update');
+        }
+        Session::put('categoryId', $id);
+
+        return view('admin.category.form-update',['category' => $category,]);
+    }
+
+    public function updateCategory(CreateCategoryRequest $request)
+    {
+        $data['name'] = Str::upper($request->input('name'));
+        $data['parent_category'] = $request->input('parent_category');
+        $categoryId = Session::get('categoryId');
+        $category = $this->categoryService->getById($categoryId);
+        Session::forget('categoryId');
+        if (is_null($category)) {
+            $result = [
+                $message = "Không tìm thấy danh mục",
+                $status = 'error',
+            ];
+            return redirect()->route('admin-category-list')->with('result', $result);
+        }
+        $categoryExists = $this->categoryService->getCategoryByName($data);
+        if (!is_null($categoryExists) && $category->name != $data['name']) {
+            return back()->withInput()->withErrors(["name" => "Tên danh mục đã tồn tại !"]);
+        }
+
+        $resultUpdate = $this->categoryService->update($data, $category);
+
+        if ($resultUpdate) {
+            $result = [
+                $message = "Sửa danh mục thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('admin-category-list')->with('result', $result);
+        } else {
+            $result = [
+                $message = "Sửa danh mục thất bại",
+                $status = 'error',
+            ];
+            return redirect()->route('admin-category-list')->with('result', $result);
+        }
+
     }
 }

@@ -63,9 +63,15 @@
                                             style="margin-right: 12px"><i class="fa-regular fa-pen-to-square"
                                                 style="color: #0c9636;"></i>
                                         </a>
-                                        <a title="Xóa danh mục" href="" class="ml-2" style="margin-right: 12px"><i
-                                                class="fa-solid fa-trash" style="color: #E9423F;"></i>
-                                        </a>
+                                        <form action="{{ route('admin-product-delete', ['id' => $product->id]) }}"
+                                            method="POST" style="display:inline; margin-right: 12px;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" title="Xóa danh mục" class="btn-delete"
+                                                style="border: none; background: none; cursor: pointer; padding:0;">
+                                                <i class="fa-solid fa-trash" style="color: #E9423F;"></i>
+                                            </button>
+                                        </form>
                                         <a title="Biến thể sản phẩm" href="" class="ml-2"
                                             style="margin-right: 12px"><i class="fa-solid fa-circle-info"></i>
                                         </a>
@@ -86,6 +92,18 @@
         $(document).ready(function() {
             $("#myBtn").click(function() {
                 $("#myModal").modal();
+            });
+
+
+        });
+        dfxszxdcvxdzsdxcvb vcxzZxcvbdxszazsXBNFCDSA 
+        $(document).ready(function() {
+            $('.btn-delete').on('click', function(e) {
+                e.preventDefault();
+                var confirmed = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+                if (confirmed) {
+                    $(this).closest('form').submit();
+                }
             });
         });
     </script>

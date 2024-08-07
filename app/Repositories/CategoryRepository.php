@@ -33,11 +33,21 @@ class CategoryRepository
         return $this->category->pluck('id')->toArray();
     }
 
+    public function getById($id)
+    {
+        return $this->category->find($id);
+    }
+
     public function createCategory($data)
     {
         return $this->category->create([
             'name' => $data['name'],
             'parent_category' => $data['parent_category'],
         ]);
+    }
+
+    public function update(array $data, $category)
+    {
+        return $category->update($data);
     }
 }

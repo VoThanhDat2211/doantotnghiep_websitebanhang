@@ -15,12 +15,16 @@ Route::prefix('admin')->group(function () {
         Route::get('/list', [AdminController::class, 'getCategoryList'])->name('admin-category-list');
         Route::get('/form-create-category', [AdminController::class, 'getFormCreateCategory'])->name('admin-category-form-create');
         Route::post('/create', [AdminController::class, 'createCategory'])->name('admin-category-create');
+        Route::get('/{id}/edit', [AdminController::class, 'getFormUpdateCategory'])->name('admin-category-form-update');
+        Route::put('/update', [AdminController::class, 'updateCategory'])->name('admin-category-update');
     });
     // product
     Route::prefix('product')->middleware('auth:admin')->group(function () {
         Route::get('/list', [ProductController::class, 'index'])->name('admin-product-list');
         Route::get('/form-create-product', [ProductController::class, 'create'])->name('admin-product-form-create');
         Route::post('/create', [ProductController::class, 'store'])->name('admin-product-create');
-        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('admin-product-form-update');
+        Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('admin-product-form-update');
+        Route::put('/update', [ProductController::class, 'update'])->name('admin-product-update');
+        Route::delete('{id}/delete', [ProductController::class, 'delete'])->name('admin-product-delete');
     });
 });

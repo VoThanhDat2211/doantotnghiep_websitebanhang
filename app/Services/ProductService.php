@@ -2,6 +2,8 @@
 namespace App\Services;
 
 use App\Repositories\ProductRepository;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ProductService
 {
@@ -14,6 +16,30 @@ class ProductService
     public function create(array $data)
     {
         return $this->productRepository->create($data);
+    }
+
+    public function update(array $data, $product)
+    {
+        DB::beginTransaction();
+        try {
+            $result =  $this->productRepository->update($data, $product);
+            DB::commit();
+            return $result;
+        } catch(Exception $e) {
+            DB::rollBack();
+        }
+    }
+
+    public function delete($product)
+    {
+        DB::beginTransaction();
+        try {
+            $result = $this->productRepository->delete($product);
+            DB::commit();
+            return $result;
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
     public function getProducts()

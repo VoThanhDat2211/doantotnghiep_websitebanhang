@@ -16,6 +16,16 @@ class ProductRepository
         return $this->product->create($data);
     }
 
+    public function update(array $data, $product)
+    {
+        return $product->update($data);
+    }
+
+    public function delete($product)
+    {
+        return $product->delete();
+    }
+
     public function getProducts()
     {
         return $this->product->whereNull('deleted_at')->get();
@@ -28,11 +38,11 @@ class ProductRepository
 
     public function existsProductName($productName)
     {
-        return $this->product->where('name',$productName)->exists();
+        return $this->product->where('name',$productName)->whereNull('deleted_at')->exists();
     }
 
     public function getById($id)
     {
-        return $this->product->find($id);
+        return  $this->product->whereNull('deleted_at')->find($id);
     }
 }

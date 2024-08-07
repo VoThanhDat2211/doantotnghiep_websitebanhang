@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateProductRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,22 +25,19 @@ class CreateProductRequest extends FormRequest
             "name" => "bail|required|max:255",
             "category_id" => "bail|required|max:255",
             "discount" => "bail|numeric|min:0|max:99.99",
-            "images.*" => "bail|mimes:jpg,png,jpeg|max:5048"
         ];
     }
 
     public function messages(): array
     {
         return [
-            "name.required" => "Tên sản phẩm không được để trống !",
+            "name.required" => "Tên sản phẩm hông được để trống !",
             "name.max" => "Tên sản phẩm không vượt quá 255 ký tự !",
-            "category_id.required" => "Danh mục hông được để trống !",
+            "category_id.required" => "Danh mục không được để trống !",
             "category_id.max" => "Danh mục không vượt quá 255 ký tự !",
             "discount.numeric" => "Dữ liệu phải ở dạng số",
             "discount.min" => "Dữ liệu không hợp lệ!",
             "discount.max" => "Dữ liệu không hợp lệ!",
-            'images.*.mimes' => 'Định dạng file không hợp lệ(jpg, png, jpeg) !',
-            'images.*.max' => 'Mỗi file nhỏ hơn 5MB !',
         ];
     }
 }

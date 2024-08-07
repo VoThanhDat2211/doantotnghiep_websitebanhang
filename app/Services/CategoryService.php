@@ -3,6 +3,8 @@ namespace App\Services;
 
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class CategoryService
 {
@@ -35,6 +37,23 @@ class CategoryService
     public function getCategories()
     {
         return $this->categoryRepository->getCategories();
+    }
+
+    public function getById($id)
+    {
+        return $this->categoryRepository->getById($id);
+    }
+
+    public function update(array $data, $category)
+    {
+        DB::beginTransaction();
+        try {
+            $result = $this->categoryRepository->update($data, $category);
+            DB::commit();
+            return $result;
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
 }
