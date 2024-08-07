@@ -56,4 +56,16 @@ class CategoryService
         }
     }
 
+    public function delete($category)
+    {
+        DB::beginTransaction();
+        try {
+            $result = $this->categoryRepository->delete($category);
+            DB::commit();
+            return $result;
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
+    }
+
 }

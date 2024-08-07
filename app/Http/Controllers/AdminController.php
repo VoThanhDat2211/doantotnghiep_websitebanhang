@@ -134,6 +134,32 @@ class AdminController extends Controller
             ];
             return redirect()->route('admin-category-list')->with('result', $result);
         }
+    }
 
+    public function deleteCategory($id)
+    {
+        $category = $this->categoryService->getById($id);
+        if(is_null($category)) {
+            $result = [
+                $message = "Không tìm thấy danh mục",
+                $status = 'error',
+            ];
+            return redirect()->route('admin-category-list')->with('result', $result);
+        }
+
+        $resultDelete = $this->categoryService->delete($category);
+        if($resultDelete) {
+            $result = [
+                $message = "Xóa danh mục thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('admin-category-list')->with('result', $result);
+        } else {
+            $result = [
+                $message = "Xóa danh mục thất bại",
+                $status = 'error',
+            ];
+            return redirect()->route('admin-category-list')->with('result', $result);
+        }
     }
 }

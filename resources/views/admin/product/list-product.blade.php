@@ -58,7 +58,7 @@
                                     <td><span class="text-ellipsis">{{ $product->remain_quantity }}</span></td>
                                     <td><span class="text-ellipsis">{{ $product->discount }}</span></td>
                                     <td>
-                                        <a title="Sửa danh mục"
+                                        <a title="Sửa sản phẩm"
                                             href="{{ route('admin-product-form-update', ['id' => $product->id]) }}"
                                             style="margin-right: 12px"><i class="fa-regular fa-pen-to-square"
                                                 style="color: #0c9636;"></i>
@@ -67,7 +67,7 @@
                                             method="POST" style="display:inline; margin-right: 12px;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" title="Xóa danh mục" class="btn-delete"
+                                            <button type="submit" title="Xóa sản phẩm" class="btn-delete"
                                                 style="border: none; background: none; cursor: pointer; padding:0;">
                                                 <i class="fa-solid fa-trash" style="color: #E9423F;"></i>
                                             </button>
@@ -96,7 +96,6 @@
 
 
         });
-        dfxszxdcvxdzsdxcvb vcxzZxcvbdxszazsXBNFCDSA 
         $(document).ready(function() {
             $('.btn-delete').on('click', function(e) {
                 e.preventDefault();

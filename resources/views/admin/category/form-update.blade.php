@@ -33,11 +33,14 @@
                                     <label for="cname" class="control-label col-lg-4">Loại danh mục</label>
                                     <div class="col-lg-7">
                                         <select class="form-control" id="cname" required name="parent_category">
-                                            <option value="1" {{ $category->parent_category == 1 ? 'selected' : '' }}>Thời Trang Nam
+                                            <option value="1" {{ $category->parent_category == 1 ? 'selected' : '' }}>
+                                                Thời Trang Nam
                                             </option>
-                                            <option value="2" {{ $category->parent_category == 2 ? 'selected' : '' }}>Thời Trang Nữ
+                                            <option value="2" {{ $category->parent_category == 2 ? 'selected' : '' }}>
+                                                Thời Trang Nữ
                                             </option>
-                                            <option value="3" {{ $category->parent_category == 3 ? 'selected' : '' }}>Đồ Thể Thao
+                                            <option value="3" {{ $category->parent_category == 3 ? 'selected' : '' }}>
+                                                Đồ Thể Thao
                                             </option>
                                         </select>
                                         @error('parent_category')
@@ -56,6 +59,8 @@
                     </div>
                 </section>
             </div>
+        @else
+            @include('no-data')
         @endif
     </div>
 @endsection

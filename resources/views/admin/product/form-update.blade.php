@@ -99,6 +99,8 @@
                     </div>
                 </section>
             </div>
+        @else
+            @include('no-data')
         @endif
     </div>
 @endsection

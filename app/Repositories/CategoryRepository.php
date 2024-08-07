@@ -50,4 +50,9 @@ class CategoryRepository
     {
         return $category->update($data);
     }
+
+    public function delete($category)
+    {
+        return $category->delete();
+    }
 }

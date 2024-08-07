@@ -17,6 +17,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/create', [AdminController::class, 'createCategory'])->name('admin-category-create');
         Route::get('/{id}/edit', [AdminController::class, 'getFormUpdateCategory'])->name('admin-category-form-update');
         Route::put('/update', [AdminController::class, 'updateCategory'])->name('admin-category-update');
+        Route::delete('{id}/delete', [AdminController::class, 'deleteCategory'])->name('admin-category-delete');
     });
     // product
     Route::prefix('product')->middleware('auth:admin')->group(function () {
