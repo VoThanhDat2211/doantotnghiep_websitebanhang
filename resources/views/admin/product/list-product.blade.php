@@ -75,7 +75,7 @@
                                         <a title="Biến thể sản phẩm" href="" class="ml-2"
                                             style="margin-right: 12px"><i class="fa-solid fa-circle-info"></i>
                                         </a>
-                                        <a title="Hình ảnh" href="" class="ml-2"><i class="fa-solid fa-image"
+                                        <a title="Hình ảnh" href="{{  route('admin-product-image', ['id' => $product->id]) }}" class="ml-2"><i class="fa-solid fa-image"
                                                 class="fa-solid fa-trash" style="color: #b1720d;"></i>
                                         </a>
                                     </td>

@@ -36,6 +36,12 @@ class ProductRepository
         return $this->product->with('productVariants')->whereNull('deleted_at')->get();
     }
 
+    public function getByIdWithImage($id)
+    {
+        return $this->product->with('imageProducts')->whereNull('deleted_at')->find($id);
+    }
+
+
     public function existsProductName($productName)
     {
         return $this->product->where('name',$productName)->whereNull('deleted_at')->exists();

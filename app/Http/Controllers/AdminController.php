@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CategoryParentEnum;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\LoginFormRequest;
 use App\Services\CategoryService;;
@@ -54,8 +55,9 @@ class AdminController extends Controller
 
     public function getCategoryList() : View
     {
+        $categoryParents = CategoryParentEnum::cases();
         $categories = $this->categoryService->getAllCategoriesWithProducts();
-        return view('admin.category.list-category',['categories'=>$categories, 'increment' => 0]);
+        return view('admin.category.list-category',['categories'=>$categories, 'increment' => 0, 'categoryParents' => $categoryParents]);
     }
 
     public function getFormCreateCategory() :View

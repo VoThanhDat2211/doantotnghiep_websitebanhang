@@ -1,5 +1,8 @@
 @extends('admin/layouts/layout')
 @section('admin-content')
+@php
+    use App\Enums\CategoryParentEnum;
+@endphp
     <link href="{{ asset('admin/css/category.css') }}" rel="stylesheet" />
 
     <div class="redirect-common text-end">
@@ -53,7 +56,15 @@
                                     <td>{{ ++$increment }}</td>
                                     <td class="max-width: 100px"><span class="text-ellipsis">{{ $category->name }}</span>
                                     </td>
-                                    <td><span class="text-ellipsis">{{ $category->parent_category }}</span></td>
+                                    <td>
+                                        @if (!empty($categoryParents))
+                                            @foreach ($categoryParents as $categoryParent)
+                                                @if($categoryParent->value == $category->parent_category)
+                                                    <span class="text-ellipsis">{{ CategoryParentEnum::getStatusText($categoryParent->value) }}</span>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </td>
                                     <td>
                                         <a title="Sửa danh mục"
                                             href="{{ route('admin-category-form-update', ['id' => $category->id]) }}"

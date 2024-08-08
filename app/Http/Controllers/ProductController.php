@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 
 class ProductController extends Controller
 {
@@ -95,7 +96,7 @@ class ProductController extends Controller
 
     private function handleFileImage($image,$dataImage) 
     {
-        $generatedImageName = 'image' . time() . $image->getClientOriginalName() .'.' . $image->extension();
+        $generatedImageName = 'image' . time() . $image->getClientOriginalName();
         $dataImage['image_path'] = $generatedImageName;
         $image->move(public_path('image'), $generatedImageName); 
         $this->imageProductService->create($dataImage);
@@ -196,6 +197,59 @@ class ProductController extends Controller
                 $status = 'error',
             ];
             return redirect()->route('admin-product-list')->with('result', $result);
+        }
+    }
+
+    public function getImage($id)
+    {
+        $product = $this->productService->getByIdWithImage($id);
+        if(is_null($product))
+        {
+            return view('admin.image-product.list-image', ['productId' => null]);
+        }
+        $images = $product->imageProducts;
+        Session::put('productId',$id);
+        if($images ->isEmpty())
+        {
+            $images = null;
+        }
+        return view('admin.image-product.list-image',['images' => $images, 'productId' => $id]);
+    }
+
+    public function createImage($id)
+    {
+        $product = $this->productService->getById($id);
+        if(is_null($product))
+        {
+           return view('admin.image-product.form-create',['productId' => null]);
+        }
+        return view('admin.image-product.form-create',['productId' => $id]);
+    }
+
+    public function deleteImage($id)
+    {
+        $image = $this->imageProductService->getById($id);
+        if (is_null($image)) {
+            $result = [
+                $message = "Không tìm thấy hình ảnh",
+                $status = 'error',
+            ];
+            return back()->withInput()->with('result', $result);
+        }
+
+        $resultDelete = $this->imageProductService->delete($image);
+        if ($resultDelete) {
+            $result = [
+                $message = "Xóa hình ảnh thành công",
+                $status = 'success',
+            ];
+            return back()->withInput()->with('result', $result);
+        } else {
+            $result = [
+                $message = "Xóa sản phẩm thất bại",
+                $status = 'error',
+            ];
+            return back()->withInput()->with('result', $result);
         }
     }
 }
