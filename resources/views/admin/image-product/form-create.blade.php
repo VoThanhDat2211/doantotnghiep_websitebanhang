@@ -15,7 +15,8 @@
                     <div class="panel-body">
                         <div class="form">
                             <form class="cmxform form-horizontal" id="" method="post"
-                                action="{{ route('admin-product-create') }}" enctype="multipart/form-data">
+                                action="{{ route('admin-product-image-create', ['id' => $productId]) }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="images" class="control-label col-lg-12">Hình ảnh</label>

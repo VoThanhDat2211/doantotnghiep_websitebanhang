@@ -29,6 +29,7 @@ Route::prefix('admin')->group(function () {
         Route::delete('{id}/delete', [ProductController::class, 'delete'])->name('admin-product-delete');
         Route::get('{id}/images', [ProductController::class, 'getImage'])->name('admin-product-image');
         Route::get('{id}/images/create', [ProductController::class, 'createImage'])->name('admin-product-image-form');
+        Route::post('{id}/images/create', [ProductController::class, 'storeImage'])->name('admin-product-image-create');
         Route::delete('/image/{id}/delete', [ProductController::class, 'deleteImage'])->name('admin-image-delete');
     });
 });

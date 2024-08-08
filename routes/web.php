@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[HomeController::class,'index']);
-
+Route::get('/404-error', function () {
+    return view('404');
+})->name('error-404');
 @require('user-route.php');
 @require ('admin-route.php');

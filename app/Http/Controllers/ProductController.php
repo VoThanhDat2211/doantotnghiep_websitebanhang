@@ -94,16 +94,6 @@ class ProductController extends Controller
         }
     }
 
-    private function handleFileImage($image,$dataImage) 
-    {
-        $generatedImageName = 'image' . time() . $image->getClientOriginalName();
-        $dataImage['image_path'] = $generatedImageName;
-        $image->move(public_path('image'), $generatedImageName); 
-        $this->imageProductService->create($dataImage);
-        
-        return $generatedImageName;
-    }
-
     public function edit($id)
     {
         $product = $this->productService->getById($id);
@@ -129,11 +119,7 @@ class ProductController extends Controller
         $product = $this->productService->getById($productId);
         Session::forget('productId');
         if(is_null($product)) {
-            $result = [
-                $message = "Không tìm thấy sản phẩm",
-                $status = 'error',
-            ];
-            return redirect()->route('admin-product-list')->with('result', $result);
+            return redirect()->route('error-404');
         }
 
         $categoryIds = $this->categoryService->getCategoryIds();
@@ -177,11 +163,7 @@ class ProductController extends Controller
     {
         $product = $this->productService->getById($id);
         if(is_null($product)) {
-            $result = [
-                $message = "Không tìm thấy sản phẩm",
-                $status = 'error',
-            ];
-            return redirect()->route('admin-product-list')->with('result', $result);
+            return redirect()->route('error-404');
         }
 
         $resultDelete = $this->productService->delete($product);
@@ -205,7 +187,7 @@ class ProductController extends Controller
         $product = $this->productService->getByIdWithImage($id);
         if(is_null($product))
         {
-            return view('admin.image-product.list-image', ['productId' => null]);
+            return redirect()->route('error-404');
         }
         $images = $product->imageProducts;
         Session::put('productId',$id);
@@ -221,9 +203,56 @@ class ProductController extends Controller
         $product = $this->productService->getById($id);
         if(is_null($product))
         {
-           return view('admin.image-product.form-create',['productId' => null]);
+            return redirect()->route('error-404');
         }
         return view('admin.image-product.form-create',['productId' => $id]);
+    }
+
+    public function storeImage($id,Request $request)
+    {
+        $rules = [
+            "images.*" => "bail|required|mimes:jpg,png,jpeg|max:5048",
+        ];
+        $messages = [
+            'images.*.required' => 'File ảnh không được để trống !',
+            'images.*.mimes' => 'Định dạng file không hợp lệ(jpg, png, jpeg) !',
+            'images.*.max' => 'Mỗi file nhỏ hơn 5MB !',
+        ];
+
+        $request->validate($rules, $messages);
+
+        $product = $this->productService->getById($id);
+        if(is_null($product))
+        {
+            return redirect()->route('error-404');
+        }
+
+        $images = $request->file('images');
+        $dataImage['product_id'] =$product->id;
+        $checkCreateImage = false;
+        if(!is_null($images))
+        {
+            foreach ($images as $image) {
+                $resultCreate = $this->handleFileImage($image,$dataImage);
+                if($resultCreate) {
+                    $checkCreateImage = true;
+                }
+            }
+        }
+
+        if($checkCreateImage) {
+            $result = [
+                $message = "Thêm hình ảnh thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('admin-product-image',['id' =>$id])->with('result', $result);
+        } else {
+            $result = [
+                $message = "Thêm hình ảnh thất bại",
+                $status = 'error',
+            ];
+            return redirect()->route('admin-product-image')->with('result', $result);
+        }
     }
 
     public function deleteImage($id)
@@ -251,5 +280,15 @@ class ProductController extends Controller
             ];
             return back()->withInput()->with('result', $result);
         }
+    }
+
+    private function handleFileImage($image,$dataImage) 
+    {
+        $generatedImageName = 'image' . time() . $image->getClientOriginalName();
+        $dataImage['image_path'] = $generatedImageName;
+        $image->move(public_path('image'), $generatedImageName); 
+        $this->imageProductService->create($dataImage);
+        
+        return $generatedImageName;
     }
 }
