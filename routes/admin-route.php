@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductVariantController;
+use App\Models\ProductVariant;
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminController::class, 'getLogin'])->name('admin-form-login')->middleware('guest:admin');
@@ -31,5 +33,11 @@ Route::prefix('admin')->group(function () {
         Route::get('{id}/images/create', [ProductController::class, 'createImage'])->name('admin-product-image-form');
         Route::post('{id}/images/create', [ProductController::class, 'storeImage'])->name('admin-product-image-create');
         Route::delete('/image/{id}/delete', [ProductController::class, 'deleteImage'])->name('admin-image-delete');
+        Route::prefix('/{id}/product-variant')->group(function () {
+            Route::get('/list', [ProductVariantController::class, 'index'])->name('admin-product-variant-list');
+            Route::get('/create', [ProductVariantController::class, 'create'])->name('admin-product-variant-form-create');
+            Route::post('/create', [ProductVariantController::class, 'store'])->name('admin-product-variant-create');
+            Route::get('{product_variant_id}/edit', [ProductVariantController::class, 'edit'])->name('admin-product-variant-form-update');
+        });
     });
 });

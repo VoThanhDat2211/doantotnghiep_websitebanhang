@@ -61,4 +61,10 @@ class ProductService
     {
         return $this->productRepository->getByIdWithImage($id);
     }
+
+    public function getByIdWithProductVariants($id)
+    {
+        return $this->productRepository->getByIdWithProductVariants($id);
+    }
+
 }

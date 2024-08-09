@@ -1,15 +1,15 @@
 @extends('admin/layouts/layout')
 @section('admin-content')
-    <link href="{{ asset('admin/css/product.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin/css/product-variant.css') }}" rel="stylesheet" />
 
     <div class="redirect-common text-end">
-        <a href="{{ route('admin-product-form-create') }}" class="btn btn-primary link-redirect-common"><i
-                class="fa-solid fa-circle-plus"></i> THÊM SẢN PHẨM</a>
+        <a href="{{ route('admin-product-variant-form-create', ['id' => $productId]) }}"
+            class="btn btn-primary link-redirect-common"><i class="fa-solid fa-circle-plus"></i> THÊM BIẾN THỂ</a>
     </div>
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Danh Sách Sản Phẩm
+                Danh Sách Biến Thể
             </div>
             <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
@@ -33,37 +33,46 @@
                 </div>
             </div>
             {{-- TABLE --}}
-            @if ($products)
-                <div class="table-responsive">
-                    <table class="table text-center">
-                        <thead>
-                            <tr>
-                                <th class="text-center">STT</th>
-                                <th class="text-center">Tên sản phẩm</th>
-                                <th class="text-center">Danh mục</th>
-                                <th class="text-center">Số lượng đã bán</th>
-                                <th class="text-center">Số lượng còn lại</th>
-                                <th class="text-center">Giảm giá(%)</th>
-                                <th class="text-center" style="">Tùy Chọn</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($products as $product)
+            <div class="table-responsive">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Hình ảnh</th>
+                            <th class="text-center">Đặc điểm</th>
+                            <th class="text-center">Số lượng đã bán</th>
+                            <th class="text-center">Số lượng còn lại</th>
+                            <th class="text-center">Giá</th>
+                            <th class="text-center" style="">Tùy Chọn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!is_null($productVariants))
+                            @foreach ($productVariants as $productVariant)
                                 <tr>
                                     <td>{{ ++$increment }}</td>
-                                    <td class="max-width: 100px"><span class="text-ellipsis">{{ $product->name }}</span>
+                                    <td class="max-width: 100px">
+                                        <img src="{{ asset('image/' . $productVariant->image_path) }}" alt="Ảnh"
+                                            height="90px" width="90px">
                                     </td>
-                                    <td><span class="text-ellipsis">{{ $product->category->name }}</span></td>
-                                    <td><span class="text-ellipsis">{{ $product->sold_quantity }}</span></td>
-                                    <td><span class="text-ellipsis">{{ $product->remain_quantity }}</span></td>
-                                    <td><span class="text-ellipsis">{{ $product->discount }}</span></td>
+                                    <td><span
+                                            class="text-ellipsis">{{ $productVariant->color . ', ' . $productVariant->size }}</span>
+                                    </td>
+                                    <td><span class="text-ellipsis">{{ $productVariant->sold_quantity }}</span></td>
+                                    <td><span
+                                            class="text-ellipsis">{{ number_format($productVariant->remain_quantity, 0, ',', '.') }}</span>
+                                    </td>
+                                    <td><span
+                                            class="text-ellipsis">{{ number_format($productVariant->price, 0, ',', '.') }}</span>
+                                    </td>
                                     <td>
                                         <a title="Sửa sản phẩm"
-                                            href="{{ route('admin-product-form-update', ['id' => $product->id]) }}"
+                                            href="{{ route('admin-product-variant-form-update', ['id' => $productId, 'product_variant_id' => $productVariant->id]) }}"
                                             style="margin-right: 12px"><i class="fa-regular fa-pen-to-square"
                                                 style="color: #0c9636;"></i>
                                         </a>
-                                        <form action="{{ route('admin-product-delete', ['id' => $product->id]) }}"
+                                        <form
+                                            action="{{ route('admin-product-delete', ['id' => $productVariant->product->id]) }}"
                                             method="POST" style="display:inline; margin-right: 12px;">
                                             @csrf
                                             @method('DELETE')
@@ -72,30 +81,17 @@
                                                 <i class="fa-solid fa-trash" style="color: #E9423F;"></i>
                                             </button>
                                         </form>
-                                        <a title="Biến thể sản phẩm" href="{{ route('admin-product-variant-list', ['id' => $product->id]) }}" class="ml-2"
-                                            style="margin-right: 12px"><i class="fa-solid fa-circle-info"></i>
-                                        </a>
-                                        <a title="Hình ảnh" href="{{  route('admin-product-image', ['id' => $product->id]) }}" class="ml-2"><i class="fa-solid fa-image"
-                                                class="fa-solid fa-trash" style="color: #b1720d;"></i>
-                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @endif
+                        @endif
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <script>
-        $(document).ready(function() {
-            $("#myBtn").click(function() {
-                $("#myModal").modal();
-            });
-
-
-        });
         $(document).ready(function() {
             $('.btn-delete').on('click', function(e) {
                 e.preventDefault();

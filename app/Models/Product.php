@@ -32,9 +32,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function productVariant()
+    public function productVariants()
     {
-        return $this->hasMany(ProductVariant::class);
+        return $this->hasMany(ProductVariant::class)->whereNull('deleted_at');
     }
 
     public function imageProducts()

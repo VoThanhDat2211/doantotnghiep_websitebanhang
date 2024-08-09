@@ -1988,7 +1988,7 @@ ul.bs-glyphicons-list {
 
 .panel-default>.panel-heading {
     color: #fff ! important;
-    background-color: #0025b6 ! important;
+    background: linear-gradient(to right, #031B88, #235ac0) ! important;
     border-color: #0025b6 ! important;
     font-size: 18px;
     font-weight: 600;
@@ -3841,7 +3841,7 @@ div#graph10, div#graph11 {
 }
 
 .heading-form-common {
-    background-color: #0025b6;
+    background: linear-gradient(to right, #031B88, #235ac0);
     color: #fff;
     font-weight: 600;
 }

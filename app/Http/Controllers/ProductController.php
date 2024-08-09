@@ -98,7 +98,7 @@ class ProductController extends Controller
     {
         $product = $this->productService->getById($id);
         if (is_null($product)) {
-            return view("admin.product.form-update");
+            return redirect()->route('error-404');
         }
         $categories = $this->categoryService->getCategories();
         $productVariant = $product->productVariant;

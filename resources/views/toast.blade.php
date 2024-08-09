@@ -129,7 +129,7 @@
             setTimeout(function() {
                 $('#toast').css('display', 'none');
             }, 500);
-        }, 2000);
+        }, 3000);
     }
 
 

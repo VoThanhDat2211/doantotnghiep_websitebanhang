@@ -31,7 +31,7 @@ class ProductRepository
         return $this->product->whereNull('deleted_at')->get();
     }
 
-    public function getProductsWithRoductVariants()
+    public function getProductsWithProductVariants()
     {
         return $this->product->with('productVariants')->whereNull('deleted_at')->get();
     }
@@ -50,5 +50,10 @@ class ProductRepository
     public function getById($id)
     {
         return  $this->product->whereNull('deleted_at')->find($id);
+    }
+
+    public function getByIdWithProductVariants($id)
+    {
+        return $this->product->with('productVariants')->whereNull('deleted_at')->find($id);
     }
 }
