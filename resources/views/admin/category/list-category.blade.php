@@ -40,7 +40,6 @@
                 <table class="table text-center">
                     <thead>
                         <tr>
-                            <th class="text-center" style="width:20px;"></th>
                             <th class="text-center">STT</th>
                             <th class="text-center">Tên Danh Mục</th>
                             <th class="text-center">Loại danh mục</th>
@@ -51,8 +50,6 @@
                         @if (isset($categories))
                             @foreach ($categories as $category)
                                 <tr>
-                                    <td><label class="i-checks m-b-none"><input type="checkbox"
-                                                name="post[]"><i></i></label></td>
                                     <td>{{ ++$increment }}</td>
                                     <td class="max-width: 100px"><span class="text-ellipsis">{{ $category->name }}</span>
                                     </td>

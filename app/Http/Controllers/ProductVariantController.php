@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateProductVariantRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\UpdateProductVariantRequest;
 use App\Services\ProductService;
 use App\Services\ProductVariantService;
 use Illuminate\Http\Request;
@@ -71,7 +73,7 @@ class ProductVariantController extends Controller
         $data["price"] = $request->input('price');
         $data["image_path"] = $request->file('image');
 
-        $productVariantExists = $this->productVariantService->getByColorAndName($data["color"], $data["size"]);
+        $productVariantExists = $this->productVariantService->getproductVariantExists($data["product_id"],$data["color"], $data["size"]);
         if(!is_null($productVariantExists))
         {
             $result = [
@@ -120,6 +122,67 @@ class ProductVariantController extends Controller
             ]
         );
     }
+
+    public function update(UpdateProductVariantRequest $request)
+    {
+        $productId = $request->id;
+        $productvariantId = $request->product_variant_id;
+        $product = $this->productService->getById($productId);
+        $productVariant = $this->productVariantService->getByIdAndProduct($productvariantId, $productId);
+        if (is_null($product) || is_null($productVariant)) {
+            return redirect()->route('error-404');
+        }
+
+        $data["remain_quantity"] = $request->input('remain_quantity');
+        $data["price"] = $request->input('price');
+        $image_path = $request->file('image');
+
+        if (!is_null($image_path)) {
+            $data["image_path"] = $this->handleFileImage($image_path);
+        }
+
+        $resultUpdate = $this->productVariantService->update($data, $productVariant);
+        if ($resultUpdate) {
+            $result = [
+                $message = "Sửa biến thể thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('admin-product-variant-list', ['id' => $productId])->with('result', $result);
+        } else {
+            $result = [
+                $message = "Sửa biến thể thất bại",
+                $status = 'error',
+            ];
+            return redirect()->route('admin-product-variant-list', ['id' => $productId])->with('result', $result);
+        }
+    }
+
+    public function delete(Request $request)
+    {
+        $productId = $request->id;
+        $productvariantId = $request->product_variant_id;
+        $product = $this->productService->getById($productId);
+        $productVariant = $this->productVariantService->getByIdAndProduct($productvariantId, $productId);
+        if (is_null($product) || is_null($productVariant)) {
+            return redirect()->route('error-404');
+        }
+
+        $resultDelete = $this->productVariantService->delete($productVariant);
+        if ($resultDelete) {
+            $result = [
+                $message = "Xóa biến thể thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('admin-product-variant-list', ['id' => $productId])->with('result', $result);;
+        } else {
+            $result = [
+                $message = "Xóa biến thể thất bại",
+                $status = 'error',
+            ];
+            return redirect()->route('admin-product-variant-list', ['id' => $productId])->with('result', $result);;
+        }
+    }
+
 
     private function handleFileImage($image)
     {

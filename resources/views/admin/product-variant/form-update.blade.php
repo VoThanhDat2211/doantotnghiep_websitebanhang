@@ -14,9 +14,10 @@
                 <div class="panel-body">
                     <div class="form">
                         <form class="cmxform form-horizontal" id="" method="post"
-                            action="{{ route('admin-product-variant-create', ['id' => $productId]) }}"
+                            action="{{ route('admin-product-variant-update', ['id' => $productId,'product_variant_id' => $productVariant->id]) }}"
                             enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="price" class="control-label col-lg-12">Giá <span
                                         style="color: red">*</span></label>

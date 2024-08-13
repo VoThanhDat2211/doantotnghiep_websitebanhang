@@ -2,13 +2,6 @@ body {
     background-color: #f0f2f5;
 }
 
-.container-redirect-common {
-    display: flex;
-    text-align: end;
-    justify-content: end;
-    margin-bottom: 32px;
-}
-
 .table-responsive {
     font-size: 18px;
 }

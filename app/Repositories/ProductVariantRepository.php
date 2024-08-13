@@ -21,9 +21,19 @@ class ProductVariantRepository
         return $this->productVariant->create($data);
     }
 
-    public function getByColorAndSize($color,$size)
+    public function update(array $data, $productVariant)
     {
-        return $this->productVariant->where(['color' => $color, 'size' => $size])->whereNull('deleted_at')->first();
+        return $productVariant->update($data);
+    }
+
+    public function delete($productVariant)
+    {
+        return $productVariant->delete($productVariant);
+    }
+
+    public function getproductVariantExists($productId,$color,$size)
+    {
+        return $this->productVariant->where(['product_id' => $productId,'color' => $color, 'size' => $size])->whereNull('deleted_at')->first();
     }
 
     public function getByIdAndProduct($id, $productId)

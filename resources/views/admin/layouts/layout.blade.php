@@ -89,15 +89,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li>
                             <a class="{{ Request::is('admin/category*') ? 'active' : '' }}"
                                 href="{{ route('admin-category-list') }}">
-                                <i class="fa fa-book"></i>
-                                <span>Quản lý danh mục</span>
+                                <i class="fa-solid fa-list"></i>
+                                <span>Quản Lý Danh Mục</span>
                             </a>
                         </li>
                         <li>
                             <a class="{{ Request::is('admin/product*') ? 'active' : '' }}"
                                 href="{{ route('admin-product-list') }}">
-                                <i class="fa fa-book"></i>
-                                <span>Quản lý sản phẩm</span>
+                                <i class="fa-brands fa-product-hunt"></i>
+                                <span>Quản Lý Sản Phẩm</span>
+                            </a>
+                        </li>
+                         <li>
+                            <a class="{{ Request::is('admin/customer*') ? 'active' : '' }}"
+                                href="{{ route('admin-customer-list') }}">
+                                <i class="fa-solid fa-user"></i>
+                                <span>Quản Lý Khách Hàng</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{{ Request::is('admin/customer*') ? 'active' : '' }}"
+                                href="{{ route('admin-customer-list') }}">
+                               <i class="fa-solid fa-wallet"></i>
+                                <span>Quản Lý Đơn hàng</span>
                             </a>
                         </li>
                         <li class="sub-menu">

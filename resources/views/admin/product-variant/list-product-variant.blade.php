@@ -2,10 +2,17 @@
 @section('admin-content')
     <link href="{{ asset('admin/css/product-variant.css') }}" rel="stylesheet" />
 
-    <div class="redirect-common text-end">
-        <a href="{{ route('admin-product-variant-form-create', ['id' => $productId]) }}"
-            class="btn btn-primary link-redirect-common"><i class="fa-solid fa-circle-plus"></i> THÊM BIẾN THỂ</a>
+    <div class="container-redirect-common">
+        <div class="redirect-common text-end">
+            <a href="{{ route('admin-product-list') }}" class="btn btn-primary link-redirect-common"> DANH SÁCH SẢN
+                PHẨM</a>
+        </div>
+        <div class="redirect-common text-end">
+            <a href="{{ route('admin-product-variant-form-create', ['id' => $productId]) }}"
+                class="btn btn-primary link-redirect-common"><i class="fa-solid fa-circle-plus"></i> THÊM BIẾN THỂ</a>
+        </div>
     </div>
+
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -72,7 +79,7 @@
                                                 style="color: #0c9636;"></i>
                                         </a>
                                         <form
-                                            action="{{ route('admin-product-delete', ['id' => $productVariant->product->id]) }}"
+                                            action="{{ route('admin-product-variant-delete', ['id' => $productId, 'product_variant_id' => $productVariant->id]) }}"
                                             method="POST" style="display:inline; margin-right: 12px;">
                                             @csrf
                                             @method('DELETE')
@@ -95,7 +102,7 @@
         $(document).ready(function() {
             $('.btn-delete').on('click', function(e) {
                 e.preventDefault();
-                var confirmed = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+                var confirmed = confirm("Bạn có chắc chắn muốn xóa biến thể này?");
                 if (confirmed) {
                     $(this).closest('form').submit();
                 }

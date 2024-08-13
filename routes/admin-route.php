@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
 use App\Models\ProductVariant;
@@ -38,6 +39,13 @@ Route::prefix('admin')->group(function () {
             Route::get('/create', [ProductVariantController::class, 'create'])->name('admin-product-variant-form-create');
             Route::post('/create', [ProductVariantController::class, 'store'])->name('admin-product-variant-create');
             Route::get('{product_variant_id}/edit', [ProductVariantController::class, 'edit'])->name('admin-product-variant-form-update');
+            Route::put('{product_variant_id}/update', [ProductVariantController::class, 'update'])->name('admin-product-variant-update');
+            Route::delete('{product_variant_id}/delete', [ProductVariantController::class, 'delete'])->name('admin-product-variant-delete');
         });
+    });
+
+    // customer
+    Route::prefix('customer')->middleware('auth:admin')->group(function () {
+        Route::get('/list', [CustomerController::class, 'index'])->name('admin-customer-list');
     });
 });
