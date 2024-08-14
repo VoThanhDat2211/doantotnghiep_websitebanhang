@@ -37,6 +37,13 @@
         font-size: 16px;
         font-weight: 500;
     }
+
+    .error {
+        font-size: 14px;
+        color: red;
+        margin-top: 4px;
+        display: inline-block;
+    }
 </style>
 
 <section class="vh-100">
@@ -47,16 +54,23 @@
                     class="img-fluid" alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form>
+                <form action="{{ route('user-login') }}" method="POST">
+                    @csrf
                     <h3 class="mb-4">ĐĂNG NHẬP TÀI KHOẢN</h3>
                     <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="text" id="form3Example3" class="form-control form-control-lg"
-                            placeholder="Nhập username" name="username" />
+                        <input required type="text" id="form3Example3" class="form-control form-control-lg"
+                            placeholder="Nhập username" name="username" value="{{ old('username') }}" />
+                        @error('username')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div data-mdb-input-init class="form-outline mb-3">
-                        <input type="password" id="form3Example4" class="form-control form-control-lg"
-                            placeholder="Nhập password" name="password"/>
+                        <input required type="password" id="form3Example4" class="form-control form-control-lg"
+                            placeholder="Nhập password" name="password" value="{{ old('password') }}" />
+                        @error('password')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center mt-2">
@@ -71,7 +85,8 @@
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-login">Đăng nhập</button>
+                        <button type="submit" data-mdb-button-init data-mdb-ripple-init
+                            class="btn btn-primary btn-lg btn-login">Đăng nhập</button>
                         <p class="small fw-bold mt-2 pt-1 mb-0 fs-16">Bạn chưa có tài khoản? <a href="#!"
                                 class="link-danger">Đăng ký</a></p>
                     </div>

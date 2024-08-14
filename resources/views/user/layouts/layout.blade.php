@@ -25,11 +25,16 @@
         href="{{ 'frontend/images/ico/apple-touch-icon-114-precomposed.png' }}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72"
         href="{{ 'frontend/images/ico/apple-touch-icon-72-precomposed.png' }}">
-    <link rel="apple-touch-icon-precomposed"
-        href="{{ 'frontend/images/ico/apple-touch-icon-57-precomposed.png' }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ 'frontend/images/ico/apple-touch-icon-57-precomposed.png' }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head><!--/head-->
 
 <body>
+    @php
+        use Illuminate\Support\Facades\Auth;
+    @endphp
     <header id="header"><!--header-->
         <div class="header_top"><!--header_top-->
             <div class="container">
@@ -62,16 +67,27 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="index.html"><img src="{{ 'frontend/images/home/logo.png' }}"
-                                    alt="" /></a>
+                            <a href="index.html"><img src="{{ asset('frontend/images/home/logo3.png') }}"
+                                    alt="" style="width:139px;height:40px" /></a>
                         </div>
                     </div>
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="#"><i class="fa fa-user"></i> Tài khoản</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-                                <li><a href="login.html"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+                                @if (Auth::check())
+                                    <li><a href="#"><i class="fa fa-user"></i>
+
+                                            {{ Auth::user()->username }}
+
+                                        </a></li>
+                                    <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                                    <li><a href="{{ route('user-logout') }}"><i
+                                                class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a></li>
+                                @else
+                                    <li><a href="{{ route('user-form-login') }}"><i class="fa fa-lock"></i> Đăng
+                                            nhập</a></li>
+                                @endif
+
                             </ul>
                         </div>
                     </div>
@@ -94,8 +110,9 @@
                         </div>
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><a href="{{ route('home_page_user') }}" class="active">Home</a></li>
-                                <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+                                <li><a href="{{ route('home_page_user') }}" class="active">TRANG CHỦ</a></li>
+                                <li class="dropdown"><a href="#">THỜI TRANG NAM<i
+                                            class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Products</a></li>
                                         <li><a href="product-details.html">Product Details</a></li>
@@ -104,14 +121,20 @@
                                         <li><a href="login.html">Login</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+                                <li class="dropdown"><a href="#">THỜI TRANG NỮ<i
+                                            class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
                                         <li><a href="blog-single.html">Blog Single</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="404.html">404</a></li>
-                                <li><a href="contact-us.html">Contact</a></li>
+                                <li class="dropdown"><a href="#">ĐỒ THỂ THAO<i
+                                            class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="blog.html">Blog List</a></li>
+                                        <li><a href="blog-single.html">Blog Single</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -125,232 +148,9 @@
         </div><!--/header-bottom-->
     </header><!--/header-->
 
-    <section id="slider"><!--slider-->
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="slider-carousel" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#slider-carousel" data-slide-to="1"></li>
-                            <li data-target="#slider-carousel" data-slide-to="2"></li>
-                        </ol>
-
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free E-Commerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ 'frontend/images/home/girl1.jpg' }}"
-                                        class="girl img-responsive" alt="" />
-                                    <img src="{{ 'frontend/images/home/pricing.png' }}" class="pricing"
-                                        alt="" />
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>100% Responsive Design</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ 'frontend/images/home/girl2.jpg' }}"
-                                        class="girl img-responsive" alt="" />
-                                    <img src="{{ 'frontend/images/home/pricing.png' }}" class="pricing"
-                                        alt="" />
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free Ecommerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ 'frontend/images/home/girl3.jpg' }}"
-                                        class="girl img-responsive" alt="" />
-                                    <img src="{{ 'frontend/images/home/pricing.png' }}" class="pricing"
-                                        alt="" />
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                        <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section><!--/slider-->
-
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="left-sidebar">
-                        <h2>Category</h2>
-                        <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                            Sportswear
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="sportswear" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <ul>
-                                            <li><a href="#">Nike </a></li>
-                                            <li><a href="#">Under Armour </a></li>
-                                            <li><a href="#">Adidas </a></li>
-                                            <li><a href="#">Puma</a></li>
-                                            <li><a href="#">ASICS </a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-                                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                            Mens
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="mens" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <ul>
-                                            <li><a href="#">Fendi</a></li>
-                                            <li><a href="#">Guess</a></li>
-                                            <li><a href="#">Valentino</a></li>
-                                            <li><a href="#">Dior</a></li>
-                                            <li><a href="#">Versace</a></li>
-                                            <li><a href="#">Armani</a></li>
-                                            <li><a href="#">Prada</a></li>
-                                            <li><a href="#">Dolce and Gabbana</a></li>
-                                            <li><a href="#">Chanel</a></li>
-                                            <li><a href="#">Gucci</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordian" href="#womens">
-                                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                            Womens
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="womens" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <ul>
-                                            <li><a href="#">Fendi</a></li>
-                                            <li><a href="#">Guess</a></li>
-                                            <li><a href="#">Valentino</a></li>
-                                            <li><a href="#">Dior</a></li>
-                                            <li><a href="#">Versace</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="#">Kids</a></h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="#">Fashion</a></h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="#">Households</a></h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="#">Interiors</a></h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="#">Clothing</a></h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="#">Bags</a></h4>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="#">Shoes</a></h4>
-                                </div>
-                            </div>
-                        </div><!--/category-products-->
-
-                        <div class="brands_products"><!--brands_products-->
-                            <h2>Brands</h2>
-                            <div class="brands-name">
-                                <ul class="nav nav-pills nav-stacked">
-                                    <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
-                                    <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-                                    <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
-                                    <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
-                                    <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-                                    <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-                                    <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative
-                                            culture</a></li>
-                                </ul>
-                            </div>
-                        </div><!--/brands_products-->
-
-                        <div class="price-range"><!--price-range-->
-                            <h2>Price Range</h2>
-                            <div class="well text-center">
-                                <input type="text" class="span2" value="" data-slider-min="0"
-                                    data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]"
-                                    id="sl2"><br />
-                                <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
-                            </div>
-                        </div><!--/price-range-->
-
-                        <div class="shipping text-center"><!--shipping-->
-                            <img src="{{ 'frontend/images/home/shipping.jpg' }}" alt="" />
-                        </div><!--/shipping-->
-
-                    </div>
-                </div>
-
-                <div class="col-sm-9 padding-right">
-                    @yield('content')
-                </div>
-            </div>
-        </div>
-    </section>
+    {{--  CONTENT  --}}
+    @yield('content')
+    {{--  END-CONTENT  --}}
 
     <footer id="footer"><!--Footer-->
         <div class="footer-top">
@@ -358,7 +158,7 @@
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="companyinfo">
-                            <h2><span>e</span>-shopper</h2>
+                            <h2><span>ROMAN</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
                         </div>
                     </div>

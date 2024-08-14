@@ -141,7 +141,7 @@ ul.sidebar-menu li ul.sub {
 }
 
 ul.sidebar-menu {
-    padding-top: 80px;
+    padding-top: 90px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -311,7 +311,7 @@ ul.sidebar-menu li a.active i {
     box-shadow: 1px 3px 17px 3px rgba(138,138,138,0.75);
     -webkit-box-shadow: 1px 3px 17px 3px rgba(138,138,138,0.75);
     -moz-box-shadow: 1px 3px 17px 3px rgba(138,138,138,0.75);
-    /* background-image: url(/admin/images/bh3.png);
+    /* background-image: url(/frontend/images/home/slider1.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
