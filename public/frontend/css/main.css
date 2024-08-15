@@ -6,6 +6,11 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
 @import url(http://fonts.googleapis.com/css?family=Abel);
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 body {
   font-family: 'Roboto', sans-serif;
   position: relative;
@@ -1541,7 +1546,7 @@ h2.title {
 }
 
 .breadcrumbs .breadcrumb li a {
-  background:#FE980F;
+  background:#716c6c;
   color: #FFFFFF;
   padding: 3px 7px;
 }
@@ -1552,7 +1557,7 @@ h2.title {
   width: auto;
   border-width: 8px;
   border-style: solid;
-  border-color:transparent transparent transparent #FE980F;
+  border-color:transparent transparent transparent #716c6c;
   position: absolute;
   top: 11px;
   left:48px;
@@ -1570,7 +1575,7 @@ h2.title {
 
 
 #cart_items .cart_info .cart_menu {
-  background: #FE980F;
+  background: #000;
   color: #fff;
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
@@ -1608,7 +1613,7 @@ h2.title {
 #cart_items .cart_info .cart_description h4 a {
   color: #363432;
   font-family: 'Roboto',sans-serif;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: normal;
 
 }
@@ -1625,13 +1630,12 @@ h2.title {
 
 
 #cart_items .cart_info .cart_total_price {
-  color: #FE980F;
-  font-size: 24px;
+  color: #000;
+  font-size: 20px;
 }
 
 .cart_product {
   display: block;
-  margin: 15px -70px 10px 25px;
 }
 
 .cart_quantity_button a {
@@ -1653,7 +1657,7 @@ h2.title {
   font-size: 16px;
   text-align: center;
   font-family: 'Roboto',sans-serif;
-  
+  max-width: 100px;
 }
 
 
@@ -1665,14 +1669,13 @@ h2.title {
 
 
 .cart_delete a {
-  background:#F0F0E9;
-  color: #FFFFFF;
+  color: #da0000;
   padding: 5px 7px;
   font-size: 16px
 }
 
 .cart_delete a:hover {
-  background:#FE980F
+  opacity: 0.5;
 }
 
 
@@ -2396,7 +2399,6 @@ h2.title {
 }
 
 .btn.btn-primary {
-  background:#FE980F;
   border: 0 none;
   border-radius: 0;
   margin-top: 16px;

@@ -50,11 +50,11 @@
                     <div class="col-sm-6">
                         <div class="social-icons pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-twitter"></i></li>
+                                <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-google"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                                             {{ Auth::user()->username }}
 
                                         </a></li>
-                                    <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                                    <li><a href="{{ route('user-cart') }}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
                                     <li><a href="{{ route('user-logout') }}"><i
                                                 class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a></li>
                                 @else
@@ -263,12 +263,12 @@
                     <div class="col-sm-2">
                         <div class="single-widget">
                             <h2>Policies</h2>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">Terms of Use</a></li>
-                                <li><a href="#">Privecy Policy</a></li>
-                                <li><a href="#">Refund Policy</a></li>
-                                <li><a href="#">Billing System</a></li>
-                                <li><a href="#">Ticket System</a></li>
+                             <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">T-Shirt</a></li>
+                                <li><a href="#">Mens</a></li>
+                                <li><a href="#">Womens</a></li>
+                                <li><a href="#">Gift Cards</a></li>
+                                <li><a href="#">Shoes</a></li>
                             </ul>
                         </div>
                     </div>
@@ -311,8 +311,6 @@
         </div>
 
     </footer><!--/Footer-->
-
-
 
     <script src="{{ asset('frontend/js/jquery.js') }}"></script>
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>

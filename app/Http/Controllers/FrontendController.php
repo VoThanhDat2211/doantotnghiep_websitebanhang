@@ -38,4 +38,14 @@ class FrontendController extends Controller
     {
         return view('user.home');
     }
+
+    public function getCart()
+    {
+        return view('user.cart');
+    }
+
+    public function getPay()
+    {
+        return view('user.pay');
+    }
 }
