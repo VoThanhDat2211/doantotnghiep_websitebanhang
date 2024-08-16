@@ -24,6 +24,15 @@
             -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
             transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
         }
+
+        input.form-control {
+            position: relative;
+        }
+
+        .select-voucher {
+            position: absolute;
+            right: 0;
+        }
     </style>
     <section id="cart_items">
         <div class="container">
@@ -33,61 +42,6 @@
                     <li class="active">Check out</li>
                 </ol>
             </div><!--/breadcrums-->
-
-            <div>
-                <form>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputEmail4">Họ và tên</label>
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputPassword4">Số điện thoại</label>
-                            <input type="text" class="form-control" id="inputPassword4" placeholder="Password">
-                        </div>
-                    </div>
-                    <label style="padding-left: 15px" for="inputPassword4">Địa chỉ nhận hàng</label>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <select class="css_select" id="province" name="province" title="--Chọn Tỉnh Thành--"
-                                class="form-control">
-                                <option value="0">Tỉnh Thành</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <select class="css_select" id="district" name="district" title="--Chọn Quận Huyện--"
-                                class="form-control">
-                                <option value="0">--Quận Huyện--</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <select class="css_select" id="ward" name="ward" title="--Chọn Phường Xã-- "
-                                class="form-control">
-                                <option value="0">--Phường Xã--</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="inputState">State</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputZip">Zip</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <button type="submit" class="btn btn-primary">Sign in</button>
-                    </div>
-
-                </form>
-            </div>
 
             <div class="review-payment">
                 <h2>Review & Payment</h2>
@@ -211,17 +165,71 @@
                     </tbody>
                 </table>
             </div>
-            <div class="payment-options">
-                <span>
-                    <label><input type="checkbox"> Direct Bank Transfer</label>
-                </span>
-                <span>
-                    <label><input type="checkbox"> Check Payment</label>
-                </span>
-                <span>
-                    <label><input type="checkbox"> Paypal</label>
-                </span>
+
+            <div>
+                <form>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Họ và tên</label>
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Họ và tên">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Số điện thoại</label>
+                            <input type="text" class="form-control" id="inputPassword4" placeholder="Số điện thoại">
+                        </div>
+                    </div>
+                    <label for="inputPassword4">Địa chỉ nhận hàng</label>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <select class="css_select" id="province" name="province" title="--Chọn Tỉnh Thành--"
+                                class="form-control">
+                                <option value="0">Tỉnh Thành</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <select class="css_select" id="district" name="district" title="--Chọn Quận Huyện--"
+                                class="form-control">
+                                <option value="0">--Quận Huyện--</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <select class="css_select" id="ward" name="ward" title="--Chọn Phường Xã-- "
+                                class="form-control">
+                                <option value="0">--Phường Xã--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="inputState">Hình thức thanh toán</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>Chọn...</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputZip">Mã giảm giá</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Nhập mã giảm giá">
+                                <button class="btn  select-voucher" type="submit"><i
+                                        class="fa-solid fa-ticket"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        </div>
+
+                    </div>
+
+                </form>
             </div>
+
+
+
         </div>
 
 
@@ -282,16 +290,5 @@
                 });
             });
         </script>
-        <div class="css_select_div">
-            <select class="css_select" id="tinh" name="tinh" title="Chọn Tỉnh Thành">
-                <option value="0">Tỉnh Thành</option>
-            </select>
-            <select class="css_select" id="quan" name="quan" title="Chọn Quận Huyện">
-                <option value="0">Quận Huyện</option>
-            </select>
-            <select class="css_select" id="phuong" name="phuong" title="Chọn Phường Xã">
-                <option value="0">Phường Xã</option>
-            </select>
-        </div>
     </section> <!--/#cart_items-->
 @endsection
