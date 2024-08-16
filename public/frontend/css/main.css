@@ -880,8 +880,10 @@ h2.title {
 
 .productinfo h2 {
   color: #f89f53;
-  font-family: fantasy;
-  font-size: 24px;
+  font-size: 16px;
+  margin-top: 0px;
+  padding-left: 20px;
+
 }
 
 .product-overlay h2 {
@@ -889,6 +891,7 @@ h2.title {
   font-family: 'Roboto', sans-serif;
   font-size: 24px;
   font-weight: 700;
+
 }
 
 
@@ -897,7 +900,8 @@ h2.title {
   font-size: 16px;
   font-weight: 500;
   color: #575050;
-  min-height: 40px;
+  margin-top: 22px;
+  padding-left: 20px;
 }
 
 .productinfo img {
@@ -966,6 +970,9 @@ h2.title {
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   margin-bottom: 25px;
+  transform: translateX(50%);
+  margin-top: 12px;
+
 }
 
 .add-to-cart:hover {
@@ -1544,7 +1551,7 @@ h2.title {
 
 .breadcrumbs .breadcrumb {
   background: transparent;
-  margin-bottom: 75px;
+  margin-bottom: 50px;
   padding-left: 0;
 }
 
@@ -1587,7 +1594,7 @@ h2.title {
 }
 
 #cart_items .cart_info .table.table-condensed thead tr {
-  height: 51px;
+  height: 50px !important;
 }
 
 
@@ -2510,4 +2517,9 @@ h2.title {
   color: #414141 !important;
   font-weight: 600 !important;
   font-size: 15px !important;
+}
+
+.dropdown  .btn-default {
+  font-size: 16px !important;
+  color: #696763 !important;
 }

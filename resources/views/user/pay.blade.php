@@ -1,39 +1,8 @@
 @extends('user/layouts/layout')
 @section('content')
     <script src="https://esgoo.net/scripts/jquery.js"></script>
-    <style type="text/css">
-        .css_select_div {
-            text-align: center;
-        }
+    <link href="{{ asset('frontend/css/pay.css') }}" rel="stylesheet" />
 
-        .css_select {
-            display: block;
-            width: 100%;
-            height: 34px;
-            padding: 6px 12px;
-            font-size: 14px;
-            line-height: 1.428571429;
-            color: #555;
-            vertical-align: middle;
-            background-color: #fff;
-            background-image: none;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-        }
-
-        input.form-control {
-            position: relative;
-        }
-
-        .select-voucher {
-            position: absolute;
-            right: 0;
-        }
-    </style>
     <section id="cart_items">
         <div class="container">
             <div class="breadcrumbs">
@@ -43,20 +12,21 @@
                 </ol>
             </div><!--/breadcrums-->
 
+            
+
             <div class="review-payment">
-                <h2>Review & Payment</h2>
+                <h2 style="font-weight: 700">SẢN PHẨM</h2>
             </div>
 
             <div class="table-responsive cart_info">
                 <table class="table table-condensed">
                     <thead>
                         <tr class="cart_menu">
-                            <td class="image">Item</td>
-                            <td class="description"></td>
-                            <td class="price">Price</td>
-                            <td class="quantity">Quantity</td>
-                            <td class="total">Total</td>
-                            <td></td>
+                            <td class="image">HÌNH ẢNH</td>
+                            <td class="description">TÊN SẢN PHẨM</td>
+                            <td class="price">GIÁ</td>
+                            <td class="quantity">SỐ LƯỢNG</td>
+                            <td class="total">TỔNG TIỀN</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,17 +43,11 @@
                             </td>
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" href=""> + </a>
-                                    <input class="cart_quantity_input" type="text" name="quantity" value="1"
-                                        autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" href=""> - </a>
+                                   1
                                 </div>
                             </td>
                             <td class="cart_total">
                                 <p class="cart_total_price">$59</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
                             </td>
                         </tr>
 
@@ -100,17 +64,11 @@
                             </td>
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" href=""> + </a>
-                                    <input class="cart_quantity_input" type="text" name="quantity" value="1"
-                                        autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" href=""> - </a>
+                                    <p>1</p>
                                 </div>
                             </td>
                             <td class="cart_total">
                                 <p class="cart_total_price">$59</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
                             </td>
                         </tr>
                         <tr>
@@ -126,47 +84,17 @@
                             </td>
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" href=""> + </a>
-                                    <input class="cart_quantity_input" type="text" name="quantity" value="1"
-                                        autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" href=""> - </a>
+                                   1
                                 </div>
                             </td>
                             <td class="cart_total">
                                 <p class="cart_total_price">$59</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                            <td colspan="2">
-                                <table class="table table-condensed total-result">
-                                    <tr>
-                                        <td>Cart Sub Total</td>
-                                        <td>$59</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Exo Tax</td>
-                                        <td>$2</td>
-                                    </tr>
-                                    <tr class="shipping-cost">
-                                        <td>Shipping Cost</td>
-                                        <td>Free</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td><span>$61</span></td>
-                                    </tr>
-                                </table>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div>
                 <form>
                     <div class="row">
                         <div class="form-group col-md-6">
@@ -186,14 +114,12 @@
                                 <option value="0">Tỉnh Thành</option>
                             </select>
                         </div>
-
                         <div class="form-group col-md-4">
                             <select class="css_select" id="district" name="district" title="--Chọn Quận Huyện--"
                                 class="form-control">
                                 <option value="0">--Quận Huyện--</option>
                             </select>
                         </div>
-
                         <div class="form-group col-md-4">
                             <select class="css_select" id="ward" name="ward" title="--Chọn Phường Xã-- "
                                 class="form-control">
@@ -218,18 +144,36 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row online-payment"></div>
                     <div class="row">
-                        <div class="form-group col-md-4">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
-                        </div>
+                        <div class="col-md-8">
 
+                        </div>
+                        <div class="col-md-4">
+                            <table class="table table-condensed total-result">
+                                <tr>
+                                    <td>Tổng sản phẩm</td>
+                                    <td><strong>1</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Giảm giá</td>
+                                    <td><strong style="color: #9f9f9f">12.000</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Tồng tiền cần thanh toán</td>
+                                    <td><strong style="color: ">12.000.000 VND</strong></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
 
+                    <div class="row">
+                        <div class="form-group col-md-8"></div>
+                        <div class="form-group col-md-4 text-center">
+                            <button type="submit" class="btn btn-payment">ĐẶT HÀNG</button>
+                        </div>
+                    </div>
                 </form>
-            </div>
-
-
-
         </div>
 
 

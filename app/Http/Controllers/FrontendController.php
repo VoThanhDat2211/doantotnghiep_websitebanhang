@@ -39,6 +39,11 @@ class FrontendController extends Controller
         return view('user.home');
     }
 
+    public function getByParentCategory()
+    {
+        return view('user.product-by-parent-category');
+    }
+
     public function getCart()
     {
         return view('user.cart');

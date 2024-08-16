@@ -75,14 +75,28 @@
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
                                 @if (Auth::check())
-                                    <li><a href="#"><i class="fa fa-user"></i>
-
-                                            {{ Auth::user()->username }}
-
-                                        </a></li>
-                                    <li><a href="{{ route('user-cart') }}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-                                    <li><a href="{{ route('user-logout') }}"><i
-                                                class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a></li>
+                                    <li><a href="{{ route('user-cart') }}"><i class="fa fa-shopping-cart"></i> Giỏ
+                                            hàng</a></li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" type="button"
+                                                id="menu1" data-toggle="dropdown"><i class="fa fa-user"></i>
+                                                {{ Auth::user()->username }}
+                                                <span class="caret"></span></button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                                <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                        href="#"><i class="fa-solid fa-pen-to-square"></i> Thông
+                                                        tin tài khoản</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                        href="#"><i class="fa-solid fa-cart-shopping"></i> Lịch sử
+                                                        mua hàng</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                        href="{{ route('user-logout') }}"><i
+                                                            class="fa-solid fa-arrow-right-from-bracket"></i> Đăng
+                                                        xuất</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
                                 @else
                                     <li><a href="{{ route('user-form-login') }}"><i class="fa fa-lock"></i> Đăng
                                             nhập</a></li>
@@ -111,7 +125,7 @@
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="{{ route('home_page_user') }}" class="active">TRANG CHỦ</a></li>
-                                <li class="dropdown"><a href="#">THỜI TRANG NAM<i
+                                <li class="dropdown"><a href="{{ route('products-by-parent-categor') }}">THỜI TRANG NAM<i
                                             class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Products</a></li>
@@ -263,7 +277,7 @@
                     <div class="col-sm-2">
                         <div class="single-widget">
                             <h2>Policies</h2>
-                             <ul class="nav nav-pills nav-stacked">
+                            <ul class="nav nav-pills nav-stacked">
                                 <li><a href="#">T-Shirt</a></li>
                                 <li><a href="#">Mens</a></li>
                                 <li><a href="#">Womens</a></li>
