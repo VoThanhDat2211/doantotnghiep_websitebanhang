@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginFormRequest;
+use App\Http\Requests\RegisterFormRequest;
+use App\Services\CustomerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class FrontendController extends Controller
 {
+    protected $customerService;
+
+    public function __construct(CustomerService $customerService)
+    {
+        $this->customerService = $customerService;
+    }
     public function login()
     {
         return view('user.login');
@@ -23,6 +32,46 @@ class FrontendController extends Controller
             return back()->withInput()->withErrors([
                 "username" => "Tên đăng nhập hoặc mật khẩu không đúng!",
             ]);
+        }
+    }
+
+    public function register()
+    {
+        return view("user.register");
+    }
+
+    public function postRegister(RegisterFormRequest $request)
+    {
+       $data['username'] = $request->input('username');
+       $data['password'] = $request->input('password') ? Hash::make($request->input('password')) : null ;
+       $data['email'] = $request->input('email');
+       $data['birthday'] = $request->input('birthday');
+
+        $usernameExists = $this->customerService->getByUserName($data['username']);
+        if(isset($usernameExists))
+        {
+            return back()->withInput()->withErrors(["username" => "Tên đăng nhập đã tồn tại !"]);
+        }
+
+        $emailExists = $this->customerService->getByEmail($data['email']);
+        if(isset($emailExists))
+        {
+            return back()->withInput()->withErrors(["email" => "Email đã tồn tại !"]);
+        }
+
+        $createResult = $this->customerService->create($data);
+        if($createResult) {
+            $result = [
+                $message = "Tạo tài khoản thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('user-form-login')->with('result', $result);
+        } else{
+            $result = [
+                $message = "Tạo tài khoản thất bại",
+                $status = 'error',
+            ];
+            return redirect()->route('user-form-login')->with('result', $result);
         }
     }
 

@@ -8,8 +8,9 @@ use App\Http\Controllers\ProductVariantController;
 use App\Models\ProductVariant;
 
 Route::prefix('admin')->group(function () {
+
     Route::get('/login', [AdminController::class, 'getLogin'])->name('admin-form-login')->middleware('guest:admin');
-    Route::post("/post-login", [AdminController::class, 'authenticate'])->name('admin-login');
+    Route::post("/post-login", [AdminController::class, 'authenticate'])->name('admin-login')->middleware('guest:admin');
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin-logout');
     // dashboard
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin-dashboard')->middleware("auth:admin");

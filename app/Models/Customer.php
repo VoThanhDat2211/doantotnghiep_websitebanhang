@@ -21,6 +21,7 @@ class Customer extends Authenticatable
         'username',
         'email',
         'password',
+        'birthday'
     ];
 
     /**
@@ -41,5 +42,8 @@ class Customer extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        "created_at" => "datetime",
+        "updated_at" => "datetime",
+        'birthday' => 'date',
     ];
 }
