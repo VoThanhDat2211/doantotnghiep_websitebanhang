@@ -95,8 +95,8 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                        <a>
+                                            <span data-toggle="collapse" data-parent="#accordian" href="#sportswear" class="badge pull-right"><i class="fa fa-plus"></i></span>
                                             Sportswear
                                         </a>
                                     </h4>
@@ -218,14 +218,14 @@
                     {{--  @yield('content')  --}}
                     <!--features_items-->
                     <div class="features_items">
-                        <h2 class="title text-center">SẢN PHẨM BÁN CHẠY</h2>
+                        <h2 class="title text-center">DANH SÁCH SẢN PHẨM</h2>
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
-                                    <div class="productinfo text-center">
+                                    <div class="productinfo">
                                         <img src="{{ 'frontend/images/home/product1.jpg' }}" alt="" />
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add to
                                             cart</a>
@@ -237,10 +237,10 @@
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
-                                    <div class="productinfo text-center">
+                                    <div class="productinfo">
                                         <img src="{{ 'frontend/images/home/product2.jpg' }}" alt="" />
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add to
                                             cart</a>
@@ -252,10 +252,10 @@
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
-                                    <div class="productinfo text-center">
+                                    <div class="productinfo">
                                         <img src="{{ 'frontend/images/home/product3.jpg' }}" alt="" />
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add to
                                             cart</a>
@@ -267,10 +267,10 @@
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
-                                    <div class="productinfo text-center">
+                                    <div class="productinfo">
                                         <img src="{{ 'frontend/images/home/product4.jpg' }}" alt="" />
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add to
                                             cart</a>
@@ -283,10 +283,10 @@
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
-                                    <div class="productinfo text-center">
+                                    <div class="productinfo">
                                         <img src="{{ 'frontend/images/home/product5.jpg' }}" alt="" />
-                                        <h2>$56</h2>
-                                        <p>Áo thun cao cổ dài tay đủ mau</p>
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add to
                                             cart</a>
@@ -299,10 +299,10 @@
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
-                                    <div class="productinfo text-center">
+                                    <div class="productinfo">
                                         <img src="{{ 'frontend/images/home/product6.jpg' }}" alt="" />
-                                        <h2>12.000.000</h2>
-                                        <p>Easy Polo Black Edition</p>
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add to
                                             cart</a>
@@ -315,118 +315,103 @@
                     </div>
                     <!--features_items-->
 
-                    <!--recommended_items-->
-                    <div class="recommended_items">
-                        <h2 class="title text-center">SẢN PHẨM GIẢM GIÁ</h2>
-
-                        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <div class="col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo text-center">
-                                                    <img src="{{ 'frontend/images/home/recommend1.jpg' }}"
-                                                        alt="" />
-                                                    <h2>$56</h2>
-                                                    <p>Áo thun cao cổ dài tay</p>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo text-center">
-                                                    <img src="{{ 'frontend/images/home/recommend2.jpg' }}"
-                                                        alt="" />
-                                                    <h2>$56</h2>
-                                                    <p>Easy Polo Black Edition Easy Polo Black Edition Easy Polo Black Edition</p>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo text-center">
-                                                    <img src="{{ 'frontend/images/home/recommend3.jpg' }}"
-                                                        alt="" />
-                                                    <h2>$56</h2>
-                                                    <p>Easy Polo Black Edition</p>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                    <div class="features_items">
+                        <h2 class="title text-center">SẢN PHẨM BÁN CHẠY</h2>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product1.jpg' }}" alt="" />
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
                                     </div>
                                 </div>
-                                <div class="item">
-                                    <div class="col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo text-center">
-                                                    <img src="{{ 'frontend/images/home/recommend1.jpg' }}"
-                                                        alt="" />
-                                                    <h2>$56</h2>
-                                                    <p>Easy Polo Black Edition</p>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo text-center">
-                                                    <img src="{{ 'frontend/images/home/recommend2.jpg' }}"
-                                                        alt="" />
-                                                    <h2>$56</h2>
-                                                    <p>Easy Polo Black Edition</p>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo text-center">
-                                                    <img src="{{ 'frontend/images/home/recommend3.jpg' }}"
-                                                        alt="" />
-                                                    <h2>$56</h2>
-                                                    <p>Easy Polo Black Edition</p>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
-                            <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                            <a class="right recommended-item-control" href="#recommended-item-carousel"
-                                data-slide="next">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         </div>
-                    </div>
-                    <!--/recommended_items-->
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product2.jpg' }}" alt="" />
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product3.jpg' }}" alt="" />
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product4.jpg' }}" alt="" />
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
+                                    </div>
+                                    <img src="{{ 'frontend/images/home/new.png' }}" class="new" alt="" />
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product5.jpg' }}" alt="" />
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
+                                    </div>
+                                    <img src="{{ 'frontend/images/home/sale.png' }}" class="new" alt="" />
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product6.jpg' }}" alt="" />
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
 
+                    </div>
+                    <!--features_items-->
                     <div class="recommended_items">
                         <h2 class="title text-center">SẢN PHẨM MỚI</h2>
 
@@ -436,7 +421,7 @@
                                     <div class="col-sm-4">
                                         <div class="product-image-wrapper">
                                             <div class="single-products">
-                                                <div class="productinfo text-center">
+                                                <div class="productinfo">
                                                     <img src="{{ 'frontend/images/home/recommend1.jpg' }}"
                                                         alt="" />
                                                     <h2>$56</h2>
@@ -451,7 +436,7 @@
                                     <div class="col-sm-4">
                                         <div class="product-image-wrapper">
                                             <div class="single-products">
-                                                <div class="productinfo text-center">
+                                                <div class="productinfo">
                                                     <img src="{{ 'frontend/images/home/recommend2.jpg' }}"
                                                         alt="" />
                                                     <h2>$56</h2>
@@ -466,7 +451,7 @@
                                     <div class="col-sm-4">
                                         <div class="product-image-wrapper">
                                             <div class="single-products">
-                                                <div class="productinfo text-center">
+                                                <div class="productinfo">
                                                     <img src="{{ 'frontend/images/home/recommend3.jpg' }}"
                                                         alt="" />
                                                     <h2>$56</h2>
@@ -483,7 +468,7 @@
                                     <div class="col-sm-4">
                                         <div class="product-image-wrapper">
                                             <div class="single-products">
-                                                <div class="productinfo text-center">
+                                                <div class="productinfo">
                                                     <img src="{{ 'frontend/images/home/recommend1.jpg' }}"
                                                         alt="" />
                                                     <h2>$56</h2>
@@ -498,7 +483,7 @@
                                     <div class="col-sm-4">
                                         <div class="product-image-wrapper">
                                             <div class="single-products">
-                                                <div class="productinfo text-center">
+                                                <div class="productinfo">
                                                     <img src="{{ 'frontend/images/home/recommend2.jpg' }}"
                                                         alt="" />
                                                     <h2>$56</h2>
@@ -513,7 +498,7 @@
                                     <div class="col-sm-4">
                                         <div class="product-image-wrapper">
                                             <div class="single-products">
-                                                <div class="productinfo text-center">
+                                                <div class="productinfo">
                                                     <img src="{{ 'frontend/images/home/recommend3.jpg' }}"
                                                         alt="" />
                                                     <h2>$56</h2>

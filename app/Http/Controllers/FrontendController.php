@@ -102,4 +102,9 @@ class FrontendController extends Controller
     {
         return view('user.pay');
     }
+
+    public function getProductDetail()
+    {
+        return view('user.product-detail');
+    }
 }

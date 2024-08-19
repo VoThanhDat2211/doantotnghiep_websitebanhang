@@ -17,3 +17,4 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/shopping-cart', [FrontendController::class, 'getCart'])->name('user-cart');
     Route::get('/pay', [FrontendController::class, 'getPay'])->name('user-pay');
 });
+Route::get('/product-detail', [FrontendController::class, 'getProductDetail'])->name('product-detail');

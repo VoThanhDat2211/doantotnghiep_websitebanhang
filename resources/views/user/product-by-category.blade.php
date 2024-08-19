@@ -224,8 +224,8 @@
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         <img src="{{ 'frontend/images/home/product1.jpg' }}" alt="" />
-                                        <h2>$56</h2>
                                         <p>Easy Polo Black Edition</p>
+                                        <h2>1.200.000đ</h2>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add to
                                             cart</a>
@@ -239,8 +239,8 @@
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         <img src="{{ 'frontend/images/home/product2.jpg' }}" alt="" />
-                                        <h2>$56</h2>
                                         <p>Easy Polo Black Edition</p>
+                                        <h2>1.200.000đ</h2>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add to
                                             cart</a>
@@ -254,8 +254,8 @@
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         <img src="{{ 'frontend/images/home/product3.jpg' }}" alt="" />
-                                        <h2>$56</h2>
                                         <p>Easy Polo Black Edition</p>
+                                        <h2>1.200.000đ</h2>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add to
                                             cart</a>
@@ -269,8 +269,8 @@
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         <img src="{{ 'frontend/images/home/product4.jpg' }}" alt="" />
-                                        <h2>$56</h2>
                                         <p>Easy Polo Black Edition</p>
+                                        <h2>1.200.000đ</h2>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add to
                                             cart</a>
@@ -285,8 +285,8 @@
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         <img src="{{ 'frontend/images/home/product5.jpg' }}" alt="" />
-                                        <h2>$56</h2>
-                                        <p>Áo thun cao cổ dài tay đủ mau</p>
+                                        <p>Easy Polo Black Edition</p>
+                                        <h2>1.200.000đ</h2>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add to
                                             cart</a>
@@ -301,8 +301,8 @@
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         <img src="{{ 'frontend/images/home/product6.jpg' }}" alt="" />
-                                        <h2>12.000.000</h2>
                                         <p>Easy Polo Black Edition</p>
+                                        <h2>1.200.000đ</h2>
                                         <a href="#" class="btn btn-default add-to-cart"><i
                                                 class="fa fa-shopping-cart"></i>Add to
                                             cart</a>

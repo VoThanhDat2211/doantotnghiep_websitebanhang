@@ -220,142 +220,134 @@
                     <!--features_items-->
 
                     <!--recommended_items-->
-                    <div class="recommended_items">
+                    <div class="features_items">
                         <h2 class="title text-center">SẢN PHẨM GIẢM GIÁ</h2>
-
-                        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <div class="col-lg-3 col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo">
-                                                    <img src="{{ 'frontend/images/home/recommend1.jpg' }}"
-                                                        alt="" />
-                                                        <p>Áo thun cao cổ dài tay</p>
-                                                        <h2>1.200.000đ</h2>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo">
-                                                    <img src="{{ 'frontend/images/home/recommend2.jpg' }}"
-                                                        alt="" />
-                                                        <p>Easy Polo Black Edition Easy Polo Black Edition Easy Polo Black Edition</p>
-                                                        <h2>1.200.000đ</h2>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo">
-                                                    <img src="{{ 'frontend/images/home/recommend3.jpg' }}"
-                                                        alt="" />
-                                                        <p>Easy Polo Black Edition</p>
-                                                        <h2>1.200.000đ</h2>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo">
-                                                    <img src="{{ 'frontend/images/home/recommend3.jpg' }}"
-                                                        alt="" />
-                                                        <p>Easy Polo Black Edition</p>
-                                                        <h2>1.200.000đ</h2>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                        <div class="col-lg-3 col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product1.jpg' }}" alt="" />
+                                        <p>Áo thun nam 3 lớp</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
                                     </div>
                                 </div>
-                                <div class="item">
-                                    <div class="col-lg-3 col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo">
-                                                    <img src="{{ 'frontend/images/home/recommend3.jpg' }}"
-                                                        alt="" />
-                                                        <p>Easy Polo Black Edition</p>
-                                                        <h2>1.200.000đ</h2>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo">
-                                                    <img src="{{ 'frontend/images/home/recommend1.jpg' }}"
-                                                        alt="" />
-                                                        <p>Easy Polo Black Edition</p>
-                                                        <h2>1.200.000đ</h2>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo">
-                                                    <img src="{{ 'frontend/images/home/recommend2.jpg' }}"
-                                                        alt="" />
-                                                        <p>Easy Polo Black Edition</p>
-                                                        <h2>1.200.000đ</h2>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo">
-                                                    <img src="{{ 'frontend/images/home/recommend3.jpg' }}"
-                                                        alt="" />
-                                                        <p>Easy Polo Black Edition</p>
-                                                        <h2>1.200.000đ</h2>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
-                            <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                            <a class="right recommended-item-control" href="#recommended-item-carousel"
-                                data-slide="next">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         </div>
+                        <div class="col-lg-3 col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product2.jpg' }}" alt="" />
+                                        <p>Easy Polo Black Edition</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                         <div class="col-lg-3 col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product2.jpg' }}" alt="" />
+                                        <p>Easy Polo Black Edition</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                         <div class="col-lg-3 col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product2.jpg' }}" alt="" />
+                                        <p>Easy Polo Black Edition</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product3.jpg' }}" alt="" />
+                                        <p>Easy Polo Black Edition</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product4.jpg' }}" alt="" />
+                                        <p>Easy Polo Black Edition</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
+                                    </div>
+                                    <img src="{{ 'frontend/images/home/new.png' }}" class="new" alt="" />
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product5.jpg' }}" alt="" />
+                                        <p>Áo thun cao cổ dài tay đủ mau</p>
+                                        <h2>1.200.000đ</h2>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
+                                    </div>
+                                    <img src="{{ 'frontend/images/home/sale.png' }}" class="new" alt="" />
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo">
+                                        <img src="{{ 'frontend/images/home/product6.jpg' }}" alt="" />
+                                        <h2>12.000.000</h2>
+                                        <p>Easy Polo Black Edition</p>
+                                        <a href="#" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to
+                                            cart</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+
                     </div>
-                    <!--/recommended_items-->
+                    <!--recommended_items-->
+
                 </div>
             </div>
         </div>

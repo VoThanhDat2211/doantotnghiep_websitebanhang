@@ -1196,6 +1196,7 @@ h2.title {
   border: 1px solid #F7F7F0;
   height: 380px;
   width: 100%;
+  object-fit: none;
 }
 
 .view-product h3 {
