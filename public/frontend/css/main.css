@@ -1047,7 +1047,7 @@ h2.title {
   -moz-border-left-colors: none;
   -moz-border-right-colors: none;
   -moz-border-top-colors: none;
-  background-color: #FE980F;
+  background-color: #CA3E46;
   border: 0px;
   color: #FFFFFF;
   cursor: default;
@@ -1240,9 +1240,7 @@ h2.title {
 .product-information {
   border: 1px solid #F7F7F0;
   overflow: hidden;
-  padding-bottom: 60px;
-  padding-left: 60px;
-  padding-top: 60px;
+  padding: 30px !important;
   position: relative;
 }
 
@@ -1267,8 +1265,7 @@ h2.title {
 
 .product-information span {
   display: inline-block;
-  margin-bottom: 8px;
-  margin-top: 18px;
+
 }
 
 .product-information span span {
@@ -2520,7 +2517,7 @@ h2.title {
   font-size: 15px !important;
 }
 
-.dropdown  .btn-default {
+.dropdown .btn-default {
   font-size: 16px !important;
   color: #696763 !important;
 }
