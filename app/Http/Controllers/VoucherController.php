@@ -63,4 +63,27 @@ class VoucherController extends Controller
         $voucherCode = $randomLetters . $currentDate;
         return $voucherCode;
     }
+
+    public function delete($id)
+    {
+        $voucher = $this->voucherService->getById($id);
+        if(is_null($voucher)) {
+            return redirect()->route('error-404');
+        }
+
+        $resultDelete = $this->voucherService->delete($voucher);
+        if($resultDelete) {
+            $result = [
+                $message = "Xóa voucher thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('admin-voucher-list')->with('result', $result);
+        } else {
+            $result = [
+                $message = "Xóa voucher thất bại",
+                $status = 'error',
+            ];
+            return redirect()->route('admin-voucher-list')->with('result', $result);
+        }
+    }
 }

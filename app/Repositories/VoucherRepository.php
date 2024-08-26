@@ -16,8 +16,18 @@ class VoucherRepository
         return $this->voucher->create($data);
     }
 
+    public function delete($voucher)
+    {
+        return $voucher->delete();
+    }
+
     public function getAll()
     {
         return $this->voucher->get();
+    }
+
+    public function getById($id)
+    {
+        return $this->voucher->find($id);
     }
 }

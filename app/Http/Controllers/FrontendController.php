@@ -5,17 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginFormRequest;
 use App\Http\Requests\RegisterFormRequest;
 use App\Services\CustomerService;
+use App\Services\CustomerVoucherService;
+use App\Services\VoucherService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Str;
 class FrontendController extends Controller
 {
     protected $customerService;
+    protected $customerVoucherService;
+    protected $voucherService;
 
-    public function __construct(CustomerService $customerService)
+    public function __construct(CustomerService $customerService,
+    CustomerVoucherService $customerVoucherService,
+    VoucherService $voucherService)
     {
         $this->customerService = $customerService;
+        $this->customerVoucherService = $customerVoucherService;
+        $this->voucherService = $voucherService;
     }
     public function login()
     {
@@ -61,6 +70,10 @@ class FrontendController extends Controller
 
         $createResult = $this->customerService->create($data);
         if($createResult) {
+            $voucherCreate = $this->createVoucher();
+            $customerId = $createResult->id;
+            $voucherId = $voucherCreate->id;
+            $customerVoucherCreate = $this->createCustomerVoucher($customerId,$voucherId);
             $result = [
                 $message = "Tạo tài khoản thành công",
                 $status = 'success',
@@ -74,6 +87,39 @@ class FrontendController extends Controller
             return redirect()->route('user-form-login')->with('result', $result);
         }
     }
+
+    private function createVoucher() 
+    {
+        $data['title'] =  Str::upper('KHÁCH HÀNG MỚI');
+        $data['quantity'] = 1;
+        $data['value'] = 20;
+        $data['voucher_type'] = 1;
+        $data['remain_quantity'] = 1;
+        $data['voucher_code'] = $this->getVoucherCode();
+        $data['start_date'] = now();
+        $data['end_date'] = Carbon::now()->addMonths(2);
+
+        return $this->voucherService->create($data);
+    }
+
+    private function createCustomerVoucher($customerId, $voucherId)
+    {
+        $data['customer_id'] = $customerId;
+        $data['voucher_id'] = $voucherId;
+        $data['status'] = 1;
+
+        return $this->customerVoucherService->create($data);
+    }
+
+    private function getVoucherCode()
+    {
+        $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomLetters = substr(str_shuffle($letters), 0, 2);
+        $currentDate = date('dmy');
+        $voucherCode = $randomLetters . $currentDate;
+        return $voucherCode;
+    }
+    
 
     public function logout(Request $request)
     {

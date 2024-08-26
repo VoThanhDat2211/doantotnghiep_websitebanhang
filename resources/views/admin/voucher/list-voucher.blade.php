@@ -52,24 +52,27 @@
                             @foreach ($vouchers as $voucher)
                                 <tr>
                                     <td>{{ ++$increment }}</td>
-                                    <td class="max-width: 100px"><span class="text-ellipsis">{{ $voucher->voucher_code }}</span>
+                                    <td class="max-width: 100px"><span
+                                            class="text-ellipsis">{{ $voucher->voucher_code }}</span>
                                     </td>
-                                    <td><span class="text-ellipsis">{{ $voucherTypeArray[$voucher->voucher_type] }}</span></td>
+                                    <td><span class="text-ellipsis">{{ $voucherTypeArray[$voucher->voucher_type] }}</span>
+                                    </td>
                                     <td><span class="text-ellipsis">{{ $voucher->quantity }}</span></td>
                                     <td><span class="text-ellipsis">{{ $voucher->remain_quantity }}</span></td>
                                     <td><span class="text-ellipsis">{{ $voucher->value }}</span></td>
-                                    <td><span class="text-ellipsis">{{ $voucher->start_date->format('d/m/Y')}} <span> -- </span> 
-                                        {{$voucher->end_date->format('d/m/Y')}}</span></td>
+                                    <td><span class="text-ellipsis">{{ $voucher->start_date->format('d/m/Y') }} <span> --
+                                            </span>
+                                            {{ $voucher->end_date->format('d/m/Y') }}</span></td>
                                     <td>
-                                        {{--  <form action="{{ route('admin-product-delete', ['id' => $product->id]) }}"
+                                        <form action="{{ route('admin-voucher-delete', ['id' => $voucher->id]) }}"
                                             method="POST" style="display:inline; margin-right: 12px;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" title="Xóa sản phẩm" class="btn-delete"
+                                            <button type="submit" title="Xóa voucher" class="btn-delete"
                                                 style="border: none; background: none; cursor: pointer; padding:0;">
                                                 <i class="fa-solid fa-trash" style="color: #E9423F;"></i>
                                             </button>
-                                        </form>  --}}
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -91,7 +94,7 @@
         $(document).ready(function() {
             $('.btn-delete').on('click', function(e) {
                 e.preventDefault();
-                var confirmed = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+                var confirmed = confirm("Bạn có chắc chắn muốn xóa voucher này?");
                 if (confirmed) {
                     $(this).closest('form').submit();
                 }

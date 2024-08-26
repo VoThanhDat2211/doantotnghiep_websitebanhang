@@ -56,5 +56,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/list', [VoucherController::class, 'index'])->name('admin-voucher-list');
         Route::get('/form-create-voucher', [VoucherController::class, 'create'])->name('admin-voucher-form-create');
         Route::post('/create', [VoucherController::class, 'store'])->name('admin-voucher-create');
+        Route::delete('{id}/delete', [VoucherController::class, 'delete'])->name('admin-voucher-delete');
     });
 });

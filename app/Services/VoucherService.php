@@ -1,8 +1,11 @@
 <?php 
 namespace App\Services;
 
+use App\Events\VoucherCreated;
 use App\Models\Voucher;
 use App\Repositories\VoucherRepository;
+use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class VoucherService
@@ -15,11 +18,33 @@ class VoucherService
 
     public function create($data)
     {
-        return $this->voucherRepository->create($data);
+        $voucherCreate = $this->voucherRepository->create($data);
+        if($data['voucher_type'] == 2) {
+            event(new VoucherCreated( $voucherCreate));
+        }
+        return $voucherCreate;
+    }
+
+    public function delete($voucher)
+    {
+        DB::beginTransaction();
+        try {
+            $result = $this->voucherRepository->delete($voucher);
+            DB::commit();
+            return $result;
+        } catch (Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage());
+        }
     }
 
     public function getAll()
     {
         return $this->voucherRepository->getAll();
+    }
+
+    public function getById($id)
+    {
+        return $this->voucherRepository->getById($id);
     }
 }
