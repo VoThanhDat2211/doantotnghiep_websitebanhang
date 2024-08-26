@@ -3,13 +3,13 @@
     <link href="{{ asset('admin/css/product.css') }}" rel="stylesheet" />
 
     <div class="redirect-common text-end">
-        <a href="{{ route('admin-product-form-create') }}" class="btn btn-primary link-redirect-common"><i
-                class="fa-solid fa-circle-plus"></i> THÊM SẢN PHẨM</a>
+        <a href="{{ route('admin-voucher-form-create') }}" class="btn btn-primary link-redirect-common"><i
+                class="fa-solid fa-circle-plus"></i> THÊM VOUCHER</a>
     </div>
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Danh Sách Sản Phẩm
+                Danh Sách Voucher
             </div>
             <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
@@ -33,37 +33,35 @@
                 </div>
             </div>
             {{-- TABLE --}}
-            @if (isset($products))
+            @if (isset($vouchers))
                 <div class="table-responsive">
                     <table class="table text-center">
                         <thead>
                             <tr>
                                 <th class="text-center">STT</th>
-                                <th class="text-center">Tên sản phẩm</th>
-                                <th class="text-center">Danh mục</th>
-                                <th class="text-center">Số lượng đã bán</th>
+                                <th class="text-center">Mã voucher</th>
+                                <th class="text-center">Loại voucher</th>
+                                <th class="text-center">Số lượng</th>
                                 <th class="text-center">Số lượng còn lại</th>
-                                <th class="text-center">Giảm giá(%)</th>
+                                <th class="text-center">Giá trị voucher(%)</th>
+                                <th class="text-center">Thời gian áp dụng</th>
                                 <th class="text-center" style="">Tùy Chọn</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
+                            @foreach ($vouchers as $voucher)
                                 <tr>
                                     <td>{{ ++$increment }}</td>
-                                    <td class="max-width: 100px"><span class="text-ellipsis">{{ $product->name }}</span>
+                                    <td class="max-width: 100px"><span class="text-ellipsis">{{ $voucher->voucher_code }}</span>
                                     </td>
-                                    <td><span class="text-ellipsis">{{ $product->category->name }}</span></td>
-                                    <td><span class="text-ellipsis">{{ $product->sold_quantity }}</span></td>
-                                    <td><span class="text-ellipsis">{{ $product->remain_quantity }}</span></td>
-                                    <td><span class="text-ellipsis">{{ $product->discount }}</span></td>
+                                    <td><span class="text-ellipsis">{{ $voucherTypeArray[$voucher->voucher_type] }}</span></td>
+                                    <td><span class="text-ellipsis">{{ $voucher->quantity }}</span></td>
+                                    <td><span class="text-ellipsis">{{ $voucher->remain_quantity }}</span></td>
+                                    <td><span class="text-ellipsis">{{ $voucher->value }}</span></td>
+                                    <td><span class="text-ellipsis">{{ $voucher->start_date->format('d/m/Y')}} <span> -- </span> 
+                                        {{$voucher->end_date->format('d/m/Y')}}</span></td>
                                     <td>
-                                        <a title="Sửa sản phẩm"
-                                            href="{{ route('admin-product-form-update', ['id' => $product->id]) }}"
-                                            style="margin-right: 12px"><i class="fa-regular fa-pen-to-square"
-                                                style="color: #0c9636;"></i>
-                                        </a>
-                                        <form action="{{ route('admin-product-delete', ['id' => $product->id]) }}"
+                                        {{--  <form action="{{ route('admin-product-delete', ['id' => $product->id]) }}"
                                             method="POST" style="display:inline; margin-right: 12px;">
                                             @csrf
                                             @method('DELETE')
@@ -71,13 +69,7 @@
                                                 style="border: none; background: none; cursor: pointer; padding:0;">
                                                 <i class="fa-solid fa-trash" style="color: #E9423F;"></i>
                                             </button>
-                                        </form>
-                                        <a title="Biến thể sản phẩm" href="{{ route('admin-product-variant-list', ['id' => $product->id]) }}" class="ml-2"
-                                            style="margin-right: 12px"><i class="fa-solid fa-circle-info"></i>
-                                        </a>
-                                        <a title="Hình ảnh" href="{{  route('admin-product-image', ['id' => $product->id]) }}" class="ml-2"><i class="fa-solid fa-image"
-                                                class="fa-solid fa-trash" style="color: #b1720d;"></i>
-                                        </a>
+                                        </form>  --}}
                                     </td>
                                 </tr>
                             @endforeach

@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
+use App\Http\Controllers\VoucherController;
 use App\Models\ProductVariant;
 
 Route::prefix('admin')->group(function () {
@@ -48,5 +49,12 @@ Route::prefix('admin')->group(function () {
     // customer
     Route::prefix('customer')->middleware('auth:admin')->group(function () {
         Route::get('/list', [CustomerController::class, 'index'])->name('admin-customer-list');
+    });
+
+    // voucher
+    Route::prefix('voucher')->middleware('auth:admin')->group(function () {
+        Route::get('/list', [VoucherController::class, 'index'])->name('admin-voucher-list');
+        Route::get('/form-create-voucher', [VoucherController::class, 'create'])->name('admin-voucher-form-create');
+        Route::post('/create', [VoucherController::class, 'store'])->name('admin-voucher-create');
     });
 });

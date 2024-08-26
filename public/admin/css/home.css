@@ -4208,6 +4208,10 @@ div#graph11 {
     margin-top: 12px;
 }
 
+.mt-20 {
+    margin-top: 20px;
+} 
+
 form > .error {
     font-size: 14px;
     color: #fb2424;

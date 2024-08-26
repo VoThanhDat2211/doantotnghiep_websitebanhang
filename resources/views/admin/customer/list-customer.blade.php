@@ -29,7 +29,7 @@
                 </div>
             </div>
             {{-- TABLE --}}
-            @if ($customers)
+            @if (isset($customers))
                 <div class="table-responsive">
                     <table class="table text-center">
                         <thead>
