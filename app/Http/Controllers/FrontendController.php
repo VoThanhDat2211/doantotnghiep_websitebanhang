@@ -107,4 +107,9 @@ class FrontendController extends Controller
     {
         return view('user.product-detail');
     }
+
+    public function getOrderHistory()
+    {
+        return view('user.order-history');
+    }
 }
