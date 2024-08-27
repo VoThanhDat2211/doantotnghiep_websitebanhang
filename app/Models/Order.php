@@ -21,9 +21,9 @@ class Order extends Model
         return $this->hasMany(OrderLine::class)->whereNull('deleted_at');
     }
 
-    public function pays()
+    public function pay()
     {
-        return $this->hasMany(Pay::class);
+        return $this->hasOne(Pay::class);
     }
 
     public function customer()

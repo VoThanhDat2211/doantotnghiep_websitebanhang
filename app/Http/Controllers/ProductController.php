@@ -176,7 +176,7 @@ class ProductController extends Controller
         } else {
             $result = [
                 $message = "Xóa sản phẩm thất bại",
-                $status = 'error',
+                $status = 'error',0
             ];
             return redirect()->route('admin-product-list')->with('result', $result);
         }

@@ -63,5 +63,7 @@ Route::prefix('admin')->group(function () {
     // order
     Route::prefix('order')->middleware('auth:admin')->group(function () {
         Route::get('/list', [OrderController::class, 'index'])->name('admin-order-list');
+        Route::put('{id}/update', [OrderController::class, 'update'])->name('admin-order-update');
+        Route::get('{id}/order-detail', [OrderController::class, 'getOrderDetail'])->name('admin-order-detail');
     });
 });

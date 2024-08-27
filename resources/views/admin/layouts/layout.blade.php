@@ -32,6 +32,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('admin/js/jquery2.0.3.min.js') }}"></script>
     <script src="{{ asset('admin/js/raphael-min.js') }}"></script>
     <script src="{{ asset('admin/js/morris.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -100,7 +102,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Quản Lý Sản Phẩm</span>
                             </a>
                         </li>
-                         <li>
+                        <li>
                             <a class="{{ Request::is('admin/customer*') ? 'active' : '' }}"
                                 href="{{ route('admin-customer-list') }}">
                                 <i class="fa-solid fa-user"></i>
@@ -110,14 +112,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li>
                             <a class="{{ Request::is('admin/order*') ? 'active' : '' }}"
                                 href="{{ route('admin-order-list') }}">
-                               <i class="fa-solid fa-wallet"></i>
+                                <i class="fa-solid fa-wallet"></i>
                                 <span>Quản Lý Đơn hàng</span>
                             </a>
                         </li>
-                         <li>
+                        <li>
                             <a class="{{ Request::is('admin/voucher*') ? 'active' : '' }}"
                                 href="{{ route('admin-voucher-list') }}">
-                               <i class="fa-solid fa-ticket"></i>
+                                <i class="fa-solid fa-ticket"></i>
                                 <span>Quản Lý Voucher</span>
                             </a>
                         </li>

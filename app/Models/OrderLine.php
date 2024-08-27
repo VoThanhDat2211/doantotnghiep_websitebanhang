@@ -16,4 +16,9 @@ class OrderLine extends Model
         'product_variant_id',
         'order_id',
     ];
+
+    public function productVariant()
+    {
+        return $this->belongsTo(ProductVariant::class)->withTrashed();
+    }
 }

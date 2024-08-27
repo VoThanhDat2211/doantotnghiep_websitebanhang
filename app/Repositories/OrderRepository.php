@@ -11,12 +11,27 @@ class OrderRepository
         $this->order = $order;
     }
 
+    public function update($order,$status)
+    {
+        return $order->update(['status' => $status]);
+    }
+
+    public function getById($id)
+    {
+        return $this->order->whereNull('deleted_at')->find($id);
+    }
+
+    public function getByIdWithOrderLine($id)
+    {
+        return $this->order->with('orderLines')->whereNull('deleted_at')->find($id);
+    }
     public function getAllPaginate()
     {
-        return $this->order->with(['orderLines', 'pays'])
+        return $this->order->with('orderLines')
             ->whereNull('deleted_at')
             ->orderBy("created_at", "desc")
             ->paginate(30);
     }
+
 
 }
