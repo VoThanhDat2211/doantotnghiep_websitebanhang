@@ -109,7 +109,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li>
                             <a class="{{ Request::is('admin/order*') ? 'active' : '' }}"
-                                href="{{ route('admin-customer-list') }}">
+                                href="{{ route('admin-order-list') }}">
                                <i class="fa-solid fa-wallet"></i>
                                 <span>Quản Lý Đơn hàng</span>
                             </a>

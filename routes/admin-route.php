@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\VoucherController;
@@ -57,5 +58,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/form-create-voucher', [VoucherController::class, 'create'])->name('admin-voucher-form-create');
         Route::post('/create', [VoucherController::class, 'store'])->name('admin-voucher-create');
         Route::delete('{id}/delete', [VoucherController::class, 'delete'])->name('admin-voucher-delete');
+    });
+
+    // order
+    Route::prefix('order')->middleware('auth:admin')->group(function () {
+        Route::get('/list', [OrderController::class, 'index'])->name('admin-order-list');
     });
 });

@@ -18,16 +18,16 @@ class Order extends Model
 
     public function orderLines()
     {
-        return $this->hasMany(OrderLine::class);
+        return $this->hasMany(OrderLine::class)->whereNull('deleted_at');
     }
 
     public function pays()
     {
-        return $this->hasMany(Pay::class)->whereNull('deleted_at');
+        return $this->hasMany(Pay::class);
     }
 
-    public function user()
+    public function customer()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(Customer::class);
     }
 }
