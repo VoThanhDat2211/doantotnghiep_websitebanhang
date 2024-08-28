@@ -72,17 +72,22 @@
                                                 <i class="fa-solid fa-trash" style="color: #E9423F;"></i>
                                             </button>
                                         </form>
-                                        <a title="Biến thể sản phẩm" href="{{ route('admin-product-variant-list', ['id' => $product->id]) }}" class="ml-2"
-                                            style="margin-right: 12px"><i class="fa-solid fa-circle-info"></i>
+                                        <a title="Biến thể sản phẩm"
+                                            href="{{ route('admin-product-variant-list', ['id' => $product->id]) }}"
+                                            class="ml-2" style="margin-right: 12px"><i
+                                                class="fa-solid fa-circle-info"></i>
                                         </a>
-                                        <a title="Hình ảnh" href="{{  route('admin-product-image', ['id' => $product->id]) }}" class="ml-2"><i class="fa-solid fa-image"
-                                                class="fa-solid fa-trash" style="color: #b1720d;"></i>
+                                        <a title="Hình ảnh"
+                                            href="{{ route('admin-product-image', ['id' => $product->id]) }}"
+                                            class="ml-2"><i class="fa-solid fa-image" class="fa-solid fa-trash"
+                                                style="color: #b1720d;"></i>
                                         </a>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $products->links() }}
                 </div>
             @endif
         </div>
@@ -99,10 +104,21 @@
         $(document).ready(function() {
             $('.btn-delete').on('click', function(e) {
                 e.preventDefault();
-                var confirmed = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
-                if (confirmed) {
-                    $(this).closest('form').submit();
-                }
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    text: "Bạn có chắc chắn xóa sản phẩm này?",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xác Nhận',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
     </script>

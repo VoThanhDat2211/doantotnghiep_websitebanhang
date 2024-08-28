@@ -39,10 +39,13 @@ class ProductVariantController extends Controller
             $productVariants = null;
         }
 
+        $sizes = config('variant.size');
+
         return view("admin.product-variant.list-product-variant", 
         ['productId' => $productId, 
         "productVariants" => $productVariants,
         'increment' => 0,
+        'size'=> $sizes,
         ]);
     }
 

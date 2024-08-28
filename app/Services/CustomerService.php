@@ -30,4 +30,9 @@ class CustomerService
     {
         return $this->customerRepository->getByEmail($email);
     }
+
+    public function getTopCustomersByOrderCount($limit)
+    {
+        return $this->customerRepository->getTopCustomersByOrderCount($limit);
+    }
 }

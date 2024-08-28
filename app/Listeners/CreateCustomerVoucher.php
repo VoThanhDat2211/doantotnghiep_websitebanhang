@@ -29,8 +29,7 @@ class CreateCustomerVoucher
     public function handle(VoucherCreated $event): void
     {
         $voucher = $event->voucher;
-        $customers = $this->customerService->getAll();
-
+        $customers = $this->customerService->getTopCustomersByOrderCount($voucher->quantity);
         foreach($customers as $customer)
         {
             $data['customer_id'] = $customer->id;

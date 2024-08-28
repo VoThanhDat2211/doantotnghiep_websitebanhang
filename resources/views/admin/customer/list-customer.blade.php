@@ -45,15 +45,17 @@
                             @foreach ($customers as $customer)
                                 <tr>
                                     <td>{{ ++$increment }}</td>
-                                    <td class="max-width: 100px"><span class="text-ellipsis">{{ $customer->username }}</span>
+                                    <td class="max-width: 100px"><span
+                                            class="text-ellipsis">{{ $customer->username }}</span>
                                     </td>
                                     <td><span class="text-ellipsis">{{ $customer->email }}</span></td>
-                                    <td><span class="text-ellipsis">{{ $customer->birthday }}</span></td>
+                                    <td><span class="text-ellipsis">{{ $customer->birthday->format('d-m-Y') }}</span></td>
                                     <td>1</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $customers->links() }}
                 </div>
             @endif
         </div>
@@ -66,15 +68,6 @@
             });
 
 
-        });
-        $(document).ready(function() {
-            $('.btn-delete').on('click', function(e) {
-                e.preventDefault();
-                var confirmed = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
-                if (confirmed) {
-                    $(this).closest('form').submit();
-                }
-            });
         });
     </script>
 @endsection

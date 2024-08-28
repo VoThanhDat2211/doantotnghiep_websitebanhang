@@ -63,7 +63,7 @@
                                             height="90px" width="90px">
                                     </td>
                                     <td><span
-                                            class="text-ellipsis">{{ $productVariant->color . ', ' . $productVariant->size }}</span>
+                                            class="text-ellipsis">{{ $productVariant->color . ', ' . $size[$productVariant->size] }}</span>
                                     </td>
                                     <td><span class="text-ellipsis">{{ $productVariant->sold_quantity }}</span></td>
                                     <td><span
@@ -102,10 +102,21 @@
         $(document).ready(function() {
             $('.btn-delete').on('click', function(e) {
                 e.preventDefault();
-                var confirmed = confirm("Bạn có chắc chắn muốn xóa biến thể này?");
-                if (confirmed) {
-                    $(this).closest('form').submit();
-                }
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    text: "Bạn có chắc chắn xóa biến thể này?",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xác Nhận',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
     </script>

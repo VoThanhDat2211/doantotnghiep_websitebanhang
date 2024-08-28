@@ -24,4 +24,17 @@ return [
         5 => "#DC3545",
         6 => "#6C757D",
     ],
+
+    "payment_type" => [
+        1 => "Thanh Toán Khi Nhận Hàng",
+        2 => "Thanh Toán Trực Tuyến",
+    ],
+
+    "size" => [
+        1 => "S",
+        2 => "M",
+        3 => "L",
+        4 => "XL",
+        5 => "XXL",
+    ] 
 ];

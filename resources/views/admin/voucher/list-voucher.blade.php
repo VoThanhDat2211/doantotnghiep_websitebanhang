@@ -78,6 +78,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $vouchers->links() }}
                 </div>
             @endif
         </div>
@@ -94,10 +95,21 @@
         $(document).ready(function() {
             $('.btn-delete').on('click', function(e) {
                 e.preventDefault();
-                var confirmed = confirm("Bạn có chắc chắn muốn xóa voucher này?");
-                if (confirmed) {
-                    $(this).closest('form').submit();
-                }
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    text: "Bạn có chắc chắn xóa voucher này?",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xác Nhận',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
     </script>

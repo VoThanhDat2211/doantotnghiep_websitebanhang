@@ -62,11 +62,18 @@ class OrderController extends Controller
 
         $orderLines = $order->orderLines;
         $pay = $order->pay;
-        
         if ($orderLines->isEmpty() || is_null($pay)) {
             return redirect()->route('error-404');
         } 
 
-        return view("admin.order.detail-order", ['increment' => 0,'orderLines' => $orderLines, 'pay' =>$pay]);    
+        $paymentTypes = config('variant.payment_type');
+        $size = config('variant.size');
+
+        return view("admin.order.detail-order", ['order' => $order,
+        'orderLines' => $orderLines, 
+        'pay' => $pay,
+        'paymentTypes' => $paymentTypes,
+        'size' => $size,
+        ]);    
     }
 }

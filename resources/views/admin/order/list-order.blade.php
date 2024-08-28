@@ -1,18 +1,8 @@
 @extends('admin/layouts/layout')
 @section('admin-content')
-    <link href="{{ asset('admin/css/customer.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin/css/order.css') }}" rel="stylesheet" />
     <style>
-        .status {
-            font-size: 14px;
-            display: block;
-            background: #ccc;
-            width: 80%;
-            padding-top: 6px;
-            padding-bottom: 6px;
-            border-radius: 12px;
-            color: white;
-            margin: auto;
-        }
+
     </style>
     <div class="table-agile-info">
         <div class="panel panel-default">

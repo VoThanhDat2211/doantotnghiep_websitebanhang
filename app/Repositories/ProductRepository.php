@@ -28,7 +28,7 @@ class ProductRepository
 
     public function getProducts()
     {
-        return $this->product->whereNull('deleted_at')->get();
+        return $this->product->whereNull('deleted_at')->paginate(30);
     }
 
     public function getProductsWithProductVariants()

@@ -23,7 +23,7 @@ class VoucherRepository
 
     public function getAll()
     {
-        return $this->voucher->get();
+        return $this->voucher->paginate(30);
     }
 
     public function getById($id)
