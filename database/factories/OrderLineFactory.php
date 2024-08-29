@@ -20,8 +20,8 @@ class OrderLineFactory extends Factory
     {
         $productVariant = ProductVariant::inRandomOrder()->first();
         return [
-            'quantity' => $this->faker->numberBetween(1, 10),
-            'price' => $this->faker->numberBetween(3000000, 40000000),
+            'quantity' => $this->faker->numberBetween(50, 200),
+            'price' => $this->faker->numberBetween(100000, 1000000),
             'product_variant_id' => $productVariant->id, 
         ];
     }

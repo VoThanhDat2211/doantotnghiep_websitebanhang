@@ -20,7 +20,7 @@ class CategoryRepository
 
     public function getAllCategoriesWithProducts()
     {
-        return $this->category->with('products')->get();
+        return $this->category->with('products')->paginate(30);
     }
 
     public function getCategories()
@@ -54,5 +54,15 @@ class CategoryRepository
     public function delete($category)
     {
         return $category->delete();
+    }
+
+    public function getByParentCategory($parentCategory)
+    {
+        return $this->category->with('products')->where('parent_category', $parentCategory)->get();
+    }
+
+    public function getIdsByParentCategory($parentCategory)
+    {
+        return $this->category->where('parent_category', $parentCategory)->pluck('id')->toArray();
     }
 }

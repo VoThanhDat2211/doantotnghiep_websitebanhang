@@ -39,7 +39,7 @@
                         @endforeach
                         <tr>
                             <td class="text-ellipsis" colspan="3"><strong>Tổng Hóa Đơn</strong></td>
-                            <td class="text-ellipsis">{{ number_format($order->total_amount, 0, '.', ',') }}</td>
+                            <td class="text-ellipsis">{{ number_format($order->total_amount, 0, ',', '.') }}</td>
                         </tr>
                         </tbody>
                     </table>

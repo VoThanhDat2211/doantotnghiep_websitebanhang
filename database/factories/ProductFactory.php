@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\ImageProduct;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -24,7 +25,7 @@ class ProductFactory extends Factory
             'category_id' =>  Category::inRandomOrder()->first()->id, 
             'description' => $this->faker->text,
             'discount' => $this->faker->randomFloat(2, 0, 100), 
-            'price' => $this->faker->randomFloat(2, 1, 1000), 
+            'price' => $this->faker->randomFloat(0, 100000, 1000000), 
             'sold_quantity' => $this->faker->numberBetween(0, 1000), 
             'remain_quantity' => $this->faker->numberBetween(0, 1000), 
             'default_product_variant_id' => $this->faker->numberBetween(1),
@@ -37,6 +38,10 @@ class ProductFactory extends Factory
     {
         return $this->afterCreating(function (Product $product) {
             $productVariant = ProductVariant::factory()->count(4)->create([
+                'product_id' => $product->id
+            ]);
+            
+            $imageProduct = ImageProduct::factory(4)->create([
                 'product_id' => $product->id
             ]);
         });

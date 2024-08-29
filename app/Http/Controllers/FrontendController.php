@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginFormRequest;
 use App\Http\Requests\RegisterFormRequest;
+use App\Services\CategoryService;
 use App\Services\CustomerService;
 use App\Services\CustomerVoucherService;
+use App\Services\ProductService;
 use App\Services\VoucherService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,14 +19,22 @@ class FrontendController extends Controller
     protected $customerService;
     protected $customerVoucherService;
     protected $voucherService;
+    protected $categoryService;
+
+    protected $productService;
+    const PARENT_CATEGORY = [1,2,3];
 
     public function __construct(CustomerService $customerService,
     CustomerVoucherService $customerVoucherService,
-    VoucherService $voucherService)
+    VoucherService $voucherService,
+    CategoryService $categoryService,
+    ProductService $productService,)
     {
         $this->customerService = $customerService;
         $this->customerVoucherService = $customerVoucherService;
         $this->voucherService = $voucherService;
+        $this->categoryService = $categoryService;
+        $this->productService = $productService;
     }
     public function login()
     {
@@ -134,9 +144,20 @@ class FrontendController extends Controller
         return view('user.home');
     }
 
-    public function getByParentCategory()
+    public function getByParentCategory(Request $request)
     {
-        return view('user.product-by-parent-category');
+        $parentCategory = (int)$request->route('parent_category');
+        if(!in_array($parentCategory,self::PARENT_CATEGORY))
+        {
+            return redirect()->route('error-404');
+        }
+
+        $categories = $this->categoryService->getByParentCategory($parentCategory);
+        $categoryIds = $this->categoryService->getIdsByParentCategory($parentCategory) ;
+        $products = $this->productService->getByCategories([0]);
+
+        return view('user.product-by-parent-category',['categories' => $categories,
+                                                        'products' => $products]);
     }
 
     public function getCart()

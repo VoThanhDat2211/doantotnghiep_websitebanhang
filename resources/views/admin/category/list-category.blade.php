@@ -1,8 +1,8 @@
 @extends('admin/layouts/layout')
 @section('admin-content')
-@php
-    use App\Enums\CategoryParentEnum;
-@endphp
+    @php
+        use App\Enums\CategoryParentEnum;
+    @endphp
     <link href="{{ asset('admin/css/category.css') }}" rel="stylesheet" />
 
     <div class="redirect-common text-end">
@@ -56,8 +56,9 @@
                                     <td>
                                         @if (!empty($categoryParents))
                                             @foreach ($categoryParents as $categoryParent)
-                                                @if($categoryParent->value == $category->parent_category)
-                                                    <span class="text-ellipsis">{{ CategoryParentEnum::getStatusText($categoryParent->value) }}</span>
+                                                @if ($categoryParent->value == $category->parent_category)
+                                                    <span
+                                                        class="text-ellipsis">{{ CategoryParentEnum::getStatusText($categoryParent->value) }}</span>
                                                 @endif
                                             @endforeach
                                         @endif
@@ -83,6 +84,7 @@
                         @endif
                     </tbody>
                 </table>
+                {{ $categories->links() }}
             </div>
         </div>
     </div>
@@ -91,10 +93,21 @@
         $(document).ready(function() {
             $('.btn-delete').on('click', function(e) {
                 e.preventDefault();
-                var confirmed = confirm("Bạn có chắc chắn muốn xóa danh mục này?");
-                if (confirmed) {
-                    $(this).closest('form').submit();
-                }
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    text: "Bạn có chắc chắn xóa danh mục này?",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xác Nhận',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
     </script>

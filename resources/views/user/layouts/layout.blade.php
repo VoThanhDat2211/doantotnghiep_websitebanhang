@@ -124,9 +124,10 @@
                         </div>
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><a href="{{ route('home_page_user') }}" class="active">TRANG CHỦ</a></li>
-                                <li class="dropdown"><a href="{{ route('products-by-parent-categor') }}">THỜI TRANG
-                                        NAM<i class="fa fa-angle-down"></i></a>
+                                <li><a href="{{ route('home_page_user') }}">TRANG CHỦ</a></li>
+                                <li>
+                                    <a href="{{ route('products-by-parent-category', ['parent_category' => 1]) }}">THỜI
+                                        TRANG NAM<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Products</a></li>
                                         <li><a href="product-details.html">Product Details</a></li>
@@ -135,15 +136,15 @@
                                         <li><a href="login.html">Login</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"><a href="#">THỜI TRANG NỮ<i
-                                            class="fa fa-angle-down"></i></a>
+                                <li><a href="{{ route('products-by-parent-category', ['parent_category' => 2]) }}">THỜI
+                                        TRANG NỮ<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
                                         <li><a href="blog-single.html">Blog Single</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"><a href="#">ĐỒ THỂ THAO<i
-                                            class="fa fa-angle-down"></i></a>
+                                <li><a href="{{ route('products-by-parent-category', ['parent_category' => 3]) }}">ĐỒ
+                                        THỂ THAO<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
                                         <li><a href="blog-single.html">Blog Single</a></li>

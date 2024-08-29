@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepository 
 {
@@ -55,5 +56,10 @@ class ProductRepository
     public function getByIdWithProductVariants($id)
     {
         return $this->product->with('productVariants')->whereNull('deleted_at')->find($id);
+    }
+
+    public function getByCategories(array $categoryIds)
+    {
+        return  Product::whereIn('category_id', $categoryIds)->whereNull('deleted_at')->paginate(9);
     }
 }

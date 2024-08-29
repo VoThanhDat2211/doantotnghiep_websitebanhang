@@ -68,4 +68,14 @@ class CategoryService
         }
     }
 
+    public function getByParentCategory($parentCategory)
+    {
+        return $this->categoryRepository->getByParentCategory($parentCategory);
+    }
+
+    public function getIdsByParentCategory($parentCategory)
+    {
+        return $this->categoryRepository->getIdsByParentCategory($parentCategory);
+    }
+
 }

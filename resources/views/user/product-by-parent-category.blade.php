@@ -1,90 +1,5 @@
 @extends('user/layouts/layout')
 @section('content')
-    <section id="slider"><!--slider-->
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="slider-carousel" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#slider-carousel" data-slide-to="1"></li>
-                            <li data-target="#slider-carousel" data-slide-to="2"></li>
-                        </ol>
-
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free E-Commerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ 'frontend/images/home/girl1.jpg' }}" class="girl img-responsive"
-                                        alt="" />
-                                
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>100% Responsive Design</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ 'frontend/images/home/girl2.jpg' }}" class="girl img-responsive"
-                                        alt="" />
-                                
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free Ecommerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ 'frontend/images/home/girl3.jpg' }}" class="girl img-responsive"
-                                        alt="" />
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free Ecommerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="{{ 'frontend/images/home/s1.jpg' }}" class="girl img-responsive"
-                                        alt="" />
-                                
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                        <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section><!--/slider-->
-
     <section>
         <div class="container">
             <div class="row">
@@ -92,11 +7,46 @@
                     <div class="left-sidebar">
                         <h2>DANH MỤC</h2>
                         <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                            @if (isset($categories) && !$categories->isEmpty())
+                                @foreach ($categories as $category)
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a>
+                                                    <span data-toggle="collapse" data-parent="#accordian"
+                                                        href="#{{ $category->name }}" class="badge pull-right"><i
+                                                            class="fa fa-plus"></i></span>
+                                                    {{ $category->name }}
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="{{ $category->name }}" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                @if (!$category->products->isEmpty())
+                                                    <ul>
+                                                        @foreach ($$category->products as $product)
+                                                            <li><a href="#">{{ $product->name }} </a></li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+
+                                                {{-- <li><a href="#">Nike </a></li>
+                                                <li><a href="#">Under Armour </a></li>
+                                                <li><a href="#">Adidas </a></li>
+                                                <li><a href="#">Puma</a></li>
+                                                <li><a href="#">ASICS </a></li> --}}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a>
-                                            <span data-toggle="collapse" data-parent="#accordian" href="#sportswear" class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                            <span data-toggle="collapse" data-parent="#accordian" href="#sportswear"
+                                                class="badge pull-right"><i class="fa fa-plus"></i></span>
                                             Sportswear
                                         </a>
                                     </h4>
@@ -199,15 +149,15 @@
                         </div><!--/category-products-->
 
                         <div class="shipping text-center"><!--shipping-->
-                            <img src="{{ 'frontend/images/home/shipping.jpg' }}" alt="" />
+                            <img src="{{ asset('frontend/images/home/shipping.jpg') }}" alt="" />
                         </div><!--/shipping-->
 
-                         <div class="shipping text-center"><!--shipping-->
-                            <img src="{{ 'frontend/images/home/banner-2.jpg' }}" alt="" />
+                        <div class="shipping text-center"><!--shipping-->
+                            <img src="{{ asset('frontend/images/home/banner-2.jpg') }}" alt="" />
                         </div><!--/shipping-->
 
-                         <div class="shipping text-center"><!--shipping-->
-                            <img src="{{ 'frontend/images/home/banner-3.jpg' }}" alt="" />
+                        <div class="shipping text-center"><!--shipping-->
+                            <img src="{{ asset('frontend/images/home/banner-3.jpg') }}" alt="" />
                         </div><!--/shipping-->
 
 
@@ -231,7 +181,7 @@
                                             cart</a>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -246,7 +196,7 @@
                                             cart</a>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -261,7 +211,7 @@
                                             cart</a>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -277,7 +227,7 @@
                                     </div>
                                     <img src="{{ 'frontend/images/home/new.png' }}" class="new" alt="" />
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -293,7 +243,7 @@
                                     </div>
                                     <img src="{{ 'frontend/images/home/sale.png' }}" class="new" alt="" />
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -308,7 +258,7 @@
                                             cart</a>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -329,7 +279,7 @@
                                             cart</a>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -344,7 +294,7 @@
                                             cart</a>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -359,7 +309,7 @@
                                             cart</a>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -375,7 +325,7 @@
                                     </div>
                                     <img src="{{ 'frontend/images/home/new.png' }}" class="new" alt="" />
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -391,7 +341,7 @@
                                     </div>
                                     <img src="{{ 'frontend/images/home/sale.png' }}" class="new" alt="" />
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -406,7 +356,7 @@
                                             cart</a>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
 

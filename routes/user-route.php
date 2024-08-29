@@ -12,7 +12,7 @@ Route::prefix('/')->middleware('guest')->group(function () {
     Route::post("/post-register", [FrontendController::class, 'postRegister'])->name('user-register');
 });
 Route::get('/logout', [FrontendController::class, 'logout'])->name('user-logout');
-Route::get('/products-by-parent-category', [FrontendController::class, 'getByParentCategory'])->name('products-by-parent-categor');
+Route::get('/{parent_category}/categories', [FrontendController::class, 'getByParentCategory'])->name('products-by-parent-category');
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/shopping-cart', [FrontendController::class, 'getCart'])->name('user-cart');
     Route::get('/pay', [FrontendController::class, 'getPay'])->name('user-pay');

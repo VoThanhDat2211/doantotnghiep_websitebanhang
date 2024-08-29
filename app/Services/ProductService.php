@@ -67,4 +67,9 @@ class ProductService
         return $this->productRepository->getByIdWithProductVariants($id);
     }
 
+    public function getByCategories(array $categoryIds) 
+    {
+        return $this->productRepository->getByCategories($categoryIds);
+    }
+
 }

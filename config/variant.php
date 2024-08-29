@@ -36,5 +36,11 @@ return [
         3 => "L",
         4 => "XL",
         5 => "XXL",
-    ] 
+    ],
+
+    "category_parent" => [
+        1 => "THỜI TRANG NAM",
+        2 => "THỜI TRANG NỮ",
+        3 => "ĐỒ THỂ THAO"
+    ]
 ];
