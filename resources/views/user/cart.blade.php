@@ -157,7 +157,7 @@
                                     <div>
                                         <strong>TỔNG TIỀN ĐƠN ĐẶT HÀNG</strong>
                                     </div>
-                                    <span style="color: #f32f2f" class="total"><strong>{{ priceFormat($total_amount) }}
+                                    <span style="color: #f32f2f" id="total"><strong>{{ priceFormat($total_amount) }}
                                             VND</strong></span>
                                 </li>
                             </ul>
@@ -242,7 +242,6 @@
 
             async function getNewValue(cartId, quantity) {
                 let url = "{{ route('get-new-value') }}";
-                console.log(cartId);
                 try {
                     let response = await axios.get(url, {
                         params: {
@@ -253,9 +252,10 @@
                     let quantityNew = response.data.quantity;
                     let total_amount = response.data.total_amount;
                     let total = response.data.total;
+                    console.log(total_amount);
                     $("#cart_quantity_input_" + cartId).val(quantityNew);
-                    $(`cart_total_price_${cart_id}`).html(formatNumber(total_amount));
-                    $('total').html(`<strong>${formatNumber(total)}}
+                    $(`.cart_total_price_${cartId}`).html(formatNumber(total_amount));
+                    $('#total').html(`<strong>${formatNumber(total)}
                                             VND</strong>`);
 
                 } catch (error) {
@@ -264,7 +264,8 @@
             }
 
             function formatNumber(number) {
-                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                let roundedNumber = Math.round(number);
+                return roundedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             }
         });
     </script>

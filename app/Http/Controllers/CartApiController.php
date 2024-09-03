@@ -19,15 +19,14 @@ class CartApiController extends Controller
         $id = $request->input('id');
         $quantity = $request->input('quantity');
         $cart = $this->cartService->getById($id);
-        dd(Auth::check());
-        $customerId = Auth::user()->id;
+        $customerId =  $cart->customer_id;
         $total = 0;
         if(!is_null($cart))
         {
             $productVariant = $cart->productVariant;
             $data['quantity'] = $quantity;
             $data['total_amount'] = $quantity * priceDiscount($productVariant->product->price, $productVariant->product->discount);
-            $this->cartService->update($cart,$data);
+            $this->cartService->update($data,$cart);
             $carts = $this->cartService->getByCustomer($customerId);
             foreach ($carts as $cart) {
                 $price = $cart->productVariant->product->price;
