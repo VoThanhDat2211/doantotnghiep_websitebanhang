@@ -50,7 +50,7 @@ class ProductController extends Controller
         $data['description'] = $request->input('description');
         $data['category_id'] = $request->input('category_id');
         $data['discount'] = $request->input('discount');
-        $data['price'] = 0;
+        $data['price'] = $request->input('price');
         $data['sold_quantity'] = 0;
         $data['remain_quantity'] = 0;
         $data['default_product_variant_id'] = 0;
@@ -114,7 +114,7 @@ class ProductController extends Controller
         $data['description'] = $request->input('description');
         $data['category_id'] = $request->input('category_id');
         $data['discount'] = $request->input('discount');
-        $data['default_product_variant_id'] = $request->input('default_product_variant_id');
+        $data['price'] = $request->input('price');
         $productId = Session::get('productId');
         $product = $this->productService->getById($productId);
         Session::forget('productId');
@@ -132,16 +132,7 @@ class ProductController extends Controller
                 return back()->withInput()->withErrors(["name" => "Tên sản phẩm đã tồn tại !"]);
             }
         }
-
-        if($data['default_product_variant_id'] != 0)
-        {
-            $productVariant = $this->productVariantService->getById($data['default_product_variant_id']);
-            if (is_null($productVariant)) {
-                return back()->withInput()->withErrors(["default_product_variant_id" => "Biến thể sản phẩm không tồn tại !"]);
-            }
-        }
        
-
         $resultUpdate = $this->productService->update($data, $product);
 
         if($resultUpdate) {

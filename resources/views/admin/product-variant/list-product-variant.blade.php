@@ -49,7 +49,6 @@
                             <th class="text-center">Đặc điểm</th>
                             <th class="text-center">Số lượng đã bán</th>
                             <th class="text-center">Số lượng còn lại</th>
-                            <th class="text-center">Giá</th>
                             <th class="text-center" style="">Tùy Chọn</th>
                         </tr>
                     </thead>
@@ -68,9 +67,6 @@
                                     <td><span class="text-ellipsis">{{ $productVariant->sold_quantity }}</span></td>
                                     <td><span
                                             class="text-ellipsis">{{ number_format($productVariant->remain_quantity, 0, ',', '.') }}</span>
-                                    </td>
-                                    <td><span
-                                            class="text-ellipsis">{{ number_format($productVariant->price, 0, ',', '.') }}</span>
                                     </td>
                                     <td>
                                         <a title="Sửa sản phẩm"

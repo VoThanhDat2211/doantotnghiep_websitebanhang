@@ -19,17 +19,6 @@
                             @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label for="price" class="control-label col-lg-12">Giá <span
-                                        style="color: red">*</span></label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" id="price" name="price" type="number" min="0"
-                                        value="{{ $productVariant->price }}">
-                                    @error('price')
-                                        <span class="error">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="remain_quantity" class="control-label col-lg-12">Số lượng còn lại <span
                                         style="color: red">*</span></label>
                                 <div class="col-lg-9">

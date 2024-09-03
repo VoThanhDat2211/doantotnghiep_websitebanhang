@@ -24,7 +24,6 @@ class CreateProductVariantRequest extends FormRequest
         return [
             "color" => "bail|required|max:255",
             "size" => "bail|required|max:255",
-            "price" => "bail|required|integer|min:0|max:4294967295",
             "remain_quantity" => "bail|required|integer|min:0|max:4294967295",
             "image" => "bail|required|mimes:jpg,png,jpeg|max:5048"
         ];
@@ -37,10 +36,6 @@ class CreateProductVariantRequest extends FormRequest
             "color.max" => "Màu sắc không vượt quá 255 ký tự !",
             "size.required" => "Size không được để trống !",
             "size.max" => "Size không vượt quá 255 ký tự !",
-            "price.required" => "Giá không được để trống !",
-            "price.integer" => "Dữ liệu không hợp lệ !",
-            "price.max" => "Dữ liệu không hợp lệ !",
-            "price.min" => "Dữ liệu không hợp lệ !",
             "remain_quantity.required" => "Số lượng nhập không được để trống !",
             "remain_quantity.numeric" => "Dữ liệu phải ở dạng số !",
             "remain_quantity.min" => "Dữ liệu không hợp lệ !",

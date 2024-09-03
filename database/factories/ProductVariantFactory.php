@@ -22,7 +22,6 @@ class ProductVariantFactory extends Factory
             'size' => $this->faker->randomElement([1,2,3,4,5]), 
             'sold_quantity' => $this->faker->numberBetween(0, 500),
             'remain_quantity' => $this->faker->numberBetween(0, 500), 
-            'price' => $this->faker->randomFloat(2, 5, 500), 
             'image_path' => $this->faker->randomElement(['sp1.jpg','sp2.jpg','sp3.jpg','sp4.jpg'
         ,'sp5.jpg','sp6.jpg','sp7.jpg','sp8.jpg']), 
         ];

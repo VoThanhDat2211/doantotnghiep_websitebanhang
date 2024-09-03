@@ -128,7 +128,7 @@
     color: red;
 }
 
-.quantity-error {
+.quantity-error, .size-error, .color-error {
     display: none;
 }
 
@@ -143,4 +143,9 @@
 
 .nav-tabs a:hover {
     color: #000;
+}
+
+.product-information .color-active {
+    border: 1px solid #fcf0f0;
+    BACKGROUND: #fcf0f0;
 }

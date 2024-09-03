@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -12,12 +13,17 @@ Route::prefix('/')->middleware('guest')->group(function () {
     Route::post("/post-register", [FrontendController::class, 'postRegister'])->name('user-register');
 });
 Route::get('/logout', [FrontendController::class, 'logout'])->name('user-logout');
-Route::get('/{parent_category}/categories', [FrontendController::class, 'getByParentCategory'])->name('products-by-parent-category');
-Route::prefix('/')->middleware('auth')->group(function () {
-    Route::get('/shopping-cart', [FrontendController::class, 'getCart'])->name('user-cart');
-    Route::get('/pay', [FrontendController::class, 'getPay'])->name('user-pay');
-});
+Route::get('/{parent_category}', [FrontendController::class, 'getByParentCategory'])->name('products-by-parent-category');
+// Route::prefix('/')->middleware('auth')->group(function () {
+//     Route::get('/shopping-cart', [FrontendController::class, 'getCart'])->name('user-cart');
+//     Route::get('/pay', [FrontendController::class, 'getPay'])->name('user-pay');
+// });
+// Route::get('/home/checkout', [FrontendController::class, 'getPay'])->name('user-pay');
 Route::prefix('/user')->middleware('auth')->group(function () {
     Route::get('/purchase', [FrontendController::class, 'getOrderHistory'])->name('user-order-history');
+    Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('user-add-to-cart');
+    Route::get('/shopping-cart', [FrontendController::class, 'getCart'])->name('user-cart');
+    Route::post('/handle-pay', [FrontendController::class, 'handlePay'])->name('user-handle-pay');
+    Route::get('/checkout', [FrontendController::class, 'getPay'])->name('user-pay');
 });
-Route::get('/product-detail', [FrontendController::class, 'getProductDetail'])->name('product-detail');
+Route::get('/{id}/product-detail', [FrontendController::class, 'getProductDetail'])->name('product-detail');

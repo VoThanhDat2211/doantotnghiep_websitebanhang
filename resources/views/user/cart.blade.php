@@ -1,4 +1,7 @@
 @extends('user/layouts/layout')
+@php
+    use App\Models\ProductVariant;
+@endphp
 @section('content')
     <script src="https://esgoo.net/scripts/jquery.js"></script>
     <style>
@@ -22,8 +25,8 @@
             display: block;
             position: absolute;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            left: 14%;
+            transform: translateY(-50%);
             width: 100%;
         }
 
@@ -59,10 +62,9 @@
         }
 
         .cart_quantity_input {
-            border: 1px solid #ccc;
+            border: 2px solid #ccc;
         }
     </style>
-
     <section id="cart_items">
         <div class="container">
             <div class="breadcrumbs">
@@ -85,91 +87,53 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><input type="checkbox" name="select_product[]" value="" /></td>
-                            <td class="cart_product">
-                                <a href=""><img src="{{ asset('frontend/images/cart/two.png') }}" alt=""></a>
-                            </td>
-                            <td class="cart_description">
-                                <h4><a href="">Colorblock Scuba</a></h4>
-                                <p>Web ID: 1089772</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>$59</p>
-                            </td>
-                            <td class="cart_quantity">
-                                <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" data-id="1" href=""> + </a>
-                                    <input id="cart_quantity_input_{{ 1 }}" class="cart_quantity_input"
-                                        data-id="1" type="text" name="quantity" value="1" autocomplete="off"
-                                        size="2">
-                                    <a class="cart_quantity_down" data-id="1" href=""> - </a>
-                                </div>
-                            </td>
-                            <td class="cart_total">
-                                <p class="cart_total_price">$59</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td><input type="checkbox" name="select_product[]" value="" /></td>
-                            <td class="cart_product">
-                                <a href=""><img src="{{ asset('frontend/images/cart/two.png') }}" alt=""></a>
-                            </td>
-                            <td class="cart_description">
-                                <h4><a href="">Colorblock Scuba</a></h4>
-                                <p>Web ID: 1089772</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>$59</p>
-                            </td>
-                            <td class="cart_quantity">
-                                <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" data-id="2" href=""> + </a>
-                                    <input id="cart_quantity_input_{{ 2 }}" class="cart_quantity_input"
-                                        data-id="2" type="text" name="quantity" value="1" autocomplete="off"
-                                        size="2">
-                                    <a class="cart_quantity_down" data-id="2" href=""> - </a>
-                                </div>
-                            </td>
-                            <td class="cart_total">
-                                <p class="cart_total_price">$59</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="select_product[]" value="" /></td>
-                            <td class="cart_product">
-                                <a href=""><img src="{{ asset('frontend/images/cart/two.png') }}" alt=""></a>
-                            </td>
-                            <td class="cart_description">
-                                <h4><a href="">Colorblock Scuba</a></h4>
-                                <p>Web ID: 1089772</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>$59</p>
-                            </td>
-                            <td class="cart_quantity">
-                                <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" href="" data-id="3"> + </a>
-                                    <input id="cart_quantity_input_{{ 3 }}" class="cart_quantity_input"
-                                        data-id="3" type="text" name="quantity" value="1" autocomplete="off"
-                                        size="2">
-                                    <a class="cart_quantity_down" data-id="3" href=""> - </a>
-                                </div>
-                            </td>
-                            <td class="cart_total">
-                                <p class="cart_total_price">$59</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
+                        @if (isset($carts))
+                            @foreach ($carts as $cart)
+                                @php
+                                    $productVariant = ProductVariant::find($cart->product_variant_id);
+                                @endphp
+                                <tr>
+                                    <td><input type="checkbox" name="select_product[]" value="" /></td>
+                                    <td class="cart_product">
+                                        <a href="">
+                                            <img style="width: 80px; height: 80px;"
+                                                src="{{ asset('/image/' . $productVariant->image_path) }}" alt="">
+                                        </a>
+                                    </td>
+                                    <td class="cart_description">
+                                        <h4><a href="">{{ $productVariant->product->name }}</a></h4>
+                                        <p>{{ $productVariant->color . ', ' . renderSize($productVariant->size) }}</p>
+                                    </td>
+                                    <td class="cart_price">
+                                        <p>{{ priceFormat(priceDiscount($productVariant->product->price, $productVariant->product->discount)) }}
+                                        </p>
+                                    </td>
+                                    <td class="cart_quantity">
+                                        <div class="cart_quantity_button">
+                                            <a class="cart_quantity_down" data-id="{{ $cart->id }}"
+                                                data-product_variant_id="{{ $cart->product_variant_id }}" href=""> -
+                                            </a>
+                                            <input id="cart_quantity_input_{{ $cart->id }}" class="cart_quantity_input"
+                                                data-id="{{ $cart->id }}"
+                                                data-product_variant_id="{{ $cart->product_variant_id }}" type="text"
+                                                name="quantity" value="{{ $cart->quantity }}" autocomplete="off"
+                                                size="2">
+                                            <a class="cart_quantity_up" data-id="{{ $cart->id }}"
+                                                data-product_variant_id="{{ $cart->product_variant_id }}" href=""> +
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="cart_total">
+                                        <p class="cart_total_price_{{ $cart->id }}">
+                                            {{ priceFormat(priceDiscount($productVariant->product->price, $productVariant->product->discount) * $cart->quantity) }}
+                                        </p>
+                                    </td>
+                                    <td class="cart_delete">
+                                        <a class="cart_quantity_delete" href=""><i class="fa-solid fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -185,15 +149,16 @@
                             <ul class="list-group list-group-flush">
                                 <li
                                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                    TỔNG ĐƠN HÀNG|
-                                    <span><strong>1</strong></span> SẢN PHẨM
+                                    TỔNG ĐƠN HÀNG |
+                                    <span><strong>{{ $carts->count() }}</strong></span> SẢN PHẨM
                                 </li>
                                 <li
                                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                     <div>
                                         <strong>TỔNG TIỀN ĐƠN ĐẶT HÀNG</strong>
                                     </div>
-                                    <span style="color: #f32f2f"><strong>12.000.000 VND</strong></span>
+                                    <span style="color: #f32f2f" class="total"><strong>{{ priceFormat($total_amount) }}
+                                            VND</strong></span>
                                 </li>
                             </ul>
 
@@ -218,19 +183,22 @@
             });
 
             $('.cart_quantity_input').on('input', function(e) {
-                console.log(e);
                 this.value = this.value.replace(/[^0-9]/g, '');
             });
 
-            $('.cart_quantity_up').on('click', function(e) {
+            $('.cart_quantity_up').on('click', async function(e) {
                 e.preventDefault();
                 let id = $(this).data("id");
+                let productVariantId = $(this).data("product_variant_id");
+                let remainQuantity = await getQuantity(productVariantId);
                 let inputValue = parseInt($("#cart_quantity_input_" + id).val());
-                if (inputValue >= 20) {
+                if (inputValue >= remainQuantity) {
                     $("#cart_quantity_input_" + id).val(inputValue);
                 } else {
                     $("#cart_quantity_input_" + id).val(++inputValue);
                 }
+
+                getNewValue(id, inputValue);
             })
 
             $('.cart_quantity_down').on('click', function(e) {
@@ -241,17 +209,63 @@
                 $("#cart_quantity_input_" + id).val(inputValue);
             })
 
-            $('.cart_quantity_input').on('blur', function(e) {
+            $('.cart_quantity_input').on('blur', async function(e) {
                 let id = $(this).data("id");
+                let productVariantId = $(this).data("product_variant_id");
+                let remainQuantity = await getQuantity(productVariantId);
                 let inputValue = parseInt($("#cart_quantity_input_" + id).val());
+
                 if (Number.isNaN(inputValue)) {
                     $("#cart_quantity_input_" + id).val(1);
                 }
-
-                if (inputValue > 100) {
-                    $("#cart_quantity_input_" + id).val(100);
+                if (inputValue > remainQuantity) {
+                    $("#cart_quantity_input_" + id).val(remainQuantity);
                 }
+
+
             });
+
+            async function getQuantity(productVariantId) {
+                let url = "{{ route('get-remain-quantity') }}";
+                try {
+                    let response = await axios.get(url, {
+                        params: {
+                            productVariantId: productVariantId,
+                        }
+                    });
+                    let remainQuantity = response.data.remainQuantity;
+                    return remainQuantity;
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
+            async function getNewValue(cartId, quantity) {
+                let url = "{{ route('get-new-value') }}";
+                console.log(cartId);
+                try {
+                    let response = await axios.get(url, {
+                        params: {
+                            id: cartId,
+                            quantity: quantity
+                        }
+                    });
+                    let quantityNew = response.data.quantity;
+                    let total_amount = response.data.total_amount;
+                    let total = response.data.total;
+                    $("#cart_quantity_input_" + cartId).val(quantityNew);
+                    $(`cart_total_price_${cart_id}`).html(formatNumber(total_amount));
+                    $('total').html(`<strong>${formatNumber(total)}}
+                                            VND</strong>`);
+
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
+            function formatNumber(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
         });
     </script>
 @endsection

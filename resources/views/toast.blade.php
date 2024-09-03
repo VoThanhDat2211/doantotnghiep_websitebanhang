@@ -95,6 +95,7 @@
 
 <script>
     let result = @json(session('result'));
+    console.log(1);
     if (result !== null) {
         showToast(result[1], result[0]);
     }

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginFormRequest;
 use App\Http\Requests\RegisterFormRequest;
+use App\Services\CartService;
 use App\Services\CategoryService;
 use App\Services\CustomerService;
 use App\Services\CustomerVoucherService;
 use App\Services\ProductService;
+use App\Services\ProductVariantService;
 use App\Services\VoucherService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,21 +22,27 @@ class FrontendController extends Controller
     protected $customerVoucherService;
     protected $voucherService;
     protected $categoryService;
-
     protected $productService;
+    protected $productVariantService;
+    protected $cartService;
     const PARENT_CATEGORY = [1,2,3];
 
     public function __construct(CustomerService $customerService,
     CustomerVoucherService $customerVoucherService,
     VoucherService $voucherService,
     CategoryService $categoryService,
-    ProductService $productService,)
+    ProductService $productService,
+    ProductVariantService $productVariantService,
+    CartService $cartService    ,
+    )
     {
         $this->customerService = $customerService;
         $this->customerVoucherService = $customerVoucherService;
         $this->voucherService = $voucherService;
         $this->categoryService = $categoryService;
         $this->productService = $productService;
+        $this->productVariantService = $productVariantService;
+        $this->cartService = $cartService;
     }
     public function login()
     {
@@ -146,33 +154,92 @@ class FrontendController extends Controller
 
     public function getByParentCategory(Request $request)
     {
-        $parentCategory = (int)$request->route('parent_category');
-        if(!in_array($parentCategory,self::PARENT_CATEGORY))
+        $parentCategoryParam = $request->route('parent_category');
+        $parentCategories = config('param.parent_category_name');
+        $parentCatgoryId = 0;
+        foreach($parentCategories as $key => $parentCategory) {
+            if($parentCategory == $parentCategoryParam)
+            {
+                $parentCatgoryId = $key;
+                break;
+            }
+        }
+        if(!in_array($parentCatgoryId,self::PARENT_CATEGORY))
         {
             return redirect()->route('error-404');
         }
 
-        $categories = $this->categoryService->getByParentCategory($parentCategory);
-        $categoryIds = $this->categoryService->getIdsByParentCategory($parentCategory) ;
-        $products = $this->productService->getByCategories([0]);
-
+        $categories = $this->categoryService->getByParentCategory($parentCatgoryId);
+        $categoryIds = $this->categoryService->getIdsByParentCategory($parentCatgoryId) ;
+        $products = $this->productService->getByCategories($categoryIds);
         return view('user.product-by-parent-category',['categories' => $categories,
                                                         'products' => $products]);
     }
 
     public function getCart()
     {
-        return view('user.cart');
+        $customerId = Auth::user()->id;
+        $carts = $this->cartService->getByCustomer($customerId);
+        $total_amount = 0;
+        foreach($carts as $cart)
+        {
+            $productVariant = $this->productVariantService->getById($cart->product_variant_id);
+            $total_amount += $cart->quantity * priceDiscount($productVariant->product->price, $productVariant->product->discount);
+        }
+        return view('user.cart', ['carts'=> $carts,'total_amount' => $total_amount]);
+    }
+
+    public function handlePay(Request $request) {
+        $productVariantId = $request->input('productVariantId');
+        $quantity = $request->input('quantity');
+        session()->put('productVariantId', $productVariantId);  
+        session()->put('buyQuantity', $quantity);
+
+        return redirect()->route('user-pay');
     }
 
     public function getPay()
     {
-        return view('user.pay');
+        $productVariantId = session()->get('productVariantId');
+        $buyQuantity = session()->get('buyQuantity');
+        $productVariant = $this->productVariantService->getById($productVariantId);
+        if(is_null($productVariant) )
+        {
+            return redirect()->route('error-404');
+        }
+        return view('user.pay',['productVariant' => $productVariant, 'buyQuantity' => $buyQuantity]);
     }
 
-    public function getProductDetail()
+    public function getProductDetail($id)
     {
-        return view('user.product-detail');
+        $product = $this->productService->getById($id);
+        if(is_null($product))
+        {
+            return redirect()->route('error-404');
+        }
+        $imageProducts = $product->imageProducts;
+        $imageProducts->shift();
+        $colors = $this->productVariantService->getDistinctColorByProduct($id);
+        $sizes = $this->getSizes($id);
+        $configuredSizes = config('variant.size');
+        
+        return view('user.product-detail',['product' => $product,
+                                            'colors' => $colors,
+                                            'sizes' => $sizes,
+                                            'imageProducts' => $imageProducts,
+                                            'configuredSizes' => $configuredSizes                                                   
+                                        ]);
+    }
+
+    private function getSizes($productId)
+    {
+        $sizes = $this->productVariantService->getDistinctSizeByProduct($productId);
+        $configuredSizes = config('variant.size');
+        $configuredSizes = array_filter($configuredSizes, function($value, $key) use ($sizes) {
+            return in_array($key, $sizes);
+        },ARRAY_FILTER_USE_BOTH);
+
+        return $configuredSizes;
     }
 
     public function getOrderHistory()

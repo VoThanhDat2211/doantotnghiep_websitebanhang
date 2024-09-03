@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <title>Home | ROMAN-STORE</title>
     <link href="{{ asset('frontend/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/prettyPhoto.css') }}" rel="stylesheet">
@@ -29,9 +29,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://esgoo.net/scripts/jquery.js"></script>
+
+    <style>
+        #footer {
+            margin-top: 32px;
+        }
+    </style>
 </head><!--/head-->
 
 <body>
+    @include('toast')
     @php
         use Illuminate\Support\Facades\Auth;
     @endphp
@@ -126,7 +135,8 @@
                             <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="{{ route('home_page_user') }}">TRANG CHỦ</a></li>
                                 <li>
-                                    <a href="{{ route('products-by-parent-category', ['parent_category' => 1]) }}">THỜI
+                                    <a
+                                        href="{{ route('products-by-parent-category', ['parent_category' => 'men']) }}">THỜI
                                         TRANG NAM<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Products</a></li>
@@ -136,14 +146,16 @@
                                         <li><a href="login.html">Login</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{{ route('products-by-parent-category', ['parent_category' => 2]) }}">THỜI
+                                <li><a
+                                        href="{{ route('products-by-parent-category', ['parent_category' => 'women']) }}">THỜI
                                         TRANG NỮ<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
                                         <li><a href="blog-single.html">Blog Single</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{{ route('products-by-parent-category', ['parent_category' => 3]) }}">ĐỒ
+                                <li><a
+                                        href="{{ route('products-by-parent-category', ['parent_category' => 'sport']) }}">ĐỒ
                                         THỂ THAO<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
@@ -233,7 +245,7 @@
         <div class="footer-bottom">
             <div class="container">
                 <div class="row">
-                    <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
+                    <p class="pull-left">Copyright © 2013 ROMAN-Store Inc. All rights reserved.</p>
                     <p class="pull-right">Designed by <span><a target="_blank"
                                 href="http://www.themeum.com">Themeum</a></span></p>
                 </div>

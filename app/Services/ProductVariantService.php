@@ -57,6 +57,35 @@ class ProductVariantService
     {
         return $this->productVariantRepository->getByIdAndProduct($id,$productId);
     }
+    
+    public function getDistinctColorByProduct($productId)
+    {
+        return $this->productVariantRepository->getDistinctColorByProduct($productId);
+    }
 
+    public function getDistinctSizeByProduct($productId)
+    {
+        return $this->productVariantRepository->getDistinctSizeByProduct($productId);
+    }
+
+    public function getImageByColorAndProduct($color,$productId)
+    {
+        return $this->productVariantRepository->getImageByColorAndProduct($color,$productId);
+    }
+
+    public function getSizeByColorAndProduct($color,$productId)
+    {
+        return $this->productVariantRepository->getSizeByColorAndProduct($color,$productId);
+    }
+
+    public function getQuantityProductVariant($productId, $color, $size) 
+    {
+        return $this->productVariantRepository->getQuantityProductVariant($productId, $color, $size);
+    }
+
+    public function getRemainQuantityById($id)
+    {
+        return $this->productVariantRepository->getRemainQuantityById($id);
+    }
 
 }

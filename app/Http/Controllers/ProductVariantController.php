@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateProductVariantRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Requests\UpdateProductVariantRequest;
+use App\Services\ImageProductService;
 use App\Services\ProductService;
 use App\Services\ProductVariantService;
 use Illuminate\Http\Request;
@@ -16,12 +17,15 @@ class ProductVariantController extends Controller
 {
     protected $productVariantService;
     protected $productService;
+    protected $imageProductService;
     public function __construct(ProductVariantService $productVariantService,
-    ProductService $productService,        
+    ProductService $productService,
+    ImageProductService $imageProductService,
     )
     {
         $this->productVariantService = $productVariantService;
         $this->productService = $productService;
+        $this->imageProductService = $imageProductService;
     }
 
     public function index(Request $request)
@@ -73,7 +77,6 @@ class ProductVariantController extends Controller
         $data["size"] = Str::upper($request->input('size'));
         $data["sold_quantity"] = 0;
         $data["remain_quantity"] = $request->input('remain_quantity');
-        $data["price"] = $request->input('price');
         $data["image_path"] = $request->file('image');
 
         $productVariantExists = $this->productVariantService->getproductVariantExists($data["product_id"],$data["color"], $data["size"]);
@@ -93,6 +96,10 @@ class ProductVariantController extends Controller
 
         $resultCreate = $this->productVariantService->create($data);
         if ($resultCreate) {
+            $dataImage['image_path'] = $resultCreate->image_path;
+            $dataImage['product_id'] = $resultCreate->product->id;
+            $this->imageProductService->create($dataImage);
+
             $result = [
                 $message = "Thêm biến thể thành công",
                 $status = 'success',
@@ -137,7 +144,6 @@ class ProductVariantController extends Controller
         }
 
         $data["remain_quantity"] = $request->input('remain_quantity');
-        $data["price"] = $request->input('price');
         $image_path = $request->file('image');
 
         if (!is_null($image_path)) {

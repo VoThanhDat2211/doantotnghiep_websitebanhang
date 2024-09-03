@@ -56,6 +56,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="price" class="control-label col-lg-12">Giá <span
+                                            style="color: red">*</span></label>
+                                    <div class="col-lg-12">
+                                        <input class="form-control" id="price" name="price" type="number"
+                                            min="0" value="{{ $product->price }}">
+                                        @error('price')
+                                            <span class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="discount" class="control-label col-lg-12">Giảm giá(%)</label>
                                     <div class="col-lg-7">
                                         <input class="form-control" id="discount" name="discount" type="number"

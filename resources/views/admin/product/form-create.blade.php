@@ -72,6 +72,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="price" class="control-label col-lg-12">Giá tiền(VNĐ)</label>
+                                <div class="col-lg-7">
+                                    <input class="form-control" id="price" name="price" type="number" min="0"
+                                        max="100" value="{{ old('price') }}">
+                                    @error('price')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="discount" class="control-label col-lg-12">Giảm giá(%)</label>
                                 <div class="col-lg-7">
                                     <input class="form-control" id="discount" name="discount" type="number" min="0"

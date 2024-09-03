@@ -1,7 +1,18 @@
 @extends('user/layouts/layout')
 @section('content')
-    <script src="https://esgoo.net/scripts/jquery.js"></script>
     <link href="{{ asset('frontend/css/product-detail.css') }}" rel="stylesheet" />
+    <style>
+        .quantity-error {
+            display: none;
+            margin-top: 24px;
+        }
+
+        .product-information .color-active,
+        .product-information .size-active {
+            border: 1px solid #fcf0f0;
+            BACKGROUND: #fcf0f0;
+        }
+    </style>
     <section>
         <div class="container">
             <div class="row">
@@ -12,37 +23,21 @@
                                 <div id="similar-product" class="carousel slide" data-ride="carousel" data-interval="false">
 
                                     <!-- Wrapper for slides -->
-                                    <div class="carousel-inner">
-                                        <div class="item active">
-                                            <a href=""><img
-                                                    src="{{ asset('frontend/images/product-details/1.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="item">
-                                            <a href=""><img
-                                                    src="{{ asset('frontend/images/product-details/1.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="item">
-                                            <a href=""><img
-                                                    src="{{ asset('frontend/images/product-details/1.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="item">
-                                            <a href=""><img
-                                                    src="{{ asset('frontend/images/product-details/1.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="item">
-                                            <a href=""><img
-                                                    src="{{ asset('frontend/images/product-details/1.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="item">
-                                            <a href=""><img
-                                                    src="{{ asset('frontend/images/product-details/1.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
+                                    <div class="carousel-inner image-product">
+                                        @if (isset($imageProducts))
+                                            <div class="item active">
+                                                <a href=""><img
+                                                        src="{{ asset('/image/' . $product->imageProducts()->first()->image_path) }}"
+                                                        alt=""></a>
+                                            </div>
+                                            @foreach ($imageProducts as $imageProduct)
+                                                <div class="item">
+                                                    <a href=""><img
+                                                            src="{{ asset('/image/' . $imageProduct->image_path) }}"
+                                                            alt=""></a>
+                                                </div>
+                                            @endforeach
+                                        @endif
                                     </div>
 
                                     <!-- Controls -->
@@ -57,32 +52,21 @@
                             <div id="similar-product" class="carousel slide" data-ride="carousel">
 
                                 <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
+                                <div class="carousel-inner ">
                                     <div class="item active">
-                                        <a href=""><img
-                                                src="{{ asset('frontend/images/product-details/similar1.jpg') }}"
-                                                alt=""></a>
-                                        <a href=""><img
-                                                src="{{ asset('frontend/images/product-details/similar1.jpg') }}"
-                                                alt=""></a>
-                                        <a href=""><img
-                                                src="{{ asset('frontend/images/product-details/similar1.jpg') }}"
-                                                alt=""></a>
-                                        <a href=""><img
-                                                src="{{ asset('frontend/images/product-details/similar1.jpg') }}"
-                                                alt=""></a>
-                                        <a href=""><img
-                                                src="{{ asset('frontend/images/product-details/similar1.jpg') }}"
-                                                alt=""></a>
-                                        <a href=""><img
-                                                src="{{ asset('frontend/images/product-details/similar1.jpg') }}"
-                                                alt=""></a>
-                                        <a href=""><img
-                                                src="{{ asset('frontend/images/product-details/similar1.jpg') }}"
-                                                alt=""></a>
-                                        <a href=""><img
-                                                src="{{ asset('frontend/images/product-details/similar1.jpg') }}"
-                                                alt=""></a>
+                                        <div class="item active">
+                                            @if (isset($imageProducts))
+                                                <a href=""><img style="width: 85px;height:85px; margin-bottom: 12px"
+                                                        src="{{ asset('/image/' . $product->imageProducts()->first()->image_path) }}"
+                                                        alt=""></a>
+                                                @foreach ($imageProducts as $imageProduct)
+                                                    <a href=""><img
+                                                            style="width: 85px;height:85px; margin-bottom: 12px"
+                                                            src="{{ asset('/image/' . $imageProduct->image_path) }}"
+                                                            alt=""></a>
+                                                @endforeach
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
 
@@ -91,51 +75,56 @@
                         </div>
                         <div class="col-sm-7">
                             <div class="row">
-                                <form id="product-information">
+                                <form id="product-information" action="" method="POST">
+                                    @csrf
+                                    <input id="product-variant-id" type="hidden" name="productVariantId" value="">
                                     <div class="product-information"><!--/product-information-->
                                         <img src="images/product-details/new.jpg" class="newarrival" alt="" />
-                                        <h2>ÁO THUN ADLV BASIC FORM RỘNG UNISEX VẢI 100% COTTON HAI CHIỀU CAO CẤP - BAPE
-                                            PHẾCH
-                                        </h2>
+                                        <h2>{{ $product->name }}</h2>
                                         <div class="price">
-                                            <span class="price-origin">₫500.000</span>
-                                            <span class="price-sale mx-2">₫429.000</span>
+                                            <span class="price-origin">₫{{ priceFormat($product->price) }}</span>
+                                            <span
+                                                class="price-sale mx-2">₫{{ priceFormat(priceDiscount($product->price, $product->discount)) }}</span>
                                         </div>
                                         <p style="font-size: 20px; margin-top: 12px;">
-                                            <span>Đã bán: <strong>100</strong></span> | <span>Còn lại:
-                                                <strong>200</strong></span>
+                                            <span class="sold-quantity" data-soldQuantity="{{ $product->sold_quantity }}">Đã
+                                                bán:
+                                                <strong>{{ $product->sold_quantity }}</strong></span> | <span
+                                                class="remain-quantity"
+                                                data-remain_quantity="{{ $product->remain_quantity }}">Còn
+                                                lại:
+                                                <strong>{{ $product->remain_quantity }}</strong></span>
                                         </p>
                                         <div class="row color">
                                             <div class="col-sm-3 title">Màu</div>
                                             <div class="col-sm-9">
+                                                @if (isset($colors))
+                                                    <div class="row">
+                                                        @foreach ($colors as $color)
+                                                            <div class="col-sm-2 color-item"
+                                                                data-product-id="{{ $product->id }}"
+                                                                data-color="{{ $color }}">{{ $color }}
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
                                                 <div class="row">
-                                                    <div class="col-sm-2 color-item">ĐEN</div>
-                                                    <div class="col-sm-2 color-item">ĐỎ</div>
-                                                    <div class="col-sm-2 color-item">VÀNG</div>
-                                                    <div class="col-sm-2 color-item">XANH</div>
-                                                    <div class="col-sm-2 color-item">XANH</div>
-                                                    <div class="col-sm-2 color-item">XANH</div>
-                                                    <div class="col-sm-2 color-item">XANH</div>
-                                                </div>
-                                                <div class="row">
-                                                    <span class="error">Vui lòng chọn màu sắc!</span>
+                                                    <span class="error color-error">Vui lòng chọn màu sắc!</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row size">
                                             <div class="col-sm-3 title">Size</div>
                                             <div class="col-sm-9">
+                                                @if (isset($sizes))
+                                                    <div class="row list-size">
+                                                        @foreach ($sizes as $size)
+                                                            <div class="col-sm-2 size-item">{{ $size }}</div>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
                                                 <div class="row">
-                                                    <div class="col-sm-2 size-item">ĐEN</div>
-                                                    <div class="col-sm-2 size-item">ĐỎ</div>
-                                                    <div class="col-sm-2 size-item">VÀNG</div>
-                                                    <div class="col-sm-2 size-item">XANH</div>
-                                                    <div class="col-sm-2 size-item">XANH</div>
-                                                    <div class="col-sm-2 size-item">XANH</div>
-                                                    <div class="col-sm-2 size-item">XANH</div>
-                                                </div>
-                                                <div class="row">
-                                                    <span class="error">Vui lòng chọn size!</span>
+                                                    <span class="error size-error">Vui lòng chọn size!</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,26 +133,27 @@
                                             <div class="col-sm-9">
                                                 <div class="row">
                                                     <div class="cart_quantity_button">
-                                                        <a class="cart_quantity_up" href=""> + </a>
+                                                        <a class="cart_quantity_down" href=""> - </a>
                                                         <input class="cart_quantity_input" type="text" name="quantity"
                                                             value="1" autocomplete="off" size="2">
-                                                        <a class="cart_quantity_down" href=""> - </a>
+                                                        <a class="cart_quantity_up" href=""> + </a>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <span class="error quantity-error">Số lượng không có sẵn!</span>
+                                                    <span class="error quantity-error">Vui lòng chọn phân loại sản
+                                                        phẩm!</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <button type="button" class="btn btn-fefault btn-cart">
+                                                <button id="addToCartBtn" type="button" class="btn btn-fefault btn-cart">
                                                     <i class="fa fa-shopping-cart"></i>
                                                     THÊM VÀO GIỎ HÀNG
                                                 </button>
                                             </div>
                                             <div class="col-sm-4">
-                                                <button type="button" class="btn btn-default btn-buy">
+                                                <button id="checkoutBtn" type="button" class="btn btn-default btn-buy">
                                                     MUA NGAY
                                                 </button>
                                             </div>
@@ -249,6 +239,8 @@
     </section>
     <script>
         $(document).ready(function() {
+            var productVariantId = null;
+
             $('.cart_quantity_input').on('keypress', function(e) {
                 let charCode = e.which;
                 if (charCode < 48 || charCode > 57) {
@@ -262,8 +254,13 @@
 
             $('.cart_quantity_up').on('click', function(e) {
                 e.preventDefault();
-                let inputValue = $('.cart_quantity_input').val();
-                $('.cart_quantity_input').val(++inputValue);
+                let inputValue = parseInt($('.cart_quantity_input').val());
+                let remainQuantity = $('.remain-quantity').data()['remain_quantity'];
+                if (inputValue === remainQuantity) {
+                    $('.cart_quantity_input').val(inputValue)
+                } else {
+                    $('.cart_quantity_input').val(++inputValue);
+                }
             })
 
             $('.cart_quantity_down').on('click', function(e) {
@@ -273,16 +270,126 @@
                 $('.cart_quantity_input').val(inputValue);
             })
 
+            // hàm xử lý khi nhập số lượng
             $('.cart_quantity_input').on('blur', function() {
                 let inputValue = parseInt($('.cart_quantity_input').val());
+                let remainQuantity = $('.remain-quantity').data()['remain_quantity'];
                 if (Number.isNaN(inputValue)) {
                     $('.cart_quantity_input').val(1);
                 }
 
-                if (inputValue > 100) {
+                if (inputValue > remainQuantity) {
+                    $('.cart_quantity_input').val(remainQuantity)
+                }
+            });
+            // Lấy dữ liệu khi chọn màu
+            let colorItem = null;
+            $('.color-item').on('click', function(e) {
+                colorItem = $(this);
+                $('.color-item').removeClass('color-active');
+                $(this).addClass('color-active');
+
+                let productId = $(this).data('product-id');
+                let color = $(this).data('color');
+
+                getImageAndSize(productId, color);
+            });
+
+            $('.list-size').on('click', '.size-item', function(e) {
+                if (colorItem !== null) {
+                    $('.size-item').removeClass('size-active');
+                    $(this).addClass('size-active');
+
+                    let productId = colorItem.data('product-id');
+                    let color = colorItem.data('color');
+                    let size = $(this).data('size');
+                    getQuantity(productId, color, size);
+                }
+            });
+
+
+            // hàm thay đổi image & size
+            async function getImageAndSize(productId, color) {
+                productVariantId = null;
+                let url = "{{ route('get-image-and-size') }}";
+                try {
+                    let response = await axios.get(url, {
+                        params: {
+                            productId: productId,
+                            color: color
+                        }
+                    });
+
+                    let imageUrl = response.data.image;
+                    let imageNewContent = `
+                            <div class="item active">
+                                <a href=""><img src="{{ asset('/image/${imageUrl}') }}" alt="""></a>
+                            </div>
+                        `;
+                    let sizes = response.data.sizes;
+                    let sizeNewContent = '';
+                    let configuredSizes = @json($configuredSizes);
+                    $.each(sizes, function(index, value) {
+                        sizeNewContent += `
+                                <div class="col-sm-2 size-item" data-size="${value}">${configuredSizes[value]}</div>
+                        `;
+                    });
+                    $('.carousel-inner.image-product').html(imageNewContent);
+                    $('.list-size').html(sizeNewContent);
+
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
+            // hàm xử lý lấy số lượng 
+            async function getQuantity(productId, color, size) {
+                let url = "{{ route('get-quantity') }}";
+                try {
+                    let response = await axios.get(url, {
+                        params: {
+                            productId: productId,
+                            color: color,
+                            size: size
+                        }
+                    });
+                    let productVariant = response.data.productVariant
+                    let remainQuantity = productVariant['remain_quantity'];
+                    let soldQuantity = productVariant['sold_quantity'];
+                    productVariantId = productVariant['id'];
+                    let newSoldQuantityHtml = `Đã bán: <strong>${soldQuantity}</strong></span>`;
+                    let newRemainQuantityHtml = `Còn lại: <strong>${remainQuantity}</strong>`;
+                    $('.sold-quantity').html(newSoldQuantityHtml);
+                    $('.remain-quantity').html(newRemainQuantityHtml);
+                    $('.remain-quantity').data('remain_quantity', remainQuantity);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
+            // hàm xử lý khi submit form
+            $('#addToCartBtn').on('click', function() {
+                if (productVariantId === null) {
                     $('.quantity-error').show();
                 } else {
                     $('.quantity-error').hide();
+                    let addToCartUrl = "{{ route('user-add-to-cart') }}";
+                    console.log(addToCartUrl);
+                    $('#product-information').attr('action', addToCartUrl);
+                    $('#product-variant-id').val(productVariantId);
+                    $('#product-information').submit();
+                }
+
+            });
+
+            $('#checkoutBtn').on('click', function() {
+                if (productVariantId === null) {
+                    $('.quantity-error').show();
+                } else {
+                    let handleCheckoutUrl = "{{ route('user-handle-pay') }}";
+                    $('#product-information').attr('action', handleCheckoutUrl);
+                    $('#product-variant-id').val(productVariantId);
+                    $('#product-information').submit();
                 }
             });
         });

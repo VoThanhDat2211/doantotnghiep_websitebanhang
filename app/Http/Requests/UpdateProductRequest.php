@@ -25,6 +25,8 @@ class UpdateProductRequest extends FormRequest
             "name" => "bail|required|max:255",
             "category_id" => "bail|required|max:255",
             "discount" => "bail|numeric|min:0|max:99.99",
+            "price" => "bail|required|integer|min:0|max:4294967295",
+            
         ];
     }
 
@@ -38,6 +40,10 @@ class UpdateProductRequest extends FormRequest
             "discount.numeric" => "Dữ liệu phải ở dạng số",
             "discount.min" => "Dữ liệu không hợp lệ!",
             "discount.max" => "Dữ liệu không hợp lệ!",
+            "price.required" => "Giá không được để trống !",
+            "price.integer" => "Dữ liệu không hợp lệ !",
+            "price.max" => "Dữ liệu không hợp lệ !",
+            "price.min" => "Dữ liệu không hợp lệ !",
         ];
     }
 }

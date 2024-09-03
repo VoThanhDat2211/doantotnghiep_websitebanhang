@@ -43,6 +43,7 @@
                                 <th class="text-center">Danh mục</th>
                                 <th class="text-center">Số lượng đã bán</th>
                                 <th class="text-center">Số lượng còn lại</th>
+                                <th class="text-center">Giá(đ)</th>
                                 <th class="text-center">Giảm giá(%)</th>
                                 <th class="text-center" style="">Tùy Chọn</th>
                             </tr>
@@ -56,6 +57,8 @@
                                     <td><span class="text-ellipsis">{{ $product->category->name }}</span></td>
                                     <td><span class="text-ellipsis">{{ $product->sold_quantity }}</span></td>
                                     <td><span class="text-ellipsis">{{ $product->remain_quantity }}</span></td>
+                                    <td><span class="text-ellipsis">{{ number_format($product->price, 0, ',', '.') }}</span>
+                                    </td>
                                     <td><span class="text-ellipsis">{{ $product->discount }}</span></td>
                                     <td>
                                         <a title="Sửa sản phẩm"

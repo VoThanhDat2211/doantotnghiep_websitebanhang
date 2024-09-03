@@ -18,17 +18,17 @@ class OrderRepository
 
     public function getById($id)
     {
-        return $this->order->whereNull('deleted_at')->find($id);
+        return $this->order->find($id);
     }
 
     public function getByIdWithOrderLine($id)
     {
-        return $this->order->with('orderLines')->whereNull('deleted_at')->find($id);
+        return $this->order->with('orderLines')->find($id);
     }
     public function getAllPaginate()
     {
         return $this->order->with('orderLines')
-            ->whereNull('deleted_at')
+            
             ->orderBy("created_at", "desc")
             ->paginate(30);
     }

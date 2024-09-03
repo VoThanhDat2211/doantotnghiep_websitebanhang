@@ -29,37 +29,37 @@ class ProductRepository
 
     public function getProducts()
     {
-        return $this->product->whereNull('deleted_at')->paginate(30);
+        return $this->product->paginate(30);
     }
 
     public function getProductsWithProductVariants()
     {
-        return $this->product->with('productVariants')->whereNull('deleted_at')->get();
+        return $this->product->with('productVariants')->get();
     }
 
     public function getByIdWithImage($id)
     {
-        return $this->product->with('imageProducts')->whereNull('deleted_at')->find($id);
+        return $this->product->with('imageProducts')->find($id);
     }
 
 
     public function existsProductName($productName)
     {
-        return $this->product->where('name',$productName)->whereNull('deleted_at')->exists();
+        return $this->product->where('name',$productName)->exists();
     }
 
     public function getById($id)
     {
-        return  $this->product->whereNull('deleted_at')->find($id);
+        return  $this->product->find($id);
     }
 
     public function getByIdWithProductVariants($id)
     {
-        return $this->product->with('productVariants')->whereNull('deleted_at')->find($id);
+        return $this->product->with('productVariants')->find($id);
     }
 
     public function getByCategories(array $categoryIds)
     {
-        return  Product::whereIn('category_id', $categoryIds)->whereNull('deleted_at')->paginate(9);
+        return  Product::whereIn('category_id', $categoryIds)->paginate(16);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CartApiController;
+use App\Http\Controllers\ProductVariantApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/get-image-and-size', [ProductVariantApiController::class, 'getImageAndSize'])->name('get-image-and-size');
+Route::get('/get-quantity', [ProductVariantApiController::class, 'getQuantity'])->name('get-quantity');
+Route::get('/get-remain-quantity', [ProductVariantApiController::class, 'getRemainQuantity'])->name('get-remain-quantity');
+Route::get('/get-new-value', [CartApiController::class, 'getNewValue'])->name('get-new-value');

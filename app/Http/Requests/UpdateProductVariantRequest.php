@@ -22,19 +22,15 @@ class UpdateProductVariantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "price" => "bail|required|integer|min:0|max:4294967295",
             "remain_quantity" => "bail|required|integer|min:0|max:4294967295",
-            "image" => "bail|mimes:jpg,png,jpeg|max:5048"
+            "image" => "bail|mimes:jpg,png,jpeg|max:5048",
+
         ];
     }
 
     public function messages(): array
     {
         return [ 
-            "price.required" => "Giá không được để trống !",
-            "price.integer" => "Dữ liệu không hợp lệ !",
-            "price.max" => "Dữ liệu không hợp lệ !",
-            "price.min" => "Dữ liệu không hợp lệ !",
             "remain_quantity.required" => "Số lượng nhập không được để trống !",
             "remain_quantity.integer" => "Dữ liệu phải ở dạng số !",
             "remain_quantity.min" => "Dữ liệu không hợp lệ !",

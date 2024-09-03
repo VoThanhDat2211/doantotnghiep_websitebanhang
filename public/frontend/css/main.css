@@ -356,6 +356,7 @@ ul.sub-menu {
 
 #footer {
   background: #F0F0E9;
+  margin-top: 32px;
 }
 
 
@@ -865,7 +866,6 @@ h2.title {
   border: 1px solid #e5e5e5;
   overflow: hidden;
   margin-bottom: 30px;
-  border-radius: 12px;
 }
 
 .single-products {
@@ -882,8 +882,7 @@ h2.title {
   color: #f89f53;
   font-size: 16px;
   margin-top: 0px;
-  padding-left: 20px;
-
+  padding-left: 12px;
 }
 
 .product-overlay h2 {
@@ -897,11 +896,14 @@ h2.title {
 
 .productinfo p {
   font-family: 'Roboto', sans-serif;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   color: #575050;
   margin-top: 22px;
-  padding-left: 20px;
+  padding-left: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .productinfo img {

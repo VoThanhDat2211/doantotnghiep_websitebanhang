@@ -15,7 +15,7 @@ class CustomerRepository
 
     public function getAll()
     {
-        return $this->customer->whereNull('deleted_at')->paginate(30);
+        return $this->customer->paginate(30);
     }
 
     public function create(array $data)
@@ -25,12 +25,12 @@ class CustomerRepository
 
     public function getByUserName($username)
     {
-        return $this->customer->where('username',$username)->whereNull('deleted_at')->first();
+        return $this->customer->where('username',$username)->first();
     }
 
     public function getByEmail($email)
     {
-        return $this->customer->where('email',$email)->whereNull('deleted_at')->first();
+        return $this->customer->where('email',$email)->first();
     }
     
     public function getTopCustomersByOrderCount($limit)
