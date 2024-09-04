@@ -2511,3 +2511,19 @@ h2.title {
   font-size: 16px !important;
   color: #696763 !important;
 }
+
+.swal2-popup {
+  width: 500px;
+}
+
+div:where(.swal2-container) .swal2-html-container {
+  font-size: 20px;
+}
+
+.swal2-actions {
+  font-size: 14px;
+}
+
+button.swal2-confirm.swal2-styled {
+  padding: 8px 70px;
+}

@@ -239,7 +239,7 @@
     </section>
     <script>
         $(document).ready(function() {
-            var productVariantId = null;
+            let productVariantId = null;
 
             $('.cart_quantity_input').on('keypress', function(e) {
                 let charCode = e.which;

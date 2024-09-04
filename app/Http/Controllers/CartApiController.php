@@ -24,6 +24,12 @@ class CartApiController extends Controller
         if(!is_null($cart))
         {
             $productVariant = $cart->productVariant;
+            if((int) $quantity > $cart->productVariant->remain_quantity){
+                $quantity = $cart->productVariant->remain_quantity;
+            }
+            if((int) $quantity < 1)
+            {
+                $quantity = 1;            }
             $data['quantity'] = $quantity;
             $data['total_amount'] = $quantity * priceDiscount($productVariant->product->price, $productVariant->product->discount);
             $this->cartService->update($data,$cart);

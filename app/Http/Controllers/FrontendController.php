@@ -210,6 +210,12 @@ class FrontendController extends Controller
         return view('user.pay',['productVariant' => $productVariant, 'buyQuantity' => $buyQuantity]);
     }
 
+    public function getPayByCart()
+    {
+        $carts = session()->get('carts');
+        return view('user.pay-by-cart',['carts' => $carts]);
+    }
+
     public function getProductDetail($id)
     {
         $product = $this->productService->getById($id);

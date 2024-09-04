@@ -35,4 +35,9 @@ class CartRepository
         return $this->cart->find($id);
     }
 
+    public function getByIds(array $cartIds)
+    {
+        return $this->cart->whereIn('id',$cartIds)->get();
+    }
+
 }

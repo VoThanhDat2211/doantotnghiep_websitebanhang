@@ -64,6 +64,27 @@
         .cart_quantity_input {
             border: 2px solid #ccc;
         }
+
+        #checkoutLink {
+            text-decoration: none;
+        }
+
+
+        .swal2-popup {
+            width: 500px;
+        }
+
+        div:where(.swal2-container) .swal2-html-container {
+            font-size: 20px;
+        }
+
+        .swal2-actions {
+            font-size: 14px;
+        }
+
+        button.swal2-confirm.swal2-styled {
+            padding: 8px 70px;
+        }
     </style>
     <section id="cart_items">
         <div class="container">
@@ -89,23 +110,24 @@
                     <tbody>
                         @if (isset($carts))
                             @foreach ($carts as $cart)
-                                @php
-                                    $productVariant = ProductVariant::find($cart->product_variant_id);
-                                @endphp
                                 <tr>
-                                    <td><input type="checkbox" name="select_product[]" value="" /></td>
+                                    <td><input class="select-cart" type="checkbox" name="select_cart[]"
+                                            value="{{ $cart->id }}" />
+                                    </td>
                                     <td class="cart_product">
                                         <a href="">
                                             <img style="width: 80px; height: 80px;"
-                                                src="{{ asset('/image/' . $productVariant->image_path) }}" alt="">
+                                                src="{{ asset('/image/' . $cart->productVariant->image_path) }}"
+                                                alt="">
                                         </a>
                                     </td>
                                     <td class="cart_description">
-                                        <h4><a href="">{{ $productVariant->product->name }}</a></h4>
-                                        <p>{{ $productVariant->color . ', ' . renderSize($productVariant->size) }}</p>
+                                        <h4><a href="">{{ $cart->productVariant->product->name }}</a></h4>
+                                        <p>{{ $cart->productVariant->color . ', ' . renderSize($cart->productVariant->size) }}
+                                        </p>
                                     </td>
                                     <td class="cart_price">
-                                        <p>{{ priceFormat(priceDiscount($productVariant->product->price, $productVariant->product->discount)) }}
+                                        <p>{{ priceFormat(priceDiscount($cart->productVariant->product->price, $cart->productVariant->product->discount)) }}
                                         </p>
                                     </td>
                                     <td class="cart_quantity">
@@ -124,8 +146,9 @@
                                         </div>
                                     </td>
                                     <td class="cart_total">
-                                        <p class="cart_total_price_{{ $cart->id }}">
-                                            {{ priceFormat(priceDiscount($productVariant->product->price, $productVariant->product->discount) * $cart->quantity) }}
+                                        <p class="cart_total_price_{{ $cart->id }}"
+                                            data-total_amount="{{ priceDiscount($cart->productVariant->product->price, $cart->productVariant->product->discount) * $cart->quantity }}">
+                                            {{ priceFormat(priceDiscount($cart->productVariant->product->price, $cart->productVariant->product->discount) * $cart->quantity) }}
                                         </p>
                                     </td>
                                     <td class="cart_delete">
@@ -150,22 +173,22 @@
                                 <li
                                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                                     TỔNG ĐƠN HÀNG |
-                                    <span><strong>{{ $carts->count() }}</strong></span> SẢN PHẨM
+                                    <span class="quantity-product"><strong>{{ 0 }}</strong></span> LOẠI SẢN
+                                    PHẨM
                                 </li>
                                 <li
                                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                     <div>
                                         <strong>TỔNG TIỀN ĐƠN ĐẶT HÀNG</strong>
                                     </div>
-                                    <span style="color: #f32f2f" id="total"><strong>{{ priceFormat($total_amount) }}
+                                    <span style="color: #f32f2f" id="total"><strong>{{ 0 }}
                                             VND</strong></span>
                                 </li>
                             </ul>
 
                             <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                class="btn btn-primary btn-lg btn-block">
-                                <a style="color: #fff" href="{{ route('user-pay') }}"> THANH TOÁN</a>
-
+                                class="btn btn-primary btn-lg btn-block" id="checkoutBtn">
+                                <a style="color: #fff" href="{{ route('user-pay') }}" id="checkoutLink"> THANH TOÁN</a>
                             </button>
                         </div>
                     </div>
@@ -207,6 +230,8 @@
                 let inputValue = parseInt($("#cart_quantity_input_" + id).val());
                 inputValue = (inputValue > 1) ? (--inputValue) : inputValue;
                 $("#cart_quantity_input_" + id).val(inputValue);
+
+                getNewValue(id, inputValue);
             })
 
             $('.cart_quantity_input').on('blur', async function(e) {
@@ -222,6 +247,7 @@
                     $("#cart_quantity_input_" + id).val(remainQuantity);
                 }
 
+                getNewValue(id, inputValue);
 
             });
 
@@ -252,11 +278,20 @@
                     let quantityNew = response.data.quantity;
                     let total_amount = response.data.total_amount;
                     let total = response.data.total;
-                    console.log(total_amount);
                     $("#cart_quantity_input_" + cartId).val(quantityNew);
                     $(`.cart_total_price_${cartId}`).html(formatNumber(total_amount));
-                    $('#total').html(`<strong>${formatNumber(total)}
+                    $(`.cart_total_price_${cartId}`).data('total_amount', total_amount);
+
+                    if (selectCart.length > 0) {
+                        totalChange = 0;
+                        selectCart.forEach(element => {
+                            totalChange += $(`.cart_total_price_${element}`).data('total_amount');
+                        });
+                        $('#total').html(`<strong>${formatNumber(totalChange)}
                                             VND</strong>`);
+                    } else {
+
+                    }
 
                 } catch (error) {
                     console.log(error);
@@ -267,6 +302,44 @@
                 let roundedNumber = Math.round(number);
                 return roundedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             }
+
+            // xử lý khi chọn ô checkbox
+            let selectCart = [];
+            let totalChange = 0;
+            $('.select-cart').change(function() {
+                const value = $(this).val();
+                let count = 0;
+                if ($(this).is(':checked')) {
+                    selectCart.push(value);
+                    totalChange += $(`.cart_total_price_${value}`).data('total_amount');
+                    console.log(totalChange);
+                } else {
+                    selectCart = selectCart.filter(item => item !== value);
+                    totalChange -= $(`.cart_total_price_${value}`).data('total_amount');
+                }
+                count = selectCart.length;
+                $('#total').html(`<strong>${formatNumber(totalChange)}
+                    VND</strong>`);
+                $('.quantity-product').html(`<strong>${count}</strong>`);
+            });
+
+            // xử lý khi bấm nút thanh toán 
+            $('#checkoutBtn').on('click', function(event) {
+                const checkoutUrl =
+                    "{{ route('handle-checkout-by-cart', ['cartIds' => '__CART_IDS__']) }}";
+                event.preventDefault();
+                console.log(selectCart.length);
+                if (selectCart.length > 0) {
+                    const url = checkoutUrl.replace('__CART_IDS__', selectCart);
+                    window.location.href = url;
+                } else {
+                    Swal.fire({
+                        text: 'Bạn chưa chọn sản phẩm nào!',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
         });
     </script>
 @endsection

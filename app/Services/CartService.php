@@ -43,4 +43,9 @@ class CartService
     {
         return $this->cartRepository->getById($id);
     }
+
+    public function getByIds(array $cartIds) 
+    {
+        return $this->cartRepository->getByIds($cartIds);
+    }
 }

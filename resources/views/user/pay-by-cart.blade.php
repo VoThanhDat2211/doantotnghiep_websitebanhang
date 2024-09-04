@@ -30,37 +30,42 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (isset($productVariant))
-                            <tr>
-                                <td class="cart_product">
-                                    <a href=""><img style="width: 80px; height: 80px;"
-                                            src="{{ asset('/image/' . $productVariant->image_path) }}" alt=""></a>
-                                </td>
-                                <td class="cart_description">
-                                    <h4><a href="">{{ $productVariant->product->name }}</a></h4>
-                                    <p>{{ $productVariant->color . ', ' . renderSize($productVariant->size) }}</p>
-                                </td>
-                                <td class="cart_price">
-                                    <p>{{ priceFormat(priceDiscount($productVariant->product->price, $productVariant->product->discount)) }}đ
-                                    </p>
-                                </td>
-                                <td class="cart_quantity">
-                                    <div class="cart_quantity_button">
-                                        {{ $buyQuantity }}
-                                    </div>
-                                </td>
-                                <td class="cart_total">
-                                    <p class="cart_total_price">
-                                        {{ priceFormat(priceDiscount($productVariant->product->price, $productVariant->product->discount) * $buyQuantity) }}
-                                    </p>
-                                </td>
-                            </tr>
+                        @if (isset($carts))
+                            @foreach ($carts as $cart)
+                                <tr>
+                                    <td class="cart_product">
+                                        <a href=""><img style="width: 80px; height: 80px;"
+                                                src="{{ asset('/image/' . $cart->productVariant->image_path) }}"
+                                                alt=""></a>
+                                    </td>
+                                    <td class="cart_description">
+                                        <h4><a href="">{{ $cart->productVariant->product->name }}</a></h4>
+                                        <p>{{ $cart->productVariant->color . ', ' . renderSize($cart->productVariant->size) }}
+                                        </p>
+                                    </td>
+                                    <td class="cart_price">
+                                        <p>{{ priceFormat(priceDiscount($cart->productVariant->product->price, $cart->productVariant->product->discount)) }}đ
+                                        </p>
+                                    </td>
+                                    <td class="cart_quantity">
+                                        <div class="cart_quantity_button">
+                                            {{ $cart->quantity }}
+                                        </div>
+                                    </td>
+                                    <td class="cart_total">
+                                        <p class="cart_total_price">
+                                            {{ priceFormat(priceDiscount($cart->productVariant->product->price, $cart->productVariant->product->discount) * $cart->quantity) }}
+                                        </p>
+                                    </td>
+                                </tr>
+                            @endforeach
                         @endif
                     </tbody>
                 </table>
             </div>
 
-            <form>
+            <form action="{{ route('create-pay-by-cart') }}" method="POST">
+                @csrf
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Họ và tên</label>
