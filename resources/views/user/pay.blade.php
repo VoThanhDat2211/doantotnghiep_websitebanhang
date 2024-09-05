@@ -60,17 +60,24 @@
                 </table>
             </div>
 
-            <form>
+            <form action="{{ route('create-pay-by-cart') }}" method="POST">
+                @csrf
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Họ và tên</label>
                         <input type="text" class="form-control" id="inputEmail4" name="customer_name"
-                            placeholder="Họ và tên" required>
+                            value="{{ old('customer_name') }}" placeholder="Họ và tên" required>
+                        @error('customer_name')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputPassword4">Số điện thoại</label>
                         <input type="text" class="form-control" id="inputPassword4" name="customer_phone"
-                            placeholder="Số điện thoại" required>
+                            value="{{ old('customer_phone') }}" placeholder="Số điện thoại" required>
+                        @error('customer_phone')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
                 <label for="inputPassword4">Địa chỉ nhận hàng</label>
@@ -80,22 +87,34 @@
                             class="form-control" required>
                             <option value="0">Tỉnh Thành</option>
                         </select>
+                        @error('province')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group col-md-4">
                         <select class="css_select" id="district" name="district" title="--Chọn Quận Huyện--"
                             class="form-control" required>
                             <option value="0">--Quận Huyện--</option>
                         </select>
+                        @error('district')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group col-md-4">
                         <select class="css_select" id="ward" name="ward" title="--Chọn Phường Xã-- "
                             class="form-control" required>
                             <option value="0">--Phường Xã--</option>
                         </select>
+                        @error('ward')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group col-md-6">
                         <input type="text" class="form-control" id="inputEmail4" name="address_detail"
-                            placeholder="Địa chỉ cụ thể" required>
+                            placeholder="Địa chỉ cụ thể" required value="{{ old('address_detail') }}">
+                        @error('address_detail')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="row">
@@ -105,12 +124,20 @@
                             <option value="1">Thanh Toán Khi Nhận Hàng</option>
                             <option value="2">Thanh Toán Trực Tuyến</option>
                         </select>
+                        @error('payments')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group col-md-3">
                         <label for="inputZip">Mã giảm giá</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Nhập mã giảm giá" name="voucher">
-                            <button class="btn  select-voucher" type="submit"><i class="fa-solid fa-ticket"></i></button>
+                            <input type="text" class="form-control" placeholder="Nhập mã giảm giá" name="voucher"
+                                value="{{ old('voucher') }}">
+                            <button class="btn  select-voucher" type="submit"><i
+                                    class="fa-solid fa-ticket"></i></button>
+                            @error('voucher')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 </div>

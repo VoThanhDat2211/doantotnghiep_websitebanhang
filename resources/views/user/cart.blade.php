@@ -115,7 +115,7 @@
                                             value="{{ $cart->id }}" />
                                     </td>
                                     <td class="cart_product">
-                                        <a href="">
+                                        <a href="{{ route('product-detail', ['id' => $cart->productVariant->product->id]) }}">
                                             <img style="width: 80px; height: 80px;"
                                                 src="{{ asset('/image/' . $cart->productVariant->image_path) }}"
                                                 alt="">

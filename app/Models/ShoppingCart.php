@@ -13,7 +13,8 @@ class ShoppingCart extends Model
         "customer_id",
         "product_variant_id",
         "quantity",
-        "total_amount"
+        "total_amount",
+        "price"
     ];
 
     public function productVariant()

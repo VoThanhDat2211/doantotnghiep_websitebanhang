@@ -28,6 +28,7 @@ class CartController extends Controller
         if (is_null($productVariant)) {
             return redirect()->route('error-404');
         }
+        $data['price'] = priceDiscount($productVariant->product->price, $productVariant->product->discount);
         $cartExists = $this->cartService->getByProductVariantAndCustomer($data['product_variant_id'],$data['customer_id']);
         if(!is_null($cartExists)){
             $dataUpdate['quantity'] = $data['quantity'] + $cartExists->quantity;
@@ -37,7 +38,7 @@ class CartController extends Controller
                 $message = "Giỏ hàng đã vượt quá số lượng",
                 $status = 'error',
                 ];
-                return redirect()->back()->with('result',$result);;
+                return redirect()->back()->with('result',$result);
             }
             $dataUpdate['total_amount'] = priceDiscount($productVariant->product->price, $productVariant->product->discount) * $dataUpdate['quantity'];
             $updateCart = $this->cartService->update($dataUpdate,$cartExists);

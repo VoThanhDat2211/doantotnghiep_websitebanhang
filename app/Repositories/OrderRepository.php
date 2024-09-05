@@ -11,6 +11,11 @@ class OrderRepository
         $this->order = $order;
     }
 
+    public function create(array $data)
+    {
+        return $this->order->create($data);
+    }
+
     public function update($order,$status)
     {
         return $order->update(['status' => $status]);

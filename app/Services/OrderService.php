@@ -14,6 +14,11 @@ class OrderService
         $this->orderRepository = $orderRepository;
     }
 
+    public function create(array $data)
+    {
+        return $this->orderRepository->create($data);
+    }
+
     public function update($order, $status)
     {
         if($order->status == self::ORDER_STATUS_PEDDING)

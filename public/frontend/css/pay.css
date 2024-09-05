@@ -60,3 +60,9 @@ input.form-control {
 .cart_quantity {
     font-size: 18px !important;
 }
+
+.error {
+    display: inline-block;
+    margin-top: 6px;
+    color: red;
+}
