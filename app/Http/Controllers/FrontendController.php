@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginFormRequest;
 use App\Http\Requests\RegisterFormRequest;
+use App\Models\ShoppingCart;
 use App\Services\CartService;
 use App\Services\CategoryService;
 use App\Services\CustomerService;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Session;
 class FrontendController extends Controller
 {
     protected $customerService;
@@ -207,6 +209,7 @@ class FrontendController extends Controller
         {
             return redirect()->route('error-404');
         }
+
         return view('user.pay',['productVariant' => $productVariant, 'buyQuantity' => $buyQuantity]);
     }
 

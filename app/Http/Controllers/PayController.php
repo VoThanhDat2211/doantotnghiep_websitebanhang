@@ -12,15 +12,17 @@ class PayController extends Controller
     protected $payService;
     public function __construct(PayService $payService) 
     {
-        $this->payService = $payService;
+     //   $this->payService = $payService;
     }
     public function create(CreatePayRequest $request)
     {
+        dd(1);
         $data['customer_name'] = $request->input('customer_name');
         $data['customer_phone'] = $request->input('customer_phone');
         $data['payments'] = $request->input('payments');
         $data['shipping_customer'] = $request->input('address_detail') . " - ". $request->input('ward') . " - " . $request->input('district') . " - " . $request->input('province');
-    
-        $this->payService->payByCart($data);
+        $voucher = $request->input('voucher');
+        dd(1);
+        // $this->payService->payByCart($data, $voucher);
     }
 }

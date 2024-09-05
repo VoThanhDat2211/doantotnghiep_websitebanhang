@@ -13,7 +13,6 @@ class OrderLine extends Model
         'quantity' ,
         'price' ,
         'product_id',
-        'product_variant_id',
         'order_id',
     ];
 

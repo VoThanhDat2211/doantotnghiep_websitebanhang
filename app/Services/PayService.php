@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Models\OrderLine;
 use App\Repositories\PayRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -10,12 +11,15 @@ class PayService
     const STATUS_PENDDING = 1;
     protected $payRepsitory;
     protected $orderService;
+    protected $orderLineService;
     public function __construct(PayRepository $payRepository,
-    OrderService $orderService
+    OrderService $orderService,
+    OrderLineService $orderLineService,
     )
     {
         $this->payRepsitory = $payRepository;
         $this->orderService = $orderService;
+        $this->orderLineService = $orderLineService;
     }
 
     public function create(array $data)
@@ -23,28 +27,27 @@ class PayService
         return $this->payRepsitory->create($data);
     }
 
-    public function payByCart($data)
+    public function payByCart($dataPay, $voucher)
     {
-        DB::transaction(function () use ($data) {
-            $this->processOrderByCart($data);
+        DB::transaction(function () use ($dataPay, $voucher) {
+            $this->processOrderByCart($dataPay, $voucher);
         });
     }
 
-    private function processOrderByCart($data)
+    private function processOrderByCart($dataPay,$voucher)
     {
         $carts = session()->get('carts');
         if($carts->isEmpty())
         {
             return null;
         }
-        $buyQuantities = [];
-        $oldPrices = [];
+        $order = $this->createOrder($voucher);
         foreach($carts as $cart)
         {
-            $buyQuantities[$cart->productVariant->id] = $cart->quantity;
-            $oldPrices[$cart->productVariant->id] = $cart->price;
+            $this->createOrderLineByCart($cart, $order->id);
         }
-        $this->createOrder($data['voucher']);
+        $this->createPay($dataPay, $order->id);
+
     }
 
     private function createOrder($voucher){
@@ -77,8 +80,39 @@ class PayService
         return $orderCodeGeneration;
     }
 
-    private function createOrderLine($oldPrice, $quantity,$productVariant)
+    private function createOrderLineByCart($cart, $orderId)
     {
-        $originPrice = priceDiscount($productVariant->product->price, $productVariant->product->discount);
+        $originPrice = priceDiscount($cart->productVariant->product->price, $cart->productVariant->product->discount);
+
+        if($cart->productVariant->product->price !== $cart->price)
+        {
+            $result = [
+                $message = "Giá sản phẩm đã thay đổi, vui lòng đặt hàng lại",
+                $status = 'error',
+            ];
+
+            return redirect()->route('user-cart')->with('result',$result);
+        }
+
+        if ($cart->quanity > $cart->productVariant->remain_quantity) {
+            $result = [
+                $message = "Đặt hàng thất bại, không đủ số lượng sản phẩm",
+                $status = 'error',
+            ];
+
+            return redirect()->route('user-cart')->with('result', $result);
+        }
+
+        $dataOrderLine['order_id'] = $orderId;
+        $dataOrderLine['product_variant_id'] = $cart->productVariant->id;
+        $dataOrderLine['quantity'] = $cart->quantity;
+        $dataOrderLine['price'] = $cart->price;
+        return $this->orderLineService->create($dataOrderLine);
+    }
+
+    private function createPay($dataPay,$orderId)
+    {
+        $dataPay['order_id'] = $orderId;
+        return $this->create($dataPay);
     }
 }
