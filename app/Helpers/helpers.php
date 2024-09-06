@@ -19,7 +19,8 @@ if (!function_exists('priceFormat')) {
 if (!function_exists('priceDiscount')) {
     function priceDiscount($priceOrigin, $discount)
     {
-        return $priceOrigin - (int)$priceOrigin * $discount / 100;
+        $price =  $priceOrigin - $priceOrigin * $discount / 100;
+        return (int)round($price);
     }
 }
 

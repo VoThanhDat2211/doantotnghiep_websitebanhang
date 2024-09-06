@@ -12,7 +12,7 @@ class OrderLine extends Model
     protected $fillable = [
         'quantity' ,
         'price' ,
-        'product_id',
+        'product_variant_id',
         'order_id',
     ];
 

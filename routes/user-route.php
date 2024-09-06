@@ -15,11 +15,6 @@ Route::prefix('/')->middleware('guest')->group(function () {
 });
 Route::get('/logout', [FrontendController::class, 'logout'])->name('user-logout');
 Route::get('/{parent_category}', [FrontendController::class, 'getByParentCategory'])->name('products-by-parent-category');
-// Route::prefix('/')->middleware('auth')->group(function () {
-//     Route::get('/shopping-cart', [FrontendController::class, 'getCart'])->name('user-cart');
-//     Route::get('/pay', [FrontendController::class, 'getPay'])->name('user-pay');
-// });
-// Route::get('/home/checkout', [FrontendController::class, 'getPay'])->name('user-pay');
 Route::prefix('/user')->middleware('auth')->group(function () {
     Route::get('/purchase', [FrontendController::class, 'getOrderHistory'])->name('user-order-history');
     Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('user-add-to-cart');

@@ -1,10 +1,12 @@
 <?php
 namespace App\Services;
 
+use App\Repositories\OrderLineRepository;
+
 class OrderLineService
 {
     protected $orderLineRepository;
-    public function __construct(OrderLineService $orderLineRepository)
+    public function __construct(OrderLineRepository $orderLineRepository)
     {
         $this->orderLineRepository = $orderLineRepository;
     }

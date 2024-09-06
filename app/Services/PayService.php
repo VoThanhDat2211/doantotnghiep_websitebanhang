@@ -1,7 +1,8 @@
 <?php
 namespace App\Services;
 
-use App\Models\OrderLine;
+use App\Repositories\OrderLineRepository;
+use App\Repositories\OrderRepository;
 use App\Repositories\PayRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -10,16 +11,16 @@ class PayService
 {
     const STATUS_PENDDING = 1;
     protected $payRepsitory;
-    protected $orderService;
-    protected $orderLineService;
+    protected $orderRepository;
+    protected $orderLineRepository;
     public function __construct(PayRepository $payRepository,
-    OrderService $orderService,
-    OrderLineService $orderLineService,
+    OrderLineRepository $orderLineRepository,
+    OrderRepository $orderRepository,
     )
     {
         $this->payRepsitory = $payRepository;
-        $this->orderService = $orderService;
-        $this->orderLineService = $orderLineService;
+        $this->orderRepository = $orderRepository;
+        $this->orderLineRepository = $orderLineRepository;
     }
 
     public function create(array $data)
@@ -29,22 +30,36 @@ class PayService
 
     public function payByCart($dataPay, $voucher)
     {
-        DB::transaction(function () use ($dataPay, $voucher) {
-            $this->processOrderByCart($dataPay, $voucher);
-        });
+        try {
+            DB::transaction(function () use ($dataPay, $voucher) {
+                $this->processOrderByCart($dataPay, $voucher);
+            });
+            $result = [
+                $message = "Đặt hàng thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('home_page_user')->with('result', $result);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $result = [
+                $message = $e->getMessage(),
+                $status = 'error',
+            ];
+            return redirect()->route('user-cart')->with('result', $result);
+        }
     }
 
     private function processOrderByCart($dataPay,$voucher)
     {
         $carts = session()->get('carts');
-        if($carts->isEmpty())
+        if($carts->isEmpty() || empty($carts))
         {
-            return null;
+            throw new \Exception('Giỏ hàng trống');
         }
         $order = $this->createOrder($voucher);
         foreach($carts as $cart)
         {
-            $this->createOrderLineByCart($cart, $order->id);
+            $this->createOrderLineByCart($cart, $order);
         }
         $this->createPay($dataPay, $order->id);
 
@@ -56,7 +71,7 @@ class PayService
         $dataOrder['total_amount'] = is_null($voucher) ? 0 : 1;
         $dataOrder['status'] = self::STATUS_PENDDING;
 
-        return $this->orderService->create($dataOrder);
+        return $this->orderRepository->create($dataOrder);
     }
 
     private function getOrderCode(): string
@@ -80,34 +95,25 @@ class PayService
         return $orderCodeGeneration;
     }
 
-    private function createOrderLineByCart($cart, $orderId)
+    private function createOrderLineByCart($cart, $order)
     {
         $originPrice = priceDiscount($cart->productVariant->product->price, $cart->productVariant->product->discount);
-
-        if($cart->productVariant->product->price !== $cart->price)
-        {
-            $result = [
-                $message = "Giá sản phẩm đã thay đổi, vui lòng đặt hàng lại",
-                $status = 'error',
-            ];
-
-            return redirect()->route('user-cart')->with('result',$result);
+        $originPrice = 0;
+        if ($originPrice !== $cart->price) {
+            throw new \Exception("Giá sản phẩm đã thay đổi, vui lòng đặt hàng lại");
         }
 
-        if ($cart->quanity > $cart->productVariant->remain_quantity) {
-            $result = [
-                $message = "Đặt hàng thất bại, không đủ số lượng sản phẩm",
-                $status = 'error',
-            ];
-
-            return redirect()->route('user-cart')->with('result', $result);
+        if ($cart->quantity > $cart->productVariant->remain_quantity) {
+            throw new \Exception("Đặt hàng thất bại, không đủ số lượng sản phẩm");
         }
 
-        $dataOrderLine['order_id'] = $orderId;
+        $dataOrderLine['order_id'] = $order->id;
         $dataOrderLine['product_variant_id'] = $cart->productVariant->id;
         $dataOrderLine['quantity'] = $cart->quantity;
         $dataOrderLine['price'] = $cart->price;
-        return $this->orderLineService->create($dataOrderLine);
+
+        $orderLineInsert = $this->orderLineRepository->create($dataOrderLine);
+        
     }
 
     private function createPay($dataPay,$orderId)
