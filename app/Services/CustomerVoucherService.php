@@ -7,6 +7,7 @@ use Illuminate\View\View;
 
 class CustomerVoucherService
 {
+    const STATUS_ACTIVE = 1;
     protected $customerVoucherRepository;
     public function __construct(CustomerVoucherRepository $customerVoucherRepository)
     {
@@ -21,5 +22,11 @@ class CustomerVoucherService
     public function getAll()
     {
         return $this->customerVoucherRepository->getAll();
+    }
+
+    public function getByCustomer($customerId)
+    {
+        $status = self::STATUS_ACTIVE;
+        return $this->customerVoucherRepository->getByCustomer($customerId,$status);
     }
 }

@@ -70,7 +70,7 @@
                 </table>
             </div>
 
-            <form action="{{ route('create-pay-by-cart') }}" method="POST">
+            <form action="{{ route('create-pay', ['type' => 1]) }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -160,15 +160,15 @@
                         <table class="table table-condensed total-result">
                             <tr>
                                 <td>Số loại sản phẩm</td>
-                                <td><strong>1</strong></td>
+                                <td><strong>{{ $carts->count() }}</strong></td>
                             </tr>
                             <tr>
                                 <td>Giảm giá</td>
-                                <td><strong style="color: #9f9f9f">12.000</strong></td>
+                                <td><strong style="color: #9f9f9f">0</strong></td>
                             </tr>
                             <tr>
                                 <td>Tồng tiền cần thanh toán</td>
-                                <td><strong style="color: ">12.000.000 VND</strong></td>
+                                <td><strong style="color: ">{{ priceFormat($total) }} VND</strong></td>
                             </tr>
                         </table>
                     </div>
@@ -190,10 +190,12 @@
                 $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
                     if (data_tinh.error == 0) {
                         $.each(data_tinh.data, function(key_tinh, val_tinh) {
-                            $("#province").append('<option value="' + val_tinh.full_name + '" data-tinh_id="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
+                            $("#province").append('<option value="' + val_tinh.full_name +
+                                '" data-tinh_id="' + val_tinh.id + '">' + val_tinh.full_name +
+                                '</option>');
                         });
                         $("#province").change(function(e) {
-                             var idtinh = $(this).find(':selected').data('tinh_id');
+                            var idtinh = $(this).find(':selected').data('tinh_id');
                             //Lấy quận huyện
                             $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function(
                                 data_quan) {
@@ -204,12 +206,15 @@
                                     $.each(data_quan.data, function(key_quan, val_quan) {
                                         $("#district").append('<option value="' +
                                             val_quan
-                                            .full_name + '" data-quan_id="' + val_quan.id + '">' + val_quan.full_name +
+                                            .full_name + '" data-quan_id="' +
+                                            val_quan.id + '">' + val_quan
+                                            .full_name +
                                             '</option>');
                                     });
                                     //Lấy phường xã  
                                     $("#district").change(function(e) {
-                                        var idquan = $(this).find(':selected').data('quan_id')
+                                        var idquan = $(this).find(':selected').data(
+                                            'quan_id')
                                         $.getJSON('https://esgoo.net/api-tinhthanh/3/' +
                                             idquan + '.htm',
                                             function(data_phuong) {
@@ -223,7 +228,8 @@
                                                             $("#ward").append(
                                                                 '<option value="' +
                                                                 val_phuong
-                                                                .full_name + '">' +
+                                                                .full_name +
+                                                                '">' +
                                                                 val_phuong
                                                                 .full_name +
                                                                 '</option>');

@@ -29,4 +29,11 @@ if (!function_exists('renderSize')) {
     {
         return config('variant.size')[$keySize];
     }
- }
+}
+
+if (!function_exists('formatDate')) {
+    function formatDate($date) 
+    {
+        return $date->format('d/m/Y');
+    }
+}

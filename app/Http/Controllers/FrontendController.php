@@ -12,8 +12,8 @@ use App\Services\CustomerVoucherService;
 use App\Services\ProductService;
 use App\Services\ProductVariantService;
 use App\Services\VoucherService;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -204,19 +204,38 @@ class FrontendController extends Controller
     {
         $productVariantId = session()->get('productVariantId');
         $buyQuantity = session()->get('buyQuantity');
+        $customerId = Auth::user()->id;
         $productVariant = $this->productVariantService->getById($productVariantId);
         if(is_null($productVariant) )
         {
             return redirect()->route('error-404');
         }
-
-        return view('user.pay',['productVariant' => $productVariant, 'buyQuantity' => $buyQuantity]);
+        // VOUCHER
+        $today = Carbon::today();
+        $customerVouchers = $this->customerVoucherService->getByCustomer($customerId);
+        $vouchers = $this->voucherService->getByVoucherType();
+        if(!$customerVouchers->isEmpty()){
+            foreach($customerVouchers as $customerVoucher) {
+                $vouchers->push($customerVoucher->voucher);
+            }
+        }
+        
+        return view('user.pay',['productVariant' => $productVariant, 'buyQuantity' => $buyQuantity, 'vouchers' => $vouchers,'today' => $today]);
     }
 
     public function getPayByCart()
     {
+        $total = 0;
         $carts = session()->get('carts');
-        return view('user.pay-by-cart',['carts' => $carts]);
+        if(is_null($carts))
+        {
+            return redirect()->route('error-404');
+        }
+        foreach($carts as $cart)
+        {
+            $total += $cart->total_amount;
+        }
+        return view('user.pay-by-cart',['carts' => $carts, 'total' => $total]);
     }
 
     public function getProductDetail($id)

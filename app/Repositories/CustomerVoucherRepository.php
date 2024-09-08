@@ -20,4 +20,9 @@ class CustomerVoucherRepository
     {
         return $this->customerVoucher->get();
     }
+
+    public function getByCustomer($customerId, $statusActive)
+    {
+        return $this->customerVoucher->where(['customer_id' => $customerId, 'status' => $statusActive])->get();
+    }
 }

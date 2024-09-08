@@ -23,6 +23,7 @@ Route::prefix('/user')->middleware('auth')->group(function () {
     Route::get('/checkout', [FrontendController::class, 'getPay'])->name('user-pay');
     Route::get('/checkout-by-cart', [FrontendController::class, 'getPayByCart'])->name('user-pay-by-cart');
     Route::get('/handle-checkout-by-cart', [CartController::class, 'handleCheckoutByCart'])->name('handle-checkout-by-cart');
-    Route::post('/create-pay-by-cart', [PayController::class, 'create'])->name('create-pay-by-cart');
+    Route::post('/create-pay', [PayController::class, 'create'])->name('create-pay');
+    Route::delete('{id}/delete-cart-item',[CartController::class,'delete'])->name('delete-cart-item');
 });
 Route::get('/{id}/product-detail', [FrontendController::class, 'getProductDetail'])->name('product-detail');

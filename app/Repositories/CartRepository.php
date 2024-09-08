@@ -40,4 +40,10 @@ class CartRepository
         return $this->cart->whereIn('id',$cartIds)->get();
     }
 
+    public function delete($id)
+    {
+        $cart = $this->cart->find($id);
+        return $cart->delete();
+    }
+
 }

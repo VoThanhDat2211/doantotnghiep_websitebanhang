@@ -4,12 +4,15 @@ namespace App\Services;
 use App\Events\VoucherCreated;
 use App\Models\Voucher;
 use App\Repositories\VoucherRepository;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class VoucherService
 {
+    const TYPE_HOLIDAY = 2;
+    const TYPE_ONLINE_PAYMENT = 4;
     protected $voucherRepository;
     public function __construct(VoucherRepository $voucherRepository)
     {
@@ -46,5 +49,18 @@ class VoucherService
     public function getById($id)
     {
         return $this->voucherRepository->getById($id);
+    }
+
+    public function getByVoucherCode($voucherCode)
+    {
+        return $this->voucherRepository->getByVoucherCode($voucherCode);
+    }
+
+    public function getByVoucherType()
+    {
+        $type2 = self::TYPE_HOLIDAY;
+        $type4 = self::TYPE_ONLINE_PAYMENT;
+        $today = Carbon::today();
+        return $this->voucherRepository->getByVoucherType($type2, $type4, $today);
     }
 }

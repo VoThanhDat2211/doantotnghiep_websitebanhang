@@ -16,4 +16,14 @@ class CustomerVoucher extends Model
         "voucher_id",
         "status",
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function voucher()
+    {
+        return $this->belongsTo(Voucher::class);
+    }
 }

@@ -48,4 +48,9 @@ class CartService
     {
         return $this->cartRepository->getByIds($cartIds);
     }
+
+    public function delete($id)
+    {
+        return $this->cartRepository->delete($id);
+    }
 }

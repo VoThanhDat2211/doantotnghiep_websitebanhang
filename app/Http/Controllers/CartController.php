@@ -88,4 +88,23 @@ class CartController extends Controller
         session()->put('carts',$carts);
         return redirect()->route('user-pay-by-cart');
     }
+
+    public function delete($id)
+    {
+        $cart = $this->cartService->delete($id);
+        if ($cart) {
+            $result = [
+                $message = "Xóa sản phẩm giỏ hàng thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('user-cart')->with('result',$result);
+        }
+        else {
+            $result = [
+                $message = "Xóa sản phẩm giỏ hàng thất bại",
+                $status = 'error',
+            ];
+            return redirect()->route('user-cart')->with('result',$result);
+        }
+    }
 }

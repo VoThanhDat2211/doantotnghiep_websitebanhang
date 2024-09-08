@@ -115,7 +115,8 @@
                                             value="{{ $cart->id }}" />
                                     </td>
                                     <td class="cart_product">
-                                        <a href="{{ route('product-detail', ['id' => $cart->productVariant->product->id]) }}">
+                                        <a
+                                            href="{{ route('product-detail', ['id' => $cart->productVariant->product->id]) }}">
                                             <img style="width: 80px; height: 80px;"
                                                 src="{{ asset('/image/' . $cart->productVariant->image_path) }}"
                                                 alt="">
@@ -152,7 +153,15 @@
                                         </p>
                                     </td>
                                     <td class="cart_delete">
-                                        <a class="cart_quantity_delete" href=""><i class="fa-solid fa-trash"></i></a>
+                                        <form action="{{ route('delete-cart-item', ['id' => $cart->id]) }}" method="POST"
+                                            style="display:inline; margin-right: 12px;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" title="Xóa sản phẩm" class="btn-delete"
+                                                style="border: none; background: none; cursor: pointer; padding:0;">
+                                                <i class="fa-solid fa-trash" style="color: #E9423F;"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -339,6 +348,27 @@
                         confirmButtonText: 'OK'
                     });
                 }
+            });
+        });
+
+        $(document).ready(function() {
+            $('.btn-delete').on('click', function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    text: "Bạn có chắc chắn xóa sản phẩm này?",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xác Nhận',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
     </script>
