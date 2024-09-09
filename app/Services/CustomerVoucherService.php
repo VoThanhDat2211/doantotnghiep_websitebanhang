@@ -29,4 +29,9 @@ class CustomerVoucherService
         $status = self::STATUS_ACTIVE;
         return $this->customerVoucherRepository->getByCustomer($customerId,$status);
     }
+
+    public function getByCustomerAndVoucher($customerId, $voucherId)
+    {
+        return $this->customerVoucherRepository->getByCustomerAndVoucher($customerId, $voucherId);
+    }
 }

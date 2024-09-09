@@ -227,6 +227,7 @@ class FrontendController extends Controller
     {
         $total = 0;
         $carts = session()->get('carts');
+        $customerId = Auth::user()->id;
         if(is_null($carts))
         {
             return redirect()->route('error-404');
@@ -235,7 +236,23 @@ class FrontendController extends Controller
         {
             $total += $cart->total_amount;
         }
-        return view('user.pay-by-cart',['carts' => $carts, 'total' => $total]);
+
+        // VOUCHER
+        $today = Carbon::today();
+        $customerVouchers = $this->customerVoucherService->getByCustomer($customerId);
+        $vouchers = $this->voucherService->getByVoucherType();
+        if(!$vouchers->isEmpty()) {
+            foreach ($vouchers as $voucher) {
+               dump()
+            }
+        }
+
+        if (!$customerVouchers->isEmpty()) {
+            foreach ($customerVouchers as $customerVoucher) {
+                $vouchers->push($customerVoucher->voucher);
+            }
+        }
+        return view('user.pay-by-cart',['carts' => $carts, 'total' => $total, 'vouchers' => $vouchers, 'today' => $today]);
     }
 
     public function getProductDetail($id)

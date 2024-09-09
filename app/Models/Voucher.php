@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Voucher extends Model
 {
+    const STATUS_USED = 3;
     use HasFactory;
 
     protected $fillable = [
@@ -25,4 +26,8 @@ class Voucher extends Model
         "start_date" => "datetime",
         "end_date" => "datetime",
     ];
+
+    public function customerVoucherUsed() {
+        return $this->hasMany(CustomerVoucher::class)->whereNull('status', self::STATUS_USED)->first();
+    }
 }

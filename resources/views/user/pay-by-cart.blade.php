@@ -8,7 +8,124 @@
             margin-top: 6px;
             color: red;
         }
+
+        .notify-row {
+            display: inline-flex;
+            position: absolute;
+            height: 34px;
+            width: 35px;
+            right: 0;
+            background: #ccc;
+            color: black;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .notify-row a:hover {
+            color: #000 !important;
+        }
+
+        .notify-row i {
+            color: #000;
+            font-size: 18px;
+        }
+
+        .dropdown-menu a {
+            cursor: default;
+        }
+
+        .dropdown-menu.extended {
+            min-width: 160px !important;
+            top: 42px;
+            width: 450px !important;
+            padding: 0 10px;
+            box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1) !important;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            background: #f1f2f7;
+            border: none;
+            left: -10px;
+            min-height: 50px;
+            max-height: 320px;
+            overflow-y: auto;
+            padding: 24px 8px;
+        }
+
+        .dropdown-menu.extended.tasks-bar li a {
+            background: #fff;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            float: left;
+            width: 100%;
+        }
+
+        .dropdown-menu.extended li a {
+            font-size: 12px;
+            list-style: none;
+        }
+
+        .dropdown-menu.tasks-bar .task-info .desc {
+            font-size: 13px;
+            font-weight: normal;
+            float: left;
+            padding: 0;
+        }
+
+        .task-info img {
+            width: 100%;
+        }
+
+        .pull-left p {
+            margin: 0;
+        }
+
+        .pull-left .title-voucher {
+            font-weight: 700;
+        }
+
+        .pull-left .value-voucher {
+            font-size: 16px;
+        }
+
+        .pull-left .date-voucher,
+        .pull-left .date-voucher i {
+            font-size: 12px;
+            color: #9f9393;
+        }
+
+        .align-items-center {
+            display: flex;
+            align-items: center;
+        }
+
+        .disabled .btn-use {
+            background-color: #ccc;
+        }
+
+        .btn-use {
+            font-size: 14px;
+            border-radius: 5px;
+            padding: 8px 12px;
+            background: #26AA99;
+            color: #fff;
+            outline: none;
+        }
+
+        .btn-use:hover {
+            cursor: pointer;
+        }
+
+        .disabled {
+            pointer-events: none;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
+    @php
+        use Carbon\Carbon;
+    @endphp
     <section id="cart_items">
         <div class="container">
             <div class="breadcrumbs">
@@ -130,7 +247,7 @@
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="inputState">Hình thức thanh toán</label>
-                        <select name="payments" id="inputState" class="form-control" required>
+                        <select name="payments" id="paymentSelect" class="form-control" required>
                             <option value="1">Thanh Toán Khi Nhận Hàng</option>
                             <option value="2">Thanh Toán Trực Tuyến</option>
                         </select>
@@ -141,10 +258,59 @@
                     <div class="form-group col-md-3">
                         <label for="inputZip">Mã giảm giá</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Nhập mã giảm giá" name="voucher"
-                                value="{{ old('voucher') }}">
-                            <button class="btn  select-voucher" type="submit"><i
-                                    class="fa-solid fa-ticket"></i></button>
+                            <input type="text" class="form-control" placeholder="Mã giảm giá" name="voucher"
+                                id="voucher" value="{{ old('voucher') }}" readonly>
+                            <li class="dropdown notify-row">
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                    <i class="fa-solid fa-ticket"></i>
+                                </a>
+                                <ul class="dropdown-menu extended tasks-bar">
+                                    @if (isset($vouchers))
+                                        @foreach ($vouchers as $voucher)
+                                            @php
+                                                $isDisabled = Carbon::parse($voucher->start_date)->isFuture();
+                                            @endphp
+                                            <li>
+                                                <a href="#" data-id="{{ $voucher->id }}"
+                                                    class="{{ $isDisabled ? 'disabled' : '' }}">
+                                                    <div class="task-info clearfix row align-items-center">
+                                                        <div class="col-sm-3">
+                                                            <img src="{{ asset('/frontend/images/home/logo-voucher.jpg') }}"
+                                                                alt="">
+                                                        </div>
+                                                        <div class="col-sm-9">
+                                                            <div class="row align-items-center">
+                                                                <div class="col-sm-8 desc pull-left">
+                                                                    <h5 class="title-voucher" style="margin: 0">
+                                                                        {{ $voucher->title }}
+                                                                    </h5>
+                                                                    <p class="value-voucher">Giảm <span
+                                                                            style="color: #e70b0b;font-weight: 600;">{{ $voucher->value }}%</span>
+                                                                        giá trị đơn hàng
+                                                                    </p>
+                                                                    <p class="date-voucher"><i
+                                                                            class="fa-solid fa-clock"></i>
+                                                                        Ngày
+                                                                        áp dụng: {{ formatDate($voucher->start_date) }}</p>
+                                                                    <p class="date-voucher"><i
+                                                                            class="fa-solid fa-clock"></i>
+                                                                        Ngày
+                                                                        hết hạn: {{ formatDate($voucher->end_date) }}</p>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <span class="btn-use"
+                                                                        data-id="{{ $voucher->id }}">Sử Dụng</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                    @endif
+                                </ul>
+                            </li>
                             @error('voucher')
                                 <span class="error">{{ $message }}</span>
                             @enderror
@@ -164,11 +330,11 @@
                             </tr>
                             <tr>
                                 <td>Giảm giá</td>
-                                <td><strong style="color: #9f9f9f">0</strong></td>
+                                <td><strong style="color: #9f9f9f"><span class="voucher-value">0</span> VND</strong></td>
                             </tr>
                             <tr>
                                 <td>Tồng tiền cần thanh toán</td>
-                                <td><strong style="color: ">{{ priceFormat($total) }} VND</strong></td>
+                                <td><strong style="color: "><span class="total-payment" data-total_payment="{{ $total }}" >{{ priceFormat($total) }}</span> VND</strong></td>
                             </tr>
                         </table>
                     </div>
@@ -185,6 +351,56 @@
 
 
         <script>
+            $(document).ready(function() {
+                let vouchers = @json($vouchers);
+                let voucherTypeOnlinePayment = vouchers.filter(function(voucher) {
+                    return voucher.voucher_type === 4;
+                });
+                let $links = $('a[data-id]').filter(function() {
+                    return voucherTypeOnlinePayment.some(voucher => $(this).data('id') === voucher.id);
+                });
+                $links.addClass('disabled');
+
+                $('#paymentSelect').change(function() {
+                    paymentValue = $(this).val();
+                    if (paymentValue === "1" || paymentValue === "0") {
+                        $links.addClass('disabled');
+                    } else {
+                        $links.removeClass('disabled');
+                    }
+                });
+
+                $('.btn-use').click(function(e) {
+                    e.preventDefault();
+                    let voucherId = $(this).data('id');
+                    let $voucherValue = null;
+                    for (let i = 0; i < vouchers.length; i++) {
+                        if (vouchers[i].id == voucherId) {
+                            $('#voucher').val(vouchers[i].voucher_code);
+                            voucherValue = vouchers[i].value;
+                            break;
+                        }
+                    }
+
+                    let totalPayment = $('.total-payment').data('total_payment');
+                    console.log(totalPayment);
+                    let voucherDiscount =  Math.round(totalPayment * voucherValue / 100);
+                    totalPayment -= voucherDiscount;
+                    $('.total-payment').html(formatNumber(totalPayment));
+                     $('.voucher-value').html(formatNumber(voucherDiscount));
+                    
+                });
+
+                $('#voucher').on('keydown', function(e) {
+                    e.preventDefault();
+                });
+
+                function formatNumber(number) {
+                let roundedNumber = Math.round(number);
+                return roundedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+            });
+
             $(document).ready(function() {
                 //Lấy tỉnh thành
                 $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {

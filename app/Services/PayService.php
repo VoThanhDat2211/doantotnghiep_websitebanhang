@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Repositories\CartRepository;
+use App\Repositories\CustomerVoucherRepository;
 use App\Repositories\OrderLineRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\PayRepository;
@@ -11,17 +12,20 @@ use Illuminate\Support\Facades\DB;
 
 class PayService 
 {
+    const STATUS_USED = 3;
     const STATUS_PENDDING = 1;
     protected $payRepsitory;
     protected $orderRepository;
     protected $orderLineRepository;
     protected $cartRepository;
     protected $productVariantRepository;
+    protected $customerVoucherRepository;
     public function __construct(PayRepository $payRepository,
     OrderLineRepository $orderLineRepository,
     OrderRepository $orderRepository,
     CartRepository $cartRepository,
     ProductVariantRepository $productVariantRepository,
+    CustomerVoucherRepository $customerVoucherRepository,
     )
     {
         $this->payRepsitory = $payRepository;
@@ -29,6 +33,7 @@ class PayService
         $this->orderLineRepository = $orderLineRepository;
         $this->cartRepository = $cartRepository;
         $this->productVariantRepository = $productVariantRepository;
+        $this->customerVoucherRepository = $customerVoucherRepository;
     }
 
     public function create(array $data)
@@ -100,8 +105,9 @@ class PayService
             $this->cartRepository->delete($cart->id);
         }
         $this->updateTotalAmountOrder($order, $totalAmount,$voucher);
+        $this->updateRemainQuantityVoucher($voucher);
+        $this->handleCustomerVoucher($voucher);
         $this->createPay($dataPay, $order->id);
-
     }
 
 
@@ -182,9 +188,43 @@ class PayService
 
     private function updateTotalAmountOrder($order, $totalAmount, $voucher)
     {
-        $totalAmount += (int)round($totalAmount * $voucher / 100 );
+        $voucherValue = is_null($voucher) ? 0 : $voucher->value;
+        $totalAmount -= (int)round($totalAmount * $voucherValue / 100 );
         $order->total_amount = $totalAmount;
         $order->save();
+    }
+
+    private function updateRemainQuantityVoucher($voucher)
+    {
+        $voucher->remain_quantity -= 1;
+        $voucher->save();
+    }
+
+    private function handleCustomerVoucher($voucher) {
+        $customerId = Auth::user()->id;
+        $voucherId = $voucher->id;
+        $customerVoucher = $this->customerVoucherRepository->getByCustomerAndVoucher($customerId, $voucherId);
+         if(!is_null($customerVoucher)) {
+            $this->updateStatusCustomerVoucher($customerVoucher);
+         }
+         else {
+            $this->createCustomerVoucher($voucherId, $customerId);
+         }
+    }
+
+    private function updateStatusCustomerVoucher($customerVoucher)
+    {
+            $customerVoucher->status = self::STATUS_USED;
+            $customerVoucher->save();
+    }
+
+    private function createCustomerVoucher($voucherId, $customerId) 
+    {
+        $data['voucher_id'] = $voucherId;
+        $data['customer_id'] = $customerId;
+        $data['status'] = self::STATUS_USED;
+
+        $this->customerVoucherRepository->create($data);
     }
 
     private function processOrderByProductDetail($dataPay,$voucher)
@@ -200,6 +240,10 @@ class PayService
         $this->createOrderLine($productVariant,$buyQuantity, $order);
         $totalAmount = priceDiscount($productVariant->product->price,$productVariant->product->discount) * $buyQuantity;
         $this->updateTotalAmountOrder($order, $totalAmount,$voucher);
+        if(!is_null($voucher)) {
+            $this->updateRemainQuantityVoucher($voucher);
+            $this->updateStatusCustomerVoucher($voucher);
+        }
         $this->createPay($dataPay, $order->id);
     }
 

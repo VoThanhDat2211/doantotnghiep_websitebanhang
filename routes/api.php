@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartApiController;
+use App\Http\Controllers\FrontendControllerApi;
 use App\Http\Controllers\ProductVariantApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,4 @@ Route::get('/get-image-and-size', [ProductVariantApiController::class, 'getImage
 Route::get('/get-quantity', [ProductVariantApiController::class, 'getQuantity'])->name('get-quantity');
 Route::get('/get-remain-quantity', [ProductVariantApiController::class, 'getRemainQuantity'])->name('get-remain-quantity');
 Route::get('/get-new-value', [CartApiController::class, 'getNewValue'])->name('get-new-value');
+Route::get('/get-voucher', [FrontendControllerApi::class, 'getByVoucherCodeCondition'])->name('get-voucher');

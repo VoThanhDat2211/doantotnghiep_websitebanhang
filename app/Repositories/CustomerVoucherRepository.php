@@ -25,4 +25,11 @@ class CustomerVoucherRepository
     {
         return $this->customerVoucher->where(['customer_id' => $customerId, 'status' => $statusActive])->get();
     }
+
+    public function getByCustomerAndVoucher($customerId, $voucherId)
+    {
+        return $this->customerVoucher->where(['customer_id' => $customerId, 'voucher_id' => $voucherId])->first();
+    }
+
+    
 }

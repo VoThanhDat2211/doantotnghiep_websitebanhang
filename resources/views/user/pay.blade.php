@@ -248,8 +248,8 @@
                     <div class="form-group col-md-3">
                         <label for="inputZip">Mã giảm giá</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Nhập mã giảm giá" name="voucher"
-                                id="voucher" value="{{ old('voucher') }}">
+                            <input type="text" class="form-control" placeholder="Mã giảm giá" name="voucher"
+                                id="voucher" value="{{ old('voucher') }}" readonly>
                             <li class="dropdown notify-row">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                     <i class="fa-solid fa-ticket"></i>
@@ -258,7 +258,7 @@
                                     @if (isset($vouchers))
                                         @foreach ($vouchers as $voucher)
                                             @php
-                                                $isDisabled = Carbon::parse($voucher->start_date)->isFuture(); // Kiểm tra nếu start_date là ngày trong tương lai
+                                                $isDisabled = Carbon::parse($voucher->start_date)->isFuture();
                                             @endphp
                                             <li>
                                                 <a href="#" data-id="{{ $voucher->id }}"
@@ -297,6 +297,7 @@
                                                 </a>
                                             </li>
                                         @endforeach
+                                    @else
                                     @endif
                                 </ul>
                             </li>
@@ -319,12 +320,15 @@
                             </tr>
                             <tr>
                                 <td>Giảm giá</td>
-                                <td><strong style="color: #9f9f9f"><span>0</span></strong></td>
+                                <td><strong style="color: #9f9f9f"><span class="voucher-value">0</span> VND</strong></td>
                             </tr>
                             <tr>
+                                @php
+                                    $totalPayment =  priceDiscount($productVariant->product->price, $productVariant->product->discount) * $buyQuantity;
+                                @endphp
                                 <td>Tồng tiền cần thanh toán</td>
                                 <td><strong
-                                        style="color: ">{{ priceFormat(priceDiscount($productVariant->product->price, $productVariant->product->discount) * $buyQuantity) }}
+                                        style="color: "><span class="total-payment" data-total_payment="{{ $totalPayment }}" >{{ priceFormat($totalPayment) }}</span>
                                         VND</strong></td>
                             </tr>
                         </table>
@@ -364,25 +368,44 @@
                 $('.btn-use').click(function(e) {
                     e.preventDefault();
                     let voucherId = $(this).data('id');
+                    let $voucherValue = null;
                     for (let i = 0; i < vouchers.length; i++) {
                         if (vouchers[i].id == voucherId) {
                             $('#voucher').val(vouchers[i].voucher_code);
+                            voucherValue = vouchers[i].value;
                             break;
                         }
                     }
+
+                    let totalPayment = $('.total-payment').data('total_payment');
+                    let voucherDiscount =  Math.round(totalPayment * voucherValue / 100);
+                    totalPayment -= voucherDiscount;
+                    $('.total-payment').html(formatNumber(totalPayment));
+                     $('.voucher-value').html(formatNumber(voucherDiscount));
+                    
                 });
+
+                $('#voucher').on('keydown', function(e) {
+                    e.preventDefault();
+                });
+
+                function formatNumber(number) {
+                let roundedNumber = Math.round(number);
+                return roundedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
             });
 
-            $(document).ready(function() {
+             $(document).ready(function() {
                 //Lấy tỉnh thành
                 $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
                     if (data_tinh.error == 0) {
                         $.each(data_tinh.data, function(key_tinh, val_tinh) {
-                            $("#province").append('<option value="' + val_tinh.id + '">' + val_tinh
-                                .full_name + '</option>');
+                            $("#province").append('<option value="' + val_tinh.full_name +
+                                '" data-tinh_id="' + val_tinh.id + '">' + val_tinh.full_name +
+                                '</option>');
                         });
                         $("#province").change(function(e) {
-                            var idtinh = $(this).val();
+                            var idtinh = $(this).find(':selected').data('tinh_id');
                             //Lấy quận huyện
                             $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function(
                                 data_quan) {
@@ -393,12 +416,15 @@
                                     $.each(data_quan.data, function(key_quan, val_quan) {
                                         $("#district").append('<option value="' +
                                             val_quan
-                                            .id + '">' + val_quan.full_name +
+                                            .full_name + '" data-quan_id="' +
+                                            val_quan.id + '">' + val_quan
+                                            .full_name +
                                             '</option>');
                                     });
                                     //Lấy phường xã  
                                     $("#district").change(function(e) {
-                                        var idquan = $(this).val();
+                                        var idquan = $(this).find(':selected').data(
+                                            'quan_id')
                                         $.getJSON('https://esgoo.net/api-tinhthanh/3/' +
                                             idquan + '.htm',
                                             function(data_phuong) {
@@ -412,7 +438,8 @@
                                                             $("#ward").append(
                                                                 '<option value="' +
                                                                 val_phuong
-                                                                .id + '">' +
+                                                                .full_name +
+                                                                '">' +
                                                                 val_phuong
                                                                 .full_name +
                                                                 '</option>');

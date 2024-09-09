@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Voucher;
+use Carbon\Carbon;
 
 class VoucherRepository 
 {
@@ -36,16 +37,27 @@ class VoucherRepository
         return $this->voucher->where('voucher_code')->first();
     }
 
-    public function getByVoucherType($type2, $type4, $today)
+    public function getByVoucherType($type3, $type4, $today)
     {
         return $this->voucher
-        ->where(function($query) use ($type2, $type4) {
-            $query->where('voucher_type', $type2)
+        ->where(function($query) use ($type3, $type4) {
+            $query->where('voucher_type', $type3)
                   ->orWhere('voucher_type', $type4);
         })
         ->whereDate('end_date', '>=', $today) 
-        ->where('quantity', '>', 0)
+        ->where('remain_quantity', '>', 0)
         ->orderBy('start_date', 'asc')
         ->get();
+    }
+
+    public function getByVoucherCodeCondition($voucherCode)
+    {
+        $today = Carbon::today();
+        return $this->voucher
+            ->where('voucher_code', $voucherCode)
+            ->whereDate('start_date', '<=', $today)
+            ->whereDate('end_date', '>=', $today)
+            ->where('remain_quantity', '>', 0)
+            ->first();
     }
 }

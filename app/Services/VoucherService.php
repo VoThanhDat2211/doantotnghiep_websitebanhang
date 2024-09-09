@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class VoucherService
 {
-    const TYPE_HOLIDAY = 2;
+    const TYPE_HOLIDAY = 3;
     const TYPE_ONLINE_PAYMENT = 4;
     protected $voucherRepository;
     public function __construct(VoucherRepository $voucherRepository)
@@ -58,9 +58,14 @@ class VoucherService
 
     public function getByVoucherType()
     {
-        $type2 = self::TYPE_HOLIDAY;
+        $type3 = self::TYPE_HOLIDAY;
         $type4 = self::TYPE_ONLINE_PAYMENT;
         $today = Carbon::today();
-        return $this->voucherRepository->getByVoucherType($type2, $type4, $today);
+        return $this->voucherRepository->getByVoucherType($type3, $type4, $today);
+    }
+
+    public function getByVoucherCodeCondition($voucherCode)
+    {
+        return $this->voucherRepository->getByVoucherCodeCondition($voucherCode);
     }
 }

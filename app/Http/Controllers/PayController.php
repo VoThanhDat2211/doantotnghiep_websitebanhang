@@ -27,21 +27,29 @@ class PayController extends Controller
         $voucherInput = $request->input('voucher');
         if(is_null($voucherInput))
         {
-            $voucherValue = 0;
+            $voucher = null;
         }
         else {
-            $voucher = $this->voucherService->getByVoucherCode($voucherInput);
-            $voucherValue = is_null($voucher) ? 0 : $voucher->value;
+            $voucher = $this->voucherService->getByVoucherCodeCondition($voucherInput);
+            
+            if(is_null($voucher)) {
+                $result = [
+                    $message = "Voucher không hợp lệ, vui lòng thanh toán lại !",
+                    $status = 'error',
+                ];
+
+                return redirect()->back()->with('result', $result);
+            }
         }
         
         if($type == self::TYPE_BUY_BY_CART)
         {
-            return $this->payService->payByCart($data, $voucherValue);
+            return $this->payService->payByCart($data, $voucher);
         }
 
         if($type == self::TYPE_BUY_PRODUCT_DETAIL)
         {
-            return $this->payService->payByProductDetail($data, $voucherValue);
+            return $this->payService->payByProductDetail($data, $voucher);
         }
         
     }
