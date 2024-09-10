@@ -34,4 +34,8 @@ class CustomerVoucherService
     {
         return $this->customerVoucherRepository->getByCustomerAndVoucher($customerId, $voucherId);
     }
+
+    public function getByStatusUsed($customerId, $voucherId, $status) {
+        return $this->customerVoucherRepository->getByStatusUsed($customerId, $voucherId, $status);
+    }
 }

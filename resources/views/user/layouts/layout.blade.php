@@ -98,7 +98,8 @@
                                                         href="#"><i class="fa-solid fa-pen-to-square"></i> Thông
                                                         tin tài khoản</a></li>
                                                 <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                        href="#"><i class="fa-solid fa-cart-shopping"></i> Lịch sử
+                                                        href="{{ route('order-history') }}"><i
+                                                            class="fa-solid fa-cart-shopping"></i> Lịch sử
                                                         mua hàng</a></li>
                                                 <li role="presentation"><a role="menuitem" tabindex="-1"
                                                         href="{{ route('user-logout') }}"><i
@@ -139,29 +140,14 @@
                                     <a
                                         href="{{ route('products-by-parent-category', ['parent_category' => 'men']) }}">THỜI
                                         TRANG NAM<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-                                        <li><a href="product-details.html">Product Details</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="cart.html">Cart</a></li>
-                                        <li><a href="login.html">Login</a></li>
-                                    </ul>
                                 </li>
                                 <li><a
                                         href="{{ route('products-by-parent-category', ['parent_category' => 'women']) }}">THỜI
                                         TRANG NỮ<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-                                        <li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
                                 </li>
                                 <li><a
                                         href="{{ route('products-by-parent-category', ['parent_category' => 'sport']) }}">ĐỒ
                                         THỂ THAO<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-                                        <li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
                                 </li>
                             </ul>
                         </div>

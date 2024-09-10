@@ -12,16 +12,45 @@
             border: 1px solid #fcf0f0;
             BACKGROUND: #fcf0f0;
         }
+
+        .breadcrumbs .breadcrumb {
+            margin-bottom: 10px !important;
+        }
+
+        .landing {
+            color: #686363;
+        }
+
+        .active a {
+            background: #fff !important;
+            color: #000 !important;
+            padding: 0 !important;
+        }
     </style>
     <section>
         <div class="container">
+            <div class="breadcrumbs">
+                <ol class="breadcrumb">
+                    <li><a href="{{ route('home_page_user') }}">Trang chủ</a></li>
+                    <li class="active"><a
+                            href="{{ route('products-by-parent-category', ['parent_category' => $parentCategoryParam]) }}">{{ $parentCategoryName }}
+                        </a>
+                    </li>
+                    <span class="active"> <i style="padding: 0 6px;" class="fa-solid fa-angle-right"></i> </span>
+                    <li class="active"><a href="{{ route('products-by-category', ['id' => $product->category->id]) }}">
+                            {{ $product->category->name }}
+                        </a>
+                    </li>
+                    <span class="active"> <i style="padding: 0 6px;" class="fa-solid fa-angle-right"></i> </span>
+                    <li class="landing">{{ $product->name }}</li>
+                </ol>
+            </div>
             <div class="row">
                 <div class="col-sm-12 padding-right">
                     <div class="product-details"><!--product-details-->
                         <div class="col-sm-5">
                             <div class="view-product">
                                 <div id="similar-product" class="carousel slide" data-ride="carousel" data-interval="false">
-
                                     <!-- Wrapper for slides -->
                                     <div class="carousel-inner image-product">
                                         @if (isset($imageProducts))
@@ -69,8 +98,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="col-sm-7">
@@ -87,7 +114,8 @@
                                                 class="price-sale mx-2">₫{{ priceFormat(priceDiscount($product->price, $product->discount)) }}</span>
                                         </div>
                                         <p style="font-size: 20px; margin-top: 12px;">
-                                            <span class="sold-quantity" data-soldQuantity="{{ $product->sold_quantity }}">Đã
+                                            <span class="sold-quantity"
+                                                data-soldQuantity="{{ $product->sold_quantity }}">Đã
                                                 bán:
                                                 <strong>{{ $product->sold_quantity }}</strong></span> | <span
                                                 class="remain-quantity"
@@ -147,7 +175,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <button id="addToCartBtn" type="button" class="btn btn-fefault btn-cart">
+                                                <button id="addToCartBtn" type="button"
+                                                    class="btn btn-fefault btn-cart">
                                                     <i class="fa fa-shopping-cart"></i>
                                                     THÊM VÀO GIỎ HÀNG
                                                 </button>

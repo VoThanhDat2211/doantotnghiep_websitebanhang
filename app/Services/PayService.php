@@ -105,8 +105,10 @@ class PayService
             $this->cartRepository->delete($cart->id);
         }
         $this->updateTotalAmountOrder($order, $totalAmount,$voucher);
-        $this->updateRemainQuantityVoucher($voucher);
-        $this->handleCustomerVoucher($voucher);
+        if(!is_null($voucher)) {
+            $this->updateRemainQuantityVoucher($voucher);
+            $this->handleCustomerVoucher($voucher);
+        }
         $this->createPay($dataPay, $order->id);
     }
 
@@ -116,6 +118,7 @@ class PayService
         $dataOrder['order_code'] = $this->getOrderCode();
         $dataOrder['total_amount'] = is_null($voucher) ? 0 : 1;
         $dataOrder['status'] = self::STATUS_PENDDING;
+        $dataOrder['discount'] = 0;
 
         return $this->orderRepository->create($dataOrder);
     }
@@ -189,6 +192,9 @@ class PayService
     private function updateTotalAmountOrder($order, $totalAmount, $voucher)
     {
         $voucherValue = is_null($voucher) ? 0 : $voucher->value;
+        if($voucherValue != 0) {
+            $order->discount = (int)round($totalAmount * $voucherValue / 100 );
+        }
         $totalAmount -= (int)round($totalAmount * $voucherValue / 100 );
         $order->total_amount = $totalAmount;
         $order->save();
@@ -242,7 +248,7 @@ class PayService
         $this->updateTotalAmountOrder($order, $totalAmount,$voucher);
         if(!is_null($voucher)) {
             $this->updateRemainQuantityVoucher($voucher);
-            $this->updateStatusCustomerVoucher($voucher);
+            $this->handleCustomerVoucher($voucher);
         }
         $this->createPay($dataPay, $order->id);
     }

@@ -15,6 +15,7 @@ Route::prefix('/')->middleware('guest')->group(function () {
 });
 Route::get('/logout', [FrontendController::class, 'logout'])->name('user-logout');
 Route::get('/{parent_category}', [FrontendController::class, 'getByParentCategory'])->name('products-by-parent-category');
+Route::get('/{id}/category', [FrontendController::class, 'getProductByCategory'])->name('products-by-category');
 Route::prefix('/user')->middleware('auth')->group(function () {
     Route::get('/purchase', [FrontendController::class, 'getOrderHistory'])->name('user-order-history');
     Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('user-add-to-cart');
@@ -25,5 +26,7 @@ Route::prefix('/user')->middleware('auth')->group(function () {
     Route::get('/handle-checkout-by-cart', [CartController::class, 'handleCheckoutByCart'])->name('handle-checkout-by-cart');
     Route::post('/create-pay', [PayController::class, 'create'])->name('create-pay');
     Route::delete('{id}/delete-cart-item',[CartController::class,'delete'])->name('delete-cart-item');
+    Route::get('/order-history',[FrontendController::class,'getOrderHistory'])->name('order-history');
+    
 });
 Route::get('/{id}/product-detail', [FrontendController::class, 'getProductDetail'])->name('product-detail');

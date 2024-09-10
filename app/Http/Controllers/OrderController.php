@@ -65,6 +65,11 @@ class OrderController extends Controller
         if ($orderLines->isEmpty() || is_null($pay)) {
             return redirect()->route('error-404');
         } 
+        $originTotal = 0;
+        foreach($orderLines as $orderLine) {
+            $originTotal += $orderLine->price * $orderLine->quantity;
+        }
+        $discount = $originTotal - $order->total_amount;
 
         $paymentTypes = config('variant.payment_type');
         $size = config('variant.size');
@@ -74,6 +79,7 @@ class OrderController extends Controller
         'pay' => $pay,
         'paymentTypes' => $paymentTypes,
         'size' => $size,
+        'discount' => $discount,
         ]);    
     }
 }

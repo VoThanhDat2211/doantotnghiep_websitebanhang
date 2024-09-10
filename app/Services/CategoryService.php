@@ -78,4 +78,9 @@ class CategoryService
         return $this->categoryRepository->getIdsByParentCategory($parentCategory);
     }
 
+    public function getByIdWithProducts($id)
+    {
+        return $this->categoryRepository->getByidWithProducts($id);
+    }
+
 }

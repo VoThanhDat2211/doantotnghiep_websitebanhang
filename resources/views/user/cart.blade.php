@@ -90,8 +90,8 @@
         <div class="container">
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li class="active">Shopping Cart</li>
+                    <li><a href="{{ route('home_page_user') }}">Trang chủ</a></li>
+                    <li class="active">GIỎ HÀNG</li>
                 </ol>
             </div>
             <div class="table-responsive cart_info">

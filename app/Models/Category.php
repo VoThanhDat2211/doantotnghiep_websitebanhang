@@ -15,9 +15,7 @@ class Category extends Model
     ];
 
     public function products() {
-        return $this->hasMany(Product::class)->whereNull('deleted_at');
+        return $this->hasMany(Product::class);
     }
-
-
 
 }

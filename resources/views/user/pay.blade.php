@@ -124,8 +124,8 @@
         <div class="container">
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li class="active">Check out</li>
+                    <li><a href="{{ route('home_page_user') }}">Trang Chủ</a></li>
+                    <li class="active">THANH TOÁN</li>
                 </ol>
             </div><!--/breadcrums-->
 
@@ -324,11 +324,15 @@
                             </tr>
                             <tr>
                                 @php
-                                    $totalPayment =  priceDiscount($productVariant->product->price, $productVariant->product->discount) * $buyQuantity;
+                                    $totalPayment =
+                                        priceDiscount(
+                                            $productVariant->product->price,
+                                            $productVariant->product->discount,
+                                        ) * $buyQuantity;
                                 @endphp
                                 <td>Tồng tiền cần thanh toán</td>
-                                <td><strong
-                                        style="color: "><span class="total-payment" data-total_payment="{{ $totalPayment }}" >{{ priceFormat($totalPayment) }}</span>
+                                <td><strong style="color: "><span class="total-payment"
+                                            data-total_payment="{{ $totalPayment }}">{{ priceFormat($totalPayment) }}</span>
                                         VND</strong></td>
                             </tr>
                         </table>
@@ -348,6 +352,12 @@
         <script>
             $(document).ready(function() {
                 let vouchers = @json($vouchers);
+                if (!Array.isArray(vouchers)) {
+                    vouchers = Object.values(vouchers);
+                }
+                if (!Array.isArray(vouchers)) {
+                    vouchers = [vouchers];
+                }
                 let voucherTypeOnlinePayment = vouchers.filter(function(voucher) {
                     return voucher.voucher_type === 4;
                 });
@@ -360,6 +370,17 @@
                     paymentValue = $(this).val();
                     if (paymentValue === "1" || paymentValue === "0") {
                         $links.addClass('disabled');
+                        let voucherCode = $('#voucher').val();
+                        for (let i = 0; i < voucherTypeOnlinePayment.length; i++) {
+                            if (voucherCode === voucherTypeOnlinePayment[i].voucher_code) {
+                                $('#voucher').val('');
+                                let totalPayment = $('.total-payment').data('total_payment');
+                                $('.total-payment').html(formatNumber(totalPayment));
+                                $('.voucher-value').html(0);
+                                break;
+                            }
+                        }
+
                     } else {
                         $links.removeClass('disabled');
                     }
@@ -378,11 +399,11 @@
                     }
 
                     let totalPayment = $('.total-payment').data('total_payment');
-                    let voucherDiscount =  Math.round(totalPayment * voucherValue / 100);
+                    let voucherDiscount = Math.round(totalPayment * voucherValue / 100);
                     totalPayment -= voucherDiscount;
                     $('.total-payment').html(formatNumber(totalPayment));
-                     $('.voucher-value').html(formatNumber(voucherDiscount));
-                    
+                    $('.voucher-value').html(formatNumber(voucherDiscount));
+
                 });
 
                 $('#voucher').on('keydown', function(e) {
@@ -390,12 +411,12 @@
                 });
 
                 function formatNumber(number) {
-                let roundedNumber = Math.round(number);
-                return roundedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            }
+                    let roundedNumber = Math.round(number);
+                    return roundedNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                }
             });
 
-             $(document).ready(function() {
+            $(document).ready(function() {
                 //Lấy tỉnh thành
                 $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
                     if (data_tinh.error == 0) {

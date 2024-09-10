@@ -62,4 +62,9 @@ class ProductRepository
     {
         return  Product::whereIn('category_id', $categoryIds)->paginate(16);
     }
+
+    public function getByCategory($categoryId)
+    {
+        return $this->product->where('category_id', $categoryId)->paginate(16);
+    }
 }

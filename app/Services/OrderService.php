@@ -48,4 +48,9 @@ class OrderService
     {
         return $this->orderRepository->getAllPaginate();
     }
+
+    public function getByCustomer($customerId)
+    {
+        return $this->orderRepository->getByCustomer($customerId);
+    }
 }

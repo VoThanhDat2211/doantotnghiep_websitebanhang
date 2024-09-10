@@ -13,12 +13,13 @@ class Order extends Model
         "order_code",
         "customer_id",
         "status",
-        "total_amount"
+        "total_amount",
+        'discount',
     ];
 
     public function orderLines()
     {
-        return $this->hasMany(OrderLine::class)->whereNull('deleted_at');
+        return $this->hasMany(OrderLine::class);
     }
 
     public function pay()

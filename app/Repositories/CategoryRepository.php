@@ -65,4 +65,9 @@ class CategoryRepository
     {
         return $this->category->where('parent_category', $parentCategory)->pluck('id')->toArray();
     }
+
+    public function getByidWithProducts($id) 
+    {
+        return $this->category->with('products')->find($id);
+    }
 }

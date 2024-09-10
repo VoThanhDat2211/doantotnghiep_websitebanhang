@@ -72,4 +72,9 @@ class ProductService
         return $this->productRepository->getByCategories($categoryIds);
     }
 
+    public function getByCategory($categoryId)
+    {
+        return $this->productRepository->getByCategory($categoryId);
+    }
+
 }

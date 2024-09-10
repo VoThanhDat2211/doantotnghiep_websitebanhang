@@ -31,5 +31,7 @@ class CustomerVoucherRepository
         return $this->customerVoucher->where(['customer_id' => $customerId, 'voucher_id' => $voucherId])->first();
     }
 
-    
+    public function getByStatusUsed($customerId, $voucherId, $status) {
+        return $this->customerVoucher->where(['customer_id' => $customerId, 'voucher_id' => $voucherId, 'status' => $status])->first();
+    }
 }

@@ -49,6 +49,12 @@
     </style>
     <section>
         <div class="container">
+            <div class="breadcrumbs">
+                <ol class="breadcrumb">
+                    <li><a href="{{ route('home_page_user') }}">Trang chủ</a></li>
+                    <li class="active">{{ $parentCategoryName }}</li>
+                </ol>
+            </div>
             <div class="row">
                 <div class="col-sm-3">
                     <div class="left-sidebar">
@@ -59,15 +65,16 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
-                                                <a>
+                                                <a href="{{ route('products-by-category', ['id' => $category->id]) }}">
                                                     <span data-toggle="collapse" data-parent="#accordian"
-                                                        href="#{{ $category->name }}" class="badge pull-right"><i
-                                                            class="fa fa-plus"></i></span>
+                                                        href="#{{ $category->name }}" class="badge pull-right">
+                                                        {{-- <i class="fa fa-plus"></i> --}}
+                                                    </span>
                                                     {{ $category->name }}
                                                 </a>
                                             </h4>
                                         </div>
-                                        <div id="{{ $category->name }}" class="panel-collapse collapse">
+                                        {{-- <div id="{{ $category->name }}" class="panel-collapse collapse">
                                             <div class="panel-body">
                                                 @if (!$category->products->isEmpty())
                                                     <ul>
@@ -77,7 +84,7 @@
                                                     </ul>
                                                 @endif
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 @endforeach
                             @endif

@@ -9,6 +9,7 @@ use App\Services\CartService;
 use App\Services\CategoryService;
 use App\Services\CustomerService;
 use App\Services\CustomerVoucherService;
+use App\Services\OrderService;
 use App\Services\ProductService;
 use App\Services\ProductVariantService;
 use App\Services\VoucherService;
@@ -27,7 +28,11 @@ class FrontendController extends Controller
     protected $productService;
     protected $productVariantService;
     protected $cartService;
+    protected $orderService;
     const PARENT_CATEGORY = [1,2,3];
+    const STATUS_USED = 3;
+    const ORDER_STATUS_PEDDING = 1;
+    const ORDER_STATUS_SHIPPING = 4;
 
     public function __construct(CustomerService $customerService,
     CustomerVoucherService $customerVoucherService,
@@ -35,7 +40,8 @@ class FrontendController extends Controller
     CategoryService $categoryService,
     ProductService $productService,
     ProductVariantService $productVariantService,
-    CartService $cartService    ,
+    CartService $cartService,
+    OrderService $orderService,
     )
     {
         $this->customerService = $customerService;
@@ -45,6 +51,7 @@ class FrontendController extends Controller
         $this->productService = $productService;
         $this->productVariantService = $productVariantService;
         $this->cartService = $cartService;
+        $this->orderService = $orderService;
     }
     public function login()
     {
@@ -166,6 +173,7 @@ class FrontendController extends Controller
                 break;
             }
         }
+        $parentCategoryName = config('variant.category_parent')[$parentCatgoryId];
         if(!in_array($parentCatgoryId,self::PARENT_CATEGORY))
         {
             return redirect()->route('error-404');
@@ -175,7 +183,8 @@ class FrontendController extends Controller
         $categoryIds = $this->categoryService->getIdsByParentCategory($parentCatgoryId) ;
         $products = $this->productService->getByCategories($categoryIds);
         return view('user.product-by-parent-category',['categories' => $categories,
-                                                        'products' => $products]);
+                                                        'products' => $products,
+                                                        'parentCategoryName' => $parentCategoryName]);
     }
 
     public function getCart()
@@ -212,8 +221,16 @@ class FrontendController extends Controller
         }
         // VOUCHER
         $today = Carbon::today();
-        $customerVouchers = $this->customerVoucherService->getByCustomer($customerId);
+        // voucher_type = ['Thanh Toán trực tuyến', 'Các Dịp Lễ']
         $vouchers = $this->voucherService->getByVoucherType();
+        if(!$vouchers->isEmpty()) {
+            $vouchers = $vouchers->reject(function ($voucher) use ($customerId) {
+                $customerVoucherUsed = $this->customerVoucherService->getByStatusUsed($customerId, $voucher->id, self::STATUS_USED);
+                return !is_null($customerVoucherUsed) && $customerVoucherUsed->voucher_id == $voucher->id;
+            });
+        }
+    
+        $customerVouchers = $this->customerVoucherService->getByCustomer($customerId);
         if(!$customerVouchers->isEmpty()){
             foreach($customerVouchers as $customerVoucher) {
                 $vouchers->push($customerVoucher->voucher);
@@ -240,13 +257,14 @@ class FrontendController extends Controller
         // VOUCHER
         $today = Carbon::today();
         $customerVouchers = $this->customerVoucherService->getByCustomer($customerId);
+        // voucher_type = ['Thanh Toán trực tuyến', 'Các Dịp Lễ']
         $vouchers = $this->voucherService->getByVoucherType();
         if(!$vouchers->isEmpty()) {
-            foreach ($vouchers as $voucher) {
-               dump()
-            }
+            $vouchers = $vouchers->reject(function ($voucher) use ($customerId) {
+                $customerVoucherUsed = $this->customerVoucherService->getByStatusUsed($customerId, $voucher->id, self::STATUS_USED);
+                return !is_null($customerVoucherUsed) && $customerVoucherUsed->voucher_id == $voucher->id;
+            });
         }
-
         if (!$customerVouchers->isEmpty()) {
             foreach ($customerVouchers as $customerVoucher) {
                 $vouchers->push($customerVoucher->voucher);
@@ -267,12 +285,15 @@ class FrontendController extends Controller
         $colors = $this->productVariantService->getDistinctColorByProduct($id);
         $sizes = $this->getSizes($id);
         $configuredSizes = config('variant.size');
-        
+        $parentCategoryName = config('variant.category_parent')[$product->category->parent_category];
+        $parentCategoryParam = config('param.parent_category_name')[$product->category->parent_category];
         return view('user.product-detail',['product' => $product,
                                             'colors' => $colors,
                                             'sizes' => $sizes,
                                             'imageProducts' => $imageProducts,
-                                            'configuredSizes' => $configuredSizes                                                   
+                                            'configuredSizes' => $configuredSizes,
+                                            'parentCategoryName' => $parentCategoryName,
+                                            'parentCategoryParam' => $parentCategoryParam,                                                   
                                         ]);
     }
 
@@ -289,6 +310,36 @@ class FrontendController extends Controller
 
     public function getOrderHistory()
     {
-        return view('user.order-history');
+        $customerId = Auth::user()->id;
+        $orderStatusArray = config('variant.order_status');
+        $orders = $this->orderService->getByCustomer($customerId);
+        $statusPendding = self::ORDER_STATUS_PEDDING;
+        $statusShipping = self::ORDER_STATUS_SHIPPING;
+        return view('user.order-history',[
+            'orderStatusArray' => $orderStatusArray,
+            'orders' => $orders,
+            'statusPendding' => $statusPendding,
+            'statusShipping' => $statusShipping,
+        ]);
+    }
+
+    public function getProductByCategory(Request $request)
+    {
+        $categoryId = $request->route('id');
+        $categoryMain = $this->categoryService->getByIdWithProducts($categoryId);
+        if(is_null($categoryMain)) {
+            return redirect()->route('error-404');
+        }
+        $categoryParent = $categoryMain->parent_category;
+        $parentCategoryName = config('variant.category_parent')[$categoryParent];
+        $parentCategoryParam = config('param.parent_category_name')[$categoryParent];
+        $categories = $this->categoryService->getByParentCategory($categoryParent);
+        $products = $categoryMain->products()->paginate(16);
+        return view('user.product-by-category',['categories' => $categories,
+                                                'products' => $products,
+                                                'parentCategoryName' => $parentCategoryName,
+                                                'categoryMain' => $categoryMain,
+                                                'parentCategoryParam' => $parentCategoryParam,
+                                            ]);
     }
 }

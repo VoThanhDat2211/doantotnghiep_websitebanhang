@@ -33,11 +33,12 @@ class OrderRepository
     public function getAllPaginate()
     {
         return $this->order->with('orderLines')
-            
             ->orderBy("created_at", "desc")
             ->paginate(30);
     }
 
-    
-
+    public function getByCustomer($customerId) 
+    {
+        return $this->order->with('orderLines')->where('customer_id',$customerId)->get();
+    }
 }

@@ -38,6 +38,10 @@
                             </tr>
                         @endforeach
                         <tr>
+                            <td class="text-ellipsis" colspan="3"><strong>Giảm giá</strong></td>
+                            <td class="text-ellipsis">{{ number_format($discount, 0, ',', '.') }}</td>
+                        </tr>
+                        <tr>
                             <td class="text-ellipsis" colspan="3"><strong>Tổng Hóa Đơn</strong></td>
                             <td class="text-ellipsis">{{ number_format($order->total_amount, 0, ',', '.') }}</td>
                         </tr>
