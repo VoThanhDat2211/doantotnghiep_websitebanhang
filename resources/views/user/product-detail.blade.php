@@ -109,7 +109,9 @@
                                         <img src="images/product-details/new.jpg" class="newarrival" alt="" />
                                         <h2>{{ $product->name }}</h2>
                                         <div class="price">
-                                            <span class="price-origin">₫{{ priceFormat($product->price) }}</span>
+                                            @if ($product->discount != 0)
+                                                 <span class="price-origin">₫{{ priceFormat($product->price) }}</span>
+                                            @endif
                                             <span
                                                 class="price-sale mx-2">₫{{ priceFormat(priceDiscount($product->price, $product->discount)) }}</span>
                                         </div>

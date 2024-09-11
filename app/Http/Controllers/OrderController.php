@@ -82,4 +82,15 @@ class OrderController extends Controller
         'discount' => $discount,
         ]);    
     }
+
+    public function cancleOrder(Request $request) 
+    {
+        $orderId = $request->route('order_id');
+        $order = $this->orderService->getById($orderId);
+        if(is_null($order)) {
+            return redirect()->route('error-404');
+        }
+
+        $this->orderService->cancleOrder($order);
+    }
 }

@@ -39,6 +39,6 @@ class OrderRepository
 
     public function getByCustomer($customerId) 
     {
-        return $this->order->with('orderLines')->where('customer_id',$customerId)->get();
+        return $this->order->with('orderLines')->where('customer_id',$customerId)->orderBy('created_at','desc')->get();
     }
 }

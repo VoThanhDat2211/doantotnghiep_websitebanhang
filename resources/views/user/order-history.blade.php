@@ -9,6 +9,7 @@
             background-color: #F5F5F5;
             padding-top: 30px;
             padding-bottom: 30px;
+            min-height: 100vh;
         }
 
         .order-history {
@@ -24,11 +25,12 @@
         }
 
         .order-item .status {
-            color: rgb(254, 152, 15);
+            color: #EE4D2D;
         }
 
         .order-detail {
             padding-top: 12px;
+            padding-bottom: 12px;
             border-bottom: 1px solid #ccc;
         }
 
@@ -57,7 +59,7 @@
         }
 
         .price .buy-price {
-            color: rgb(254, 152, 15);
+            color: #EE4D2D;
         }
 
         .footer-order {
@@ -73,7 +75,7 @@
 
         .btn-status {
             font-size: 18px;
-            background: #FE9F20;
+            background: #EE4D2D;
             color: #fff;
             padding: 7px 15px;
             border-radius: 7px;
@@ -88,7 +90,66 @@
                     <li class="active">LỊCH SỬ MUA HÀNG</li>
                 </ol>
             </div>
-            <div class="container order-history">
+            @if (isset($orders))
+                @foreach ($orders as $order)
+                    <div class="container order-history">
+                        <div class="order-item">
+                            <div class="row header-order">
+                                <div class="col-sm-6 ">
+                                    <span><b>MÃ ĐƠN HÀNG: {{ $order->order_code }}</b></span>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <span style="color: #858585"><b>NGÀY ĐẶT: {{ $order->created_at->format('d/m/Y H:m:s') }}</b> </span>
+                                    <span> | </span>
+                                    <span class="status">{{ $orderStatusArray[$order->status] }}</span>
+                                </div>
+                            </div>
+                            @php
+                                $orderLines = $order->orderLines;
+                            @endphp
+                            @foreach ($orderLines as $orderLine)
+                                <div class="row order-detail">
+                                <div class="col-sm-2 text-center">
+                                    <img src="{{ asset('/image/' . $orderLine->productVariantWithTrashed->image_path) }}" style="width:50%;">
+                                </div>
+                                <div class="col-sm-10">
+                                    <div class="row align-items-center">
+                                        <div class="col-sm-9">
+                                            <p class="product-name">{{ $orderLine->productVariantWithTrashed->productWithTrashed->name }}</p>
+                                            <p class="variant">Phân loại hàng: Đen, XL</p>
+                                            <p>x1</p>
+                                        </div>
+                                        <div class="col-sm-3 price text-center">
+                                            <span class="buy-price">{{ priceFormat($orderLine->price) }}đ</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            @endforeach
+                            <div class="row footer-order text-right">
+                                <div class="col-sm-12 mb-10">
+                                    Giảm giá: <span><strong style="color: #929292">{{ priceFormat($order->discount) }}đ</strong></span>
+                                </div>
+                                <div class="col-sm-12 total_amount mb-10">
+                                    Thành tiền: <span><strong style="color: #EE4D2D">{{ priceFormat($order->total_amount) }}đ</strong></span>
+                                </div>
+                                @if ($order->status == $statusPendding)
+                                    <div class="col-sm-12" style="margin-top: 12px">
+                                    <span class="btn-status">Hủy Đơn Hàng</span>
+                                </div>
+                                @endif
+                                @if ($order->status == $statusShipping)
+                                    <div class="col-sm-12" style="margin-top: 12px">
+                                    <span class="btn-status">Đã Nhận Hàng</span>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+            {{--  <div class="container order-history">
                 <div class="order-item">
                     <div class="row header-order">
                         <div class="col-sm-6 ">
@@ -115,8 +176,7 @@
                                     <p class="variant">Phân loại hàng: Đen, XL</p>
                                     <p>x1</p>
                                 </div>
-                                <div class="col-sm-3 price text-center">
-                                    <span class="origin-price">120.000đ</span>
+                                <div class="col-sm-3 price text-center
                                     <span class="buy-price">145.000đ</span>
                                 </div>
                             </div>
@@ -164,8 +224,7 @@
                                     <p class="variant">Phân loại hàng: Đen, XL</p>
                                     <p>x1</p>
                                 </div>
-                                <div class="col-sm-3 price text-center">
-                                    <span class="origin-price">120.000đ</span>
+                                <div class="col-sm-3 price text-center
                                     <span class="buy-price">145.000đ</span>
                                 </div>
                             </div>
@@ -184,6 +243,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  --}}
     </section>
 @endsection

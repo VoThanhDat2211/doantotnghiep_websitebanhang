@@ -32,7 +32,7 @@ class FrontendController extends Controller
     const PARENT_CATEGORY = [1,2,3];
     const STATUS_USED = 3;
     const ORDER_STATUS_PEDDING = 1;
-    const ORDER_STATUS_SHIPPING = 4;
+    const ORDER_STATUS_SHIPPING = 3;
 
     public function __construct(CustomerService $customerService,
     CustomerVoucherService $customerVoucherService,
