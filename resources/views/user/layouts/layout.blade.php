@@ -37,6 +37,19 @@
         #footer {
             margin-top: 32px;
         }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: white;
+        }
+
+        body {
+            padding-top: 208px;
+        }
     </style>
 </head><!--/head-->
 

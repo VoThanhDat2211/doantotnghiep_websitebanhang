@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PayController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Route::prefix('/user')->middleware('auth')->group(function () {
     Route::post('/create-pay', [PayController::class, 'create'])->name('create-pay');
     Route::delete('{id}/delete-cart-item',[CartController::class,'delete'])->name('delete-cart-item');
     Route::get('/order-history',[FrontendController::class,'getOrderHistory'])->name('order-history');
-    
+    Route::get('{order_id}/cancle-order',[OrderController::class,'cancleOrder'])->name('cancle-order');
+    Route::get('{order_id}/receive-order', [OrderController::class, 'receiveOrder'])->name('receive-order');
 });
 Route::get('/{id}/product-detail', [FrontendController::class, 'getProductDetail'])->name('product-detail');

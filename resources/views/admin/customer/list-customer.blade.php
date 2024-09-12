@@ -50,7 +50,7 @@
                                     </td>
                                     <td><span class="text-ellipsis">{{ $customer->email }}</span></td>
                                     <td><span class="text-ellipsis">{{ $customer->birthday->format('d-m-Y') }}</span></td>
-                                    <td>1</td>
+                                    <td>{{ $customer->orders()->count() }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

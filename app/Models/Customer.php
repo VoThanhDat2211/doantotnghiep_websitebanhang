@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Customer extends Authenticatable
 {
+    const ORDER_STATUS_CANCLE = 6;
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -46,4 +47,9 @@ class Customer extends Authenticatable
         "updated_at" => "datetime",
         'birthday' => 'date',
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class)->whereNot('status',self::ORDER_STATUS_CANCLE);
+    }
 }

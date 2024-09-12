@@ -11,6 +11,7 @@ class OrderService
     const ORDER_STATUS_PAID = 2;
     const ORDER_STATUS_SHIPPING = 3;
     const ORDER_STATUS_CANCLE = 6;
+    const ORDER_STATUS_RECEIVED = 4;
     protected $orderRepository;
     public function __construct(OrderRepository $orderRepository)
     {
@@ -60,19 +61,20 @@ class OrderService
         try {
             DB::transaction(function () use ($order) {
                 $this->processUpdateStatusOrder(order: $order);
+                $this->updateQuantity($order);
             });
             $result = [
                 $message = "Hủy đơn hàng thành công",
                 $status = 'success',
             ];
-            return redirect()->route('order-history');
+            return redirect()->route('order-history')->with('result',$result);
         } catch (Exception $e) {
             DB::rollBack();
             $result = [
                 $message = $e->getMessage(),
                 $status = 'error',
             ];
-            return redirect()->route('order-history');
+            return redirect()->route('order-history')->with('result',$result);
         }
     }
 
@@ -108,5 +110,37 @@ class OrderService
                 }
             }
         }
+    }
+
+    public function receiveOrder($order)
+    {
+        try {
+            DB::transaction(function () use ($order) {
+                $this->processUpdateStatusShippedOrder(order: $order);
+            });
+            $result = [
+                $message = " đơn hàng thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('order-history');
+        } catch (Exception $e) {
+            DB::rollBack();
+            $result = [
+                $message = $e->getMessage(),
+                $status = 'error',
+            ];
+            return redirect()->route('order-history');
+        }
+    }
+
+    private function processUpdateStatusShippedOrder($order)
+    {
+            $order->status = self::ORDER_STATUS_RECEIVED;
+            $order->save();
+    }
+
+    public function countOrderByCustomer($customerId)
+    {
+        return $this->orderRepository->countOrderByCustomer($customerId, self::ORDER_STATUS_RECEIVED);
     }
 }

@@ -136,113 +136,19 @@
                                 </div>
                                 @if ($order->status == $statusPendding)
                                     <div class="col-sm-12" style="margin-top: 12px">
-                                    <span class="btn-status">Hủy Đơn Hàng</span>
+                                    <a href="{{ route('cancle-order',['order_id' => $order->id]) }}"><span class="btn-status">Hủy Đơn Hàng</span></a>
                                 </div>
                                 @endif
                                 @if ($order->status == $statusShipping)
                                     <div class="col-sm-12" style="margin-top: 12px">
-                                    <span class="btn-status">Đã Nhận Hàng</span>
+                                        <a href="{{ route('receive-order',['order_id' => $order->id]) }}"><span class="btn-status">Đã Nhận Hàng</span></a>
                                 </div>
                                 @endif
                             </div>
                         </div>
                     </div>
                 @endforeach
+            {{ $orders->links() }}
             @endif
-            {{--  <div class="container order-history">
-                <div class="order-item">
-                    <div class="row header-order">
-                        <div class="col-sm-6 ">
-                            <span><b>MÃ ĐƠN HÀNG: 12121212</b></span>
-                        </div>
-                        <div class="col-sm-6 text-right">
-                            <span style="color: #858585"><b>NGÀY ĐẶT: 23/08/2010</b> </span>
-                            <span> | </span>
-                            <span class="status">GIAO HÀNG THÀNH CÔNG</span>
-                        </div>
-                    </div>
-                    <div class="row order-detail">
-                        <div class="col-sm-2 text-center">
-                            <img src="{{ asset('/image/sp8.jpg') }}" style="width:50%;">
-                        </div>
-                        <div class="col-sm-10">
-                            <div class="row align-items-center">
-                                <div class="col-sm-9">
-                                    <p class="product-name">Chuột máy tính 𝙇𝙤𝙜𝙞𝙩𝙚𝙘𝙝 G102 OEM có dây 16,8 triệu màu
-                                        LED
-                                        RGB đổi
-                                        màu Bảo hành 12 Tháng
-                                        [ 1 đổi 1 ]</p>
-                                    <p class="variant">Phân loại hàng: Đen, XL</p>
-                                    <p>x1</p>
-                                </div>
-                                <div class="col-sm-3 price text-center
-                                    <span class="buy-price">145.000đ</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="row footer-order text-right">
-                        <div class="col-sm-12 mb-10">
-                            Giảm giá: <span><strong style="color: #929292">145.000đ</strong></span>
-                        </div>
-                        <div class="col-sm-12 total_amount mb-10">
-                            Thành tiền: <span><strong style="color: rgb(254, 152, 15)">145.000đ</strong></span>
-                        </div>
-                        <div class="col-sm-12" style="margin-top: 12px">
-                            <span class="btn-status">Hủy Đơn Hàng</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container order-history">
-                <div class="order-item">
-                    <div class="row header-order">
-                        <div class="col-sm-6 ">
-                            <span><b>MÃ ĐƠN HÀNG: 12121212</b></span>
-                        </div>
-                        <div class="col-sm-6 text-right">
-                            <span style="color: #858585"><b>NGÀY ĐẶT: 23/08/2010</b> </span>
-                            <span> | </span>
-                            <span class="status">GIAO HÀNG THÀNH CÔNG</span>
-                        </div>
-                    </div>
-                    <div class="row order-detail">
-                        <div class="col-sm-2 text-center">
-                            <img src="{{ asset('/image/sp8.jpg') }}" style="width:50%;">
-                        </div>
-                        <div class="col-sm-10">
-                            <div class="row align-items-center">
-                                <div class="col-sm-9">
-                                    <p class="product-name">Chuột máy tính 𝙇𝙤𝙜𝙞𝙩𝙚𝙘𝙝 G102 OEM có dây 16,8 triệu màu
-                                        LED
-                                        RGB đổi
-                                        màu Bảo hành 12 Tháng
-                                        [ 1 đổi 1 ]</p>
-                                    <p class="variant">Phân loại hàng: Đen, XL</p>
-                                    <p>x1</p>
-                                </div>
-                                <div class="col-sm-3 price text-center
-                                    <span class="buy-price">145.000đ</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="row footer-order text-right">
-                        <div class="col-sm-12 mb-10">
-                            Giảm giá: <span><strong style="color: #929292">145.000đ</strong></span>
-                        </div>
-                        <div class="col-sm-12 total_amount mb-10">
-                            Thành tiền: <span><strong style="color: rgb(254, 152, 15)">145.000đ</strong></span>
-                        </div>
-                        <div class="col-sm-12" style="margin-top: 12px">
-                            <span class="btn-status">Hủy Đơn Hàng</span>
-                        </div>
-                    </div>
-                </div>
-            </div>  --}}
     </section>
 @endsection

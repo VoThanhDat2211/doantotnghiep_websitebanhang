@@ -39,6 +39,11 @@ class OrderRepository
 
     public function getByCustomer($customerId) 
     {
-        return $this->order->with('orderLines')->where('customer_id',$customerId)->orderBy('created_at','desc')->get();
+        return $this->order->with('orderLines')->where('customer_id',$customerId)->orderBy('created_at','desc')->paginate(5);
+    }
+
+    public function countOrderByCustomer($customerId, $statusSucces) 
+    {
+        return $this->order->where(['customer_id' => $customerId, 'status' => $statusSucces])->count();
     }
 }

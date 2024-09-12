@@ -91,6 +91,17 @@ class OrderController extends Controller
             return redirect()->route('error-404');
         }
 
-        $this->orderService->cancleOrder($order);
+        return $this->orderService->cancleOrder($order);
+    }
+
+    public function receiveOrder(Request $request)
+    {
+        $orderId = $request->route('order_id');
+        $order = $this->orderService->getById($orderId);
+        if (is_null($order)) {
+            return redirect()->route('error-404');
+        }
+
+        return $this->orderService->receiveOrder($order);
     }
 }
