@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Enums\CategoryParentEnum;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\LoginFormRequest;
-use App\Services\CategoryService;;
+use App\Services\CategoryService;
+use App\Services\CustomerService;
+use App\Services\OrderService;
+
+;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +20,16 @@ use Illuminate\Support\Str;
 class AdminController extends Controller
 {
     protected $categoryService;
-
-    public function __construct(CategoryService $categoryService)
+    protected $orderService;
+    protected $customerService;
+    public function __construct(CategoryService $categoryService,
+                                OrderService $orderService,
+                                CustomerService $customerService,                           
+    )
     {
         $this->categoryService = $categoryService;
+        $this->customerService = $customerService;
+        $this->orderService = $orderService;
     }
     public function getLogin() : View
     {
@@ -50,7 +60,14 @@ class AdminController extends Controller
     }
     public function dashboard() : View
     {
-        return view('admin.dashboard');
+        $quantityCustomer = $this->customerService->countCustomer();
+        $quantityOrder = $this->orderService->countByDate();
+        $totalAmounts = $this->orderService->getTotalAmountByDate();
+        $revenue = array_sum($totalAmounts);
+        return view('admin.dashboard',['quantityCustomer' => $quantityCustomer,
+                                                    'quantityOrder' => $quantityOrder,
+                                                    'revenue' => $revenue,
+    ]);
     }
 
     public function getCategoryList() : View

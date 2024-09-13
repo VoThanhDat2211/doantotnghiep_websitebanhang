@@ -35,4 +35,9 @@ class CustomerService
     {
         return $this->customerRepository->getTopCustomersByOrderCount($limit);
     }
+
+    public function countCustomer()
+    {
+        return $this->customerRepository->countCustomer();
+    }
 }

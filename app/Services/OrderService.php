@@ -143,4 +143,14 @@ class OrderService
     {
         return $this->orderRepository->countOrderByCustomer($customerId, self::ORDER_STATUS_RECEIVED);
     }
+
+    public function countByDate()
+    {
+        return $this->orderRepository->countByDate(self::ORDER_STATUS_RECEIVED);
+    }
+
+    public function getTotalAmountByDate()
+    {
+        return $this->orderRepository->getTotalAmountByDate(self::ORDER_STATUS_RECEIVED);
+    }
 }

@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Order;
+use Carbon\Carbon;
 
 class OrderRepository
 {
@@ -16,7 +17,7 @@ class OrderRepository
         return $this->order->create($data);
     }
 
-    public function update($order,$status)
+    public function update($order, $status)
     {
         return $order->update(['status' => $status]);
     }
@@ -37,13 +38,33 @@ class OrderRepository
             ->paginate(30);
     }
 
-    public function getByCustomer($customerId) 
+    public function getByCustomer($customerId)
     {
-        return $this->order->with('orderLines')->where('customer_id',$customerId)->orderBy('created_at','desc')->paginate(5);
+        return $this->order->with('orderLines')->where('customer_id', $customerId)->orderBy('created_at', 'desc')->paginate(5);
     }
 
-    public function countOrderByCustomer($customerId, $statusSucces) 
+    public function countOrderByCustomer($customerId, $statusSucces)
     {
         return $this->order->where(['customer_id' => $customerId, 'status' => $statusSucces])->count();
+    }
+
+    public function countByDate($statusSucces)
+    {
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+        return $this->order->where('status', $statusSucces)
+            ->whereYear('created_at', $currentYear)
+            ->whereMonth('created_at', $currentMonth)
+            ->count();
+    }
+
+    public function getTotalAmountByDate($statusSucces)
+    {
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+        return $this->order->where('status', $statusSucces)
+            ->whereYear('created_at', $currentYear)
+            ->whereMonth('created_at', $currentMonth)
+            ->pluck('total_amount')->toArray();
     }
 }

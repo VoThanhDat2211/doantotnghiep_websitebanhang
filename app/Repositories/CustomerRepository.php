@@ -18,6 +18,11 @@ class CustomerRepository
         return $this->customer->paginate(30);
     }
 
+    public function countCustomer()
+    {
+        return $this->customer->count();
+    }
+
     public function create(array $data)
     {
         return $this->customer->create($data);
