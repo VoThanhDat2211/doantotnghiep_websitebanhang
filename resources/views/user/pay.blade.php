@@ -334,6 +334,7 @@
                                 <td><strong style="color: "><span class="total-payment"
                                             data-total_payment="{{ $totalPayment }}">{{ priceFormat($totalPayment) }}</span>
                                         VND</strong></td>
+                                <input type="hidden" name="total_payment" value="{{ $totalPayment }}">
                             </tr>
                         </table>
                     </div>
@@ -376,6 +377,7 @@
                                 $('#voucher').val('');
                                 let totalPayment = $('.total-payment').data('total_payment');
                                 $('.total-payment').html(formatNumber(totalPayment));
+                                $('input[name="total_payment"]').val(totalPayment);
                                 $('.voucher-value').html(0);
                                 break;
                             }
@@ -402,6 +404,7 @@
                     let voucherDiscount = Math.round(totalPayment * voucherValue / 100);
                     totalPayment -= voucherDiscount;
                     $('.total-payment').html(formatNumber(totalPayment));
+                    $('input[name="total_payment"]').val(totalPayment);
                     $('.voucher-value').html(formatNumber(voucherDiscount));
 
                 });

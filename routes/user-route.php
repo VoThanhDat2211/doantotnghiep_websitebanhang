@@ -30,5 +30,7 @@ Route::prefix('/user')->middleware('auth')->group(function () {
     Route::get('/order-history',[FrontendController::class,'getOrderHistory'])->name('order-history');
     Route::get('{order_id}/cancle-order',[OrderController::class,'cancleOrder'])->name('cancle-order');
     Route::get('{order_id}/receive-order', [OrderController::class, 'receiveOrder'])->name('receive-order');
+//    Route::get('payment-online', [PayController::class, 'paymentOnline'])->name('payment-online');
+    Route::post('payment-online', [PayController::class, 'createPaymentOnline'])->name('create-payment-online');
 });
 Route::get('/{id}/product-detail', [FrontendController::class, 'getProductDetail'])->name('product-detail');
