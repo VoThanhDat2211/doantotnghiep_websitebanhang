@@ -337,7 +337,7 @@
                                 <td><strong style="color: "><span class="total-payment"
                                             data-total_payment="{{ $total }}">{{ priceFormat($total) }}</span>
                                         VND</strong></td>
-                                <input type="hidden" name="total_payment" value="{{ $totalPayment }}">
+                                <input type="hidden" name="total_payment" value="{{ $total }}">
                             </tr>
                         </table>
                     </div>

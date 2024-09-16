@@ -2,6 +2,8 @@
 namespace App\Services;
 
 use App\Repositories\CustomerRepository;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class CustomerService 
 {
@@ -14,6 +16,28 @@ class CustomerService
     public function create(array $data)
     {
         return $this->customerRepository->create($data);
+    }
+
+    public function updateUsername($customer,$username)
+    {
+        DB::beginTransaction();
+        try {
+            DB::commit();
+            return $this->customerRepository->updateUsername($customer, $username);
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
+    }
+
+    public function updateEmail($customer, $email)
+    {
+        DB::beginTransaction();
+        try {
+            DB::commit();
+            return $this->customerRepository->updateEmail($customer, $email);
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
     public function getAll()
@@ -40,4 +64,16 @@ class CustomerService
     {
         return $this->customerRepository->countCustomer();
     }
+
+    public function usernameExists($customerId,$username)
+    {
+        return $this->customerRepository->usernameExists($customerId, $username);
+    }
+
+    public function emailExists($customerId, $email)
+    {
+        return $this->customerRepository->emailExists($customerId, $email);
+    }
+
+
 }

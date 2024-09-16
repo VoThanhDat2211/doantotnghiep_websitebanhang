@@ -342,4 +342,10 @@ class FrontendController extends Controller
                                                 'parentCategoryParam' => $parentCategoryParam,
                                             ]);
     }
+
+    public function getInforCustomer() 
+    {
+        $customer = Auth::user();
+        return view('user.account-infor',['customer' => $customer]);
+    }
 }

@@ -108,7 +108,7 @@
                                                 <span class="caret"></span></button>
                                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                                 <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                        href="#"><i class="fa-solid fa-pen-to-square"></i> Thông
+                                                        href="{{ route('account-infor') }}"><i class="fa-solid fa-pen-to-square"></i> Thông
                                                         tin tài khoản</a></li>
                                                 <li role="presentation"><a role="menuitem" tabindex="-1"
                                                         href="{{ route('order-history') }}"><i

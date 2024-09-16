@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -32,5 +33,9 @@ Route::prefix('/user')->middleware('auth')->group(function () {
     Route::get('{order_id}/receive-order', [OrderController::class, 'receiveOrder'])->name('receive-order');
 //    Route::get('payment-online', [PayController::class, 'paymentOnline'])->name('payment-online');
     Route::post('payment-online', [PayController::class, 'createPaymentOnline'])->name('create-payment-online');
+    Route::get('account-infor', [FrontendController::class, 'getInforCustomer'])->name('account-infor');
+    Route::put('update-username', [CustomerController::class, 'updateUsername'])->name('update-username');
+    Route::put('update-email', [CustomerController::class, 'updateEmail'])->name('update-email');
+    Route::get('form-change-password', [CustomerController::class, 'formChangePassword'])->name('form-change-password');
 });
 Route::get('/{id}/product-detail', [FrontendController::class, 'getProductDetail'])->name('product-detail');

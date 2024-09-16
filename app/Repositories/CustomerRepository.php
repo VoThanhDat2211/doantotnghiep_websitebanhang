@@ -28,6 +28,17 @@ class CustomerRepository
         return $this->customer->create($data);
     }
 
+    public function updateUsername($customer,$username)
+    {
+        return $customer->update(['username' => $username]);
+    }
+
+    public function updateEmail($customer, $email)
+    {
+        return $customer->update(['email' => $email]);
+    }
+
+
     public function getByUserName($username)
     {
         return $this->customer->where('username',$username)->first();
@@ -48,6 +59,16 @@ class CustomerRepository
             ->orderBy('order_count','desc')
             ->limit($limit)
             ->get();
+    }
+
+    public function usernameExists($customerId,$username)
+    {
+        return $this->customer->where('username', $username)->where('id','!=',$customerId)->exists();
+    }
+
+    public function emailExists($customerId, $email)
+    {
+        return $this->customer->where('email', $email)->where('id', '!=', $customerId)->exists();
     }
 
 }
