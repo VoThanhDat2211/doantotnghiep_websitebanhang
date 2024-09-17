@@ -61,6 +61,225 @@
         </div>
         <div class="clearfix"> </div>
     </div>
+    // thong ke doanh thu va so luong don hang theo nam
+    <div class="row">
+        <div class="container  text-center mb-5" style="width: 60%;margin-top:50px">
+            <span class="fs-1"><b>SỐ LIỆU THỐNG KÊ NĂM:</b> </span> <select id="year-select" class="p-1 fs-1"
+                onchange="onChange()">
+                <option>2024</option>
+            </select>
+        </div>
+        <div class="container mt-3" id="chart1" style="width: 70%">
+            <canvas id="myChart1">
+            </canvas>
+
+        </div>
+    </div>
+   <script>
+    let massPopChart;
+        let massPopChart2;
+        async function onChange() {
+
+            document.getElementById('chart1').style.display = 'block';
+            document.getElementById('chart2').style.display = 'block';
+            let yearSelected = document.getElementById('year-select').value;
+            let countData = [];
+            let revenueData = [];
+            try {
+                let response = await axios.post("/admin/get-chart", {
+                    year: yearSelected
+                });
+                countData = response.data.countOrderByMonthsOfYear;
+                revenueData = response.data.totalRevenueByMonthsOfYear
+                let myChart1 = document.getElementById('myChart1').getContext('2d');
+
+                if (massPopChart) {
+                    massPopChart.destroy();
+                }
+                if (massPopChart2) {
+                    massPopChart2.destroy();
+                }
+                // Global Options
+                Chart.defaults.global.defaultFontFamily = 'Lato';
+                Chart.defaults.global.defaultFontSize = 18;
+                Chart.defaults.global.defaultFontColor = '#777';
+
+
+                massPopChart = new Chart(myChart1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+                        datasets: [{
+                            label: 'Doanh thu',
+                            data: revenueData,
+                            //backgroundColor:'green',
+                            backgroundColor: [
+                                'rgba(23, 76, 144, 0.9)',
+                                'rgba(23, 76, 144, 0.9)',
+                                'rgba(23, 76, 144, 0.9)',
+                                'rgba(23, 76, 144, 0.9)',
+                                'rgba(23, 76, 144, 0.9)',
+                                'rgba(23, 76, 144, 0.9)',
+                                'rgba(23, 76, 144, 0.9)',
+                                'rgba(23, 76, 144, 0.9)',
+                                'rgba(23, 76, 144, 0.9)',
+                                'rgba(23, 76, 144, 0.9)',
+                                'rgba(23, 76, 144, 0.9)',
+                                'rgba(23, 76, 144, 0.9)'
+                            ],
+                            borderWidth: 1,
+                            borderColor: '#777',
+                            hoverBorderWidth: 3,
+                            hoverBorderColor: '#000'
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Tổng doanh thu',
+                            fontSize: 25
+                        },
+                        legend: {
+                            display: true,
+                            position: 'right',
+                            labels: {
+                                fontColor: '#000'
+                            }
+                        },
+                        layout: {
+                            padding: {
+                                left: 50,
+                                right: 0,
+                                bottom: 0,
+                                top: 0
+                            }
+                        },
+                        tooltips: {
+                            enabled: true,
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    return data.datasets[tooltipItem.datasetIndex].label + ': ' +
+                                        Number(tooltipItem.yLabel).toLocaleString('vi-VN');
+                                }
+                            }
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    callback: function(value) {
+                                        return value.toLocaleString('vi-VN');
+                                    }
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Doanh thu (VND)',
+                                    position: 'bottom'
+                                }
+                            }],
+                            xAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Tháng',
+                                    position: 'end'
+                                },
+                                gridLines: {
+                                    offsetGridLines: true
+                                }
+                            }]
+                        },
+                    }
+                });
+
+
+                let myChart2 = document.getElementById('myChart2').getContext('2d');
+                massPopChart2 = new Chart(myChart2, {
+                    type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                    data: {
+                        labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+                        datasets: [{
+                            label: 'Số đơn hàng',
+                            data: countData,
+                            //backgroundColor:'green',
+                            backgroundColor: [
+                                'rgba(254,196,1, 0.9)',
+                                'rgba(254,196,1, 0.9)',
+                                'rgba(254,196,1, 0.9)',
+                                'rgba(254,196,1, 0.9)',
+                                'rgba(254,196,1, 0.9)',
+                                'rgba(254,196,1, 0.9)',
+                                'rgba(254,196,1, 0.9)',
+                                'rgba(254,196,1, 0.9)',
+                                'rgba(254,196,1, 0.9)',
+                                'rgba(254,196,1, 0.9)',
+                                'rgba(254,196,1, 0.9)',
+                                'rgba(254,196,1, 0.9)'
+                            ],
+                            borderWidth: 1,
+                            borderColor: '#777',
+                            hoverBorderWidth: 3,
+                            hoverBorderColor: '#000'
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Tổng đơn hàng',
+                            fontSize: 25
+                        },
+                        legend: {
+                            display: true,
+                            position: 'right',
+                            labels: {
+                                fontColor: '#000'
+                            }
+                        },
+                        layout: {
+                            padding: {
+                                left: 50,
+                                right: 0,
+                                bottom: 0,
+                                top: 0
+                            }
+                        },
+                        tooltips: {
+                            enabled: true
+                        },
+                        scales: {
+                            yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Số đơn hàng', // Tiêu đề cho trục tung
+                                    position: 'top'
+                                }
+                            }],
+                            xAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Tháng' // Tiêu đề cho trục hoành
+                                }
+                            }]
+                        },
+                        hover: {
+                            mode: null
+                        },
+                    }
+                });
+
+
+            } catch (error) {
+                console.log(error);
+                // Xử lý lỗi ở đây
+            }
+
+
+        }
+
+        function formatNumber(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+   </script>
+
     <!-- //market-->
     <div class="row">
         <div class="panel-body">
@@ -71,8 +290,6 @@
                         <header class="agileits-box-header clearfix">
                             <h3>Visitor Statistics</h3>
                             <div class="toolbar">
-
-
                             </div>
                         </header>
                         <div class="agileits-box-body clearfix">
@@ -81,7 +298,6 @@
                     </div>
                 </div>
                 <!--//agileinfo-grap-->
-
             </div>
         </div>
     </div>
@@ -200,7 +416,6 @@
                 </div>
                 <div id="graph7"></div>
                 <script>
-                    // This crosses a DST boundary in the UK.
                     Morris.Area({
                         element: 'graph7',
                         data: [{

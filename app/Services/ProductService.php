@@ -72,6 +72,11 @@ class ProductService
         return $this->productRepository->getByCategories($categoryIds);
     }
 
+    public function getByCategoriesAndName(array $categoryIds, $productName)
+    {
+        return $this->productRepository->getByCategoriesAndName($categoryIds, $productName);
+    }
+
     public function getByCategory($categoryId)
     {
         return $this->productRepository->getByCategory($categoryId);

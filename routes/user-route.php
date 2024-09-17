@@ -37,5 +37,6 @@ Route::prefix('/user')->middleware('auth')->group(function () {
     Route::put('update-username', [CustomerController::class, 'updateUsername'])->name('update-username');
     Route::put('update-email', [CustomerController::class, 'updateEmail'])->name('update-email');
     Route::get('form-change-password', [CustomerController::class, 'formChangePassword'])->name('form-change-password');
+    Route::put('update-password', [CustomerController::class, 'updatePassword'])->name('update-password');
 });
 Route::get('/{id}/product-detail', [FrontendController::class, 'getProductDetail'])->name('product-detail');

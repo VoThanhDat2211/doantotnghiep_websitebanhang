@@ -65,14 +65,23 @@
             .input-item {
                 margin-bottom: 24px;
             }
+
+            .active a {
+                background: #fff !important;
+                color: #000 !important;
+                padding: 0 !important;
+            }
+
+            .form-control  {
+                margin-bottom: 8px;
+            }
         </style>
 
         <div class="container">
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
                     <li><a href="{{ route('home_page_user') }}">Trang Chủ</a></li>
-                    <li class="active"><a
-                            href="{{route('account-infor')}}">THÔNG TIN TÀI KHOẢN
+                    <li class="active"><a href="{{ route('account-infor') }}">THÔNG TIN TÀI KHOẢN
                         </a>
                     </li>
                     <span class="active"> <i style="padding: 0 6px;" class="fa-solid fa-angle-right"></i> </span>
@@ -80,12 +89,14 @@
                 </ol>
             </div>
 
-            <form>
+            <form action="{{ route('update-password') }}" method="POST">
+                @method('PUT')
+                @csrf
                 <div class="row input-item">
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Mật khẩu cũ</label>
-                        <input type="password" class="form-control" name="password" placeholder="Mật khẩu mới" required>
-                        @error('password')
+                        <input type="password" class="form-control" name="current_password" placeholder="Mật khẩu hiện tại" required>
+                        @error('current_password')
                             <span class="error">{{ $message }}</span>
                         @enderror
                     </div>
@@ -105,10 +116,16 @@
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Xác nhận mật khẩu mới</label>
                         <input type="password" class="form-control" name="password_confirmation"
-                               placeholder="Xác nhận mật khẩu mới" required>
+                            placeholder="Xác nhận mật khẩu mới" required>
                         @error('password_confirmation')
                             <span class="error">{{ $message }}</span>
                         @enderror
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                          <button class="btn change-password">Cập nhật</button>
                     </div>
                 </div>
             </form>
@@ -117,31 +134,12 @@
 
     <script>
         $(document).ready(function() {
-            $('.change-username').on('click', function(e) {
+            $('.change-password').on('click', function(e) {
                 e.preventDefault();
                 var form = $(this).closest('form');
 
                 Swal.fire({
-                    text: "Bạn có chắc chắn thay đổi tên đăng nhập?",
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Xác Nhận',
-                    cancelButtonText: 'Hủy'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-                });
-            });
-
-            $('.change-email').on('click', function(e) {
-                e.preventDefault();
-                var form = $(this).closest('form');
-
-                Swal.fire({
-                    text: "Bạn có chắc chắn thay đổi email?",
+                    text: "Bạn có chắc chắn thay đổi mật khẩu?",
                     icon: 'info',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

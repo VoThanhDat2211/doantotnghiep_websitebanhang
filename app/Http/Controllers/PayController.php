@@ -76,7 +76,7 @@ class PayController extends Controller
         $vnp_Url = env('VNP_URL');
         $vnp_Returnurl = "http://localhost/vnpay_php/vnpay_return.php";
         $vnp_TmnCode = env('VNP_TMNCODE'); 
-        $vnp_HashSecret = env('VNP_HASH_SECRET'); 
+        $vnp_HashSecret = env('VNP_HASH_SECRET');
         
         $vnp_TxnRef = rand(1,1000); 
         $vnp_OrderInfo = $_POST['order_desc'];

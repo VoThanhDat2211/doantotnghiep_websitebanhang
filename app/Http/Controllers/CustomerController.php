@@ -109,4 +109,50 @@ class CustomerController extends Controller
     {
         return view('user.change-password');
     }
+
+    public function updatePassword(Request $request)
+    {
+        $rules = [
+            "current_password" => "bail|required|max:255",
+            "password" => "bail|required|min:6|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/|confirmed",
+
+        ];
+        $messages = [
+            "current_password.max" => "Mật khẩu không vượt quá 255 ký tự !",
+            "current_password.required" => "Mật khẩu không được để trống !",
+            "password.required" => "Mật khẩu không được để trống !",
+            "password.confirmed" => "Xác nhận mật khẩu không khớp !",
+            "password.min" => "Mật khẩu ít nhất 6 ký tự !",
+            "password.max" => "Mật khẩu không vượt quá 255 ký tự !",
+            "password.regex" => "Mật khẩu phải bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt !",
+        ];
+
+        $request->validate($rules, $messages);
+        $customer = Auth::user();
+        $currentPassword = $request->input('current_password');
+        $newPassword = $request->input('password');
+        $verifyOldPassword = password_verify($currentPassword, $customer->password);
+        if(!$verifyOldPassword) {
+            return redirect()->back()->withErrors([
+                'current_password' => 'Mật khẩu hiện tại không chính xác!',
+            ]);
+        }
+
+        $resultUpdate = $this->customerService->updatePassword($customer, $newPassword);
+        if ($resultUpdate) {
+            $result = [
+                $message = "Cập nhật mật khẩu thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('account-infor')->with('result', $result);
+        } else {
+            $result = [
+                $message = "Cập nhật mật khẩu thất bại",
+                $status = 'error',
+            ];
+            return redirect()->route('account-infor')->with('result', $result);
+        }
+
+
+    }
 }

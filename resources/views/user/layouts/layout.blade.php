@@ -50,6 +50,30 @@
         body {
             padding-top: 208px;
         }
+
+        .search_box {
+            position: relative;
+        }
+
+        .search_box input {
+            width: 100%;
+            background-image: none !important;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            padding-left: 24px;
+        }
+
+        .search_box button {
+            border: none;
+            background: #ccc;
+            height: 35px;
+            position: absolute;
+            right: 0;
+            padding: 0 12px;
+            border-top-right-radius: 25px;
+            /* Góc trên bên phải */
+            border-bottom-right-radius: 25px;
+        }
     </style>
 </head><!--/head-->
 
@@ -88,13 +112,36 @@
         <div class="header-middle"><!--header-middle-->
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <div class="logo pull-left">
                             <a href="index.html"><img src="{{ asset('frontend/images/home/logo3.png') }}"
                                     alt="" style="width:139px;height:40px" /></a>
                         </div>
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
+                        @if (isset($displaySearch))
+                            <div class="search_box">
+                                @if (isset($parent_catgory_id_search))
+                                    <form
+                                        action="{{ route('products-by-parent-category', ['parent_category' => $parentCategoryParam]) }}">
+                                        <input type="text" placeholder="Nhập tên sản phẩm" name="product_name" />
+                                        <button>
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </button>
+                                    </form>
+                                @else
+                                    <form
+                                        action=""{{ route('products-by-category', ['id' => $category_id_search]) }}"">
+                                        <input type="text" placeholder="Nhập tên sản phẩm" name="product_name" />
+                                        <button>
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
+                        @endif
+                    </div>
+                    <div class="col-sm-3">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
                                 @if (Auth::check())
@@ -108,7 +155,8 @@
                                                 <span class="caret"></span></button>
                                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                                 <li role="presentation"><a role="menuitem" tabindex="-1"
-                                                        href="{{ route('account-infor') }}"><i class="fa-solid fa-pen-to-square"></i> Thông
+                                                        href="{{ route('account-infor') }}"><i
+                                                            class="fa-solid fa-pen-to-square"></i> Thông
                                                         tin tài khoản</a></li>
                                                 <li role="presentation"><a role="menuitem" tabindex="-1"
                                                         href="{{ route('order-history') }}"><i

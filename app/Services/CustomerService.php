@@ -40,6 +40,17 @@ class CustomerService
         }
     }
 
+    public function updatePassword($customer, $password)
+    {
+        DB::beginTransaction();
+        try {
+            DB::commit();
+            return $this->customerRepository->updatePassword($customer, $password);
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
+    }
+
     public function getAll()
     {
         return $this->customerRepository->getAll();

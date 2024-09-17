@@ -164,6 +164,7 @@ class FrontendController extends Controller
     public function getByParentCategory(Request $request)
     {
         $parentCategoryParam = $request->route('parent_category');
+        $productNameSearch = $request->input('product_name');
         $parentCategories = config('param.parent_category_name');
         $parentCatgoryId = 0;
         foreach($parentCategories as $key => $parentCategory) {
@@ -181,10 +182,18 @@ class FrontendController extends Controller
 
         $categories = $this->categoryService->getByParentCategory($parentCatgoryId);
         $categoryIds = $this->categoryService->getIdsByParentCategory($parentCatgoryId) ;
-        $products = $this->productService->getByCategories($categoryIds);
+        if(is_null($productNameSearch)) {
+            $products = $this->productService->getByCategories($categoryIds);
+        } else {
+            $products = $this->productService->getByCategoriesAndName($categoryIds,$productNameSearch);
+        }
         return view('user.product-by-parent-category',['categories' => $categories,
                                                         'products' => $products,
-                                                        'parentCategoryName' => $parentCategoryName]);
+                                                        'parentCategoryName' => $parentCategoryName,
+                                                        'displaySearch' => true,
+                                                        'parent_catgory_id_search' => $parentCatgoryId,
+                                                        'parentCategoryParam' => $parentCategoryParam,
+                                                    ]);
     }
 
     public function getCart()
@@ -326,6 +335,7 @@ class FrontendController extends Controller
     public function getProductByCategory(Request $request)
     {
         $categoryId = $request->route('id');
+        $productNameSearch = $request->input('product_name');
         $categoryMain = $this->categoryService->getByIdWithProducts($categoryId);
         if(is_null($categoryMain)) {
             return redirect()->route('error-404');
@@ -334,12 +344,19 @@ class FrontendController extends Controller
         $parentCategoryName = config('variant.category_parent')[$categoryParent];
         $parentCategoryParam = config('param.parent_category_name')[$categoryParent];
         $categories = $this->categoryService->getByParentCategory($categoryParent);
-        $products = $categoryMain->products()->paginate(16);
+        if(is_null($productNameSearch)) {
+            $products = $categoryMain->products()->paginate(16);
+        } else {
+            $products = $categoryMain->products()->where('name','like','%'.$productNameSearch.'%')->paginate(16);
+        }
+        
         return view('user.product-by-category',['categories' => $categories,
                                                 'products' => $products,
                                                 'parentCategoryName' => $parentCategoryName,
                                                 'categoryMain' => $categoryMain,
                                                 'parentCategoryParam' => $parentCategoryParam,
+                                                'displaySearch' => true,
+                                                'category_id_search' => $categoryId
                                             ]);
     }
 

@@ -38,6 +38,11 @@ class CustomerRepository
         return $customer->update(['email' => $email]);
     }
 
+    public function updatePassword($customer, $password)
+    {
+        return $customer->update(['password' => $password]);
+    }
+
 
     public function getByUserName($username)
     {
