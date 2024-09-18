@@ -26,3 +26,4 @@ Route::get('/get-quantity', [ProductVariantApiController::class, 'getQuantity'])
 Route::get('/get-remain-quantity', [ProductVariantApiController::class, 'getRemainQuantity'])->name('get-remain-quantity');
 Route::get('/get-new-value', [CartApiController::class, 'getNewValue'])->name('get-new-value');
 Route::get('/get-voucher', [FrontendControllerApi::class, 'getByVoucherCodeCondition'])->name('get-voucher');
+Route::get('/get-statistic-by-year', [FrontendControllerApi::class, 'getStatisticByYear'])->name('get-statistic-by-year');

@@ -238,6 +238,7 @@ class FrontendController extends Controller
                 return !is_null($customerVoucherUsed) && $customerVoucherUsed->voucher_id == $voucher->id;
             });
         }
+        
     
         $customerVouchers = $this->customerVoucherService->getByCustomer($customerId);
         if(!$customerVouchers->isEmpty()){
@@ -245,7 +246,6 @@ class FrontendController extends Controller
                 $vouchers->push($customerVoucher->voucher);
             }
         }
-        
         return view('user.pay',['productVariant' => $productVariant, 'buyQuantity' => $buyQuantity, 'vouchers' => $vouchers,'today' => $today]);
     }
 

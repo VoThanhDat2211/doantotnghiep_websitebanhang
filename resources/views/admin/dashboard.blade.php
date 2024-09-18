@@ -61,72 +61,72 @@
         </div>
         <div class="clearfix"> </div>
     </div>
-    // thong ke doanh thu va so luong don hang theo nam
+    {{--  thong ke doanh thu va so luong don hang theo nam  --}}
     <div class="row">
-        <div class="container  text-center mb-5" style="width: 60%;margin-top:50px">
-            <span class="fs-1"><b>SỐ LIỆU THỐNG KÊ NĂM:</b> </span> <select id="year-select" class="p-1 fs-1"
-                onchange="onChange()">
-                <option>2024</option>
-            </select>
+        <div class="col-sm-12">
+            <div class="container text-center mb-5" style="width: 60%;margin-top:50px">
+                <span class="fs-1"><b>SỐ LIỆU THỐNG KÊ NĂM:</b> </span>
+                <select id="year-select" class="p-1 fs-1">
+                </select>
+            </div>
         </div>
-        <div class="container mt-3" id="chart1" style="width: 70%">
-            <canvas id="myChart1">
-            </canvas>
+        <div class="col-sm-6">
+            <div class="container mt-3" id="chart1" style="width: 100%; margin-top: 20px">
+                <canvas id="myChart1"></canvas>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="container mt-3" id="chart1" style="width: 100%; margin-top: 20px">
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
 
-        </div>
     </div>
-   <script>
-    let massPopChart;
-        let massPopChart2;
-        async function onChange() {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-            document.getElementById('chart1').style.display = 'block';
-            document.getElementById('chart2').style.display = 'block';
-            let yearSelected = document.getElementById('year-select').value;
+
+    <script>
+        let massPopChart;
+        let massPopChart2;
+
+        async function createChart(yearSelected) {
+            {{--  if (massPopChart) {
+                massPopChart.destroy();
+            }
+
+            if (massPopChart2) {
+                massPopChart2.destroy();
+            }  --}}
+
             let countData = [];
             let revenueData = [];
             try {
-                let response = await axios.post("/admin/get-chart", {
-                    year: yearSelected
+                let response = await axios.get("/api/get-statistic-by-year", {
+                    params: {
+                        year: yearSelected
+                    }
                 });
                 countData = response.data.countOrderByMonthsOfYear;
-                revenueData = response.data.totalRevenueByMonthsOfYear
-                let myChart1 = document.getElementById('myChart1').getContext('2d');
-
-                if (massPopChart) {
-                    massPopChart.destroy();
-                }
-                if (massPopChart2) {
-                    massPopChart2.destroy();
-                }
-                // Global Options
-                Chart.defaults.global.defaultFontFamily = 'Lato';
-                Chart.defaults.global.defaultFontSize = 18;
-                Chart.defaults.global.defaultFontColor = '#777';
-
-
-                massPopChart = new Chart(myChart1, {
+                revenueData = response.data.totalRevenueByMonthsOfYear;
+                console.log(countData);
+                console.log(revenueData);
+            } catch (error) {
+                console.log(error);
+            }
+            if (massPopChart) {
+                massPopChart.data.datasets[0].data = revenueData;
+                massPopChart.update();
+            } else {
+                massPopChart = new Chart($('#myChart1'), {
                     type: 'bar',
                     data: {
                         labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
                         datasets: [{
                             label: 'Doanh thu',
                             data: revenueData,
-                            //backgroundColor:'green',
-                            backgroundColor: [
-                                'rgba(23, 76, 144, 0.9)',
-                                'rgba(23, 76, 144, 0.9)',
-                                'rgba(23, 76, 144, 0.9)',
-                                'rgba(23, 76, 144, 0.9)',
-                                'rgba(23, 76, 144, 0.9)',
-                                'rgba(23, 76, 144, 0.9)',
-                                'rgba(23, 76, 144, 0.9)',
-                                'rgba(23, 76, 144, 0.9)',
-                                'rgba(23, 76, 144, 0.9)',
-                                'rgba(23, 76, 144, 0.9)',
-                                'rgba(23, 76, 144, 0.9)',
-                                'rgba(23, 76, 144, 0.9)'
-                            ],
+                            backgroundColor: 'rgba(23, 76, 144, 0.9)',
                             borderWidth: 1,
                             borderColor: '#777',
                             hoverBorderWidth: 3,
@@ -164,34 +164,38 @@
                             }
                         },
                         scales: {
-                            yAxes: [{
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Tháng',
+                                    position: 'end'
+                                },
+                                grid: {
+                                    offset: true
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
                                 ticks: {
-                                    beginAtZero: true,
                                     callback: function(value) {
                                         return value.toLocaleString('vi-VN');
                                     }
                                 },
-                                scaleLabel: {
+                                title: {
                                     display: true,
-                                    labelString: 'Doanh thu (VND)',
+                                    text: 'Doanh thu (VND)',
                                     position: 'bottom'
                                 }
-                            }],
-                            xAxes: [{
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: 'Tháng',
-                                    position: 'end'
-                                },
-                                gridLines: {
-                                    offsetGridLines: true
-                                }
-                            }]
-                        },
+                            }
+                        }
                     }
                 });
+            }
 
-
+            if (massPopChart2) {
+                massPopChart2.data.datasets[0].data = countData;
+                massPopChart2.update();
+            } else {
                 let myChart2 = document.getElementById('myChart2').getContext('2d');
                 massPopChart2 = new Chart(myChart2, {
                     type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
@@ -200,7 +204,6 @@
                         datasets: [{
                             label: 'Số đơn hàng',
                             data: countData,
-                            //backgroundColor:'green',
                             backgroundColor: [
                                 'rgba(254,196,1, 0.9)',
                                 'rgba(254,196,1, 0.9)',
@@ -246,19 +249,20 @@
                             enabled: true
                         },
                         scales: {
-                            yAxes: [{
-                                scaleLabel: {
+                            x: {
+                                title: {
                                     display: true,
-                                    labelString: 'Số đơn hàng', // Tiêu đề cho trục tung
+                                    text: 'Tháng', // Tiêu đề cho trục hoành
+                                    position: 'end'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Số đơn hàng', // Tiêu đề cho trục tung
                                     position: 'top'
                                 }
-                            }],
-                            xAxes: [{
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: 'Tháng' // Tiêu đề cho trục hoành
-                                }
-                            }]
+                            }
                         },
                         hover: {
                             mode: null
@@ -266,305 +270,52 @@
                     }
                 });
 
-
-            } catch (error) {
-                console.log(error);
-                // Xử lý lỗi ở đây
             }
 
 
         }
+            $(document).ready(function() {
+                var yearSelectElement = $('#year-select');
+                var currentYear = new Date().getFullYear();
+                var startYear = currentYear - 5;
+                let yearSelect = currentYear;
+                yearSelectElement.append($('<option  selected/>').val(`${currentYear}`).text(`${currentYear}`));
 
-        function formatNumber(number) {
-            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
-   </script>
+                for (var i = currentYear - 1; i >= startYear; i--) {
+                    yearSelectElement.append($('<option />').val(i).text(i));
+                }
 
-    <!-- //market-->
-    <div class="row">
-        <div class="panel-body">
-            <div class="col-md-12 w3ls-graph">
-                <!--agileinfo-grap-->
-                <div class="agileinfo-grap">
-                    <div class="agileits-box">
-                        <header class="agileits-box-header clearfix">
-                            <h3>Visitor Statistics</h3>
-                            <div class="toolbar">
-                            </div>
-                        </header>
-                        <div class="agileits-box-body clearfix">
-                            <div id="hero-area"></div>
-                        </div>
-                    </div>
-                </div>
-                <!--//agileinfo-grap-->
-            </div>
-        </div>
-    </div>
-    <div class="agil-info-calendar">
-        <!-- calendar -->
-        <div class="col-md-6 agile-calendar">
-            <div class="calendar-widget">
-                <div class="panel-heading ui-sortable-handle">
-                    <span class="panel-icon">
-                        <i class="fa fa-calendar-o"></i>
-                    </span>
-                    <span class="panel-title"> Calendar Widget</span>
-                </div>
-                <!-- grids -->
-                <div class="agile-calendar-grid">
-                    <div class="page">
+                $('#year-select').on('change', function() {
+                yearSelect = $('#year-select').val();
+                createChart(yearSelect);
+            });
+                 createChart(yearSelect);
+            });
 
-                        <div class="w3l-calendar-left">
-                            <div class="calendar-heading">
+            
+    </script>
 
-                            </div>
-                            <div class="monthly" id="mycalendar"></div>
-                        </div>
 
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- //calendar -->
-        <div class="col-md-6 w3agile-notifications">
-            <div class="notifications">
-                <!--notification start-->
 
-                <header class="panel-heading">
-                    Notification
-                </header>
-                <div class="notify-w3ls">
-                    <div class="alert alert-info clearfix">
-                        <span class="alert-icon"><i class="fa fa-envelope-o"></i></span>
-                        <div class="notification-info">
-                            <ul class="clearfix notification-meta">
-                                <li class="pull-left notification-sender"><span><a href="#">Jonathan Smith</a></span>
-                                    send you a mail </li>
-                                <li class="pull-right notification-time">1 min ago</li>
-                            </ul>
-                            <p>
-                                Urgent meeting for next proposal
-                            </p>
-                        </div>
-                    </div>
-                    <div class="alert alert-danger">
-                        <span class="alert-icon"><i class="fa fa-facebook"></i></span>
-                        <div class="notification-info">
-                            <ul class="clearfix notification-meta">
-                                <li class="pull-left notification-sender"><span><a href="#">Jonathan Smith</a></span>
-                                    mentioned you in a post </li>
-                                <li class="pull-right notification-time">7 Hours Ago</li>
-                            </ul>
-                            <p>
-                                Very cool photo jack
-                            </p>
-                        </div>
-                    </div>
-                    <div class="alert alert-success ">
-                        <span class="alert-icon"><i class="fa fa-comments-o"></i></span>
-                        <div class="notification-info">
-                            <ul class="clearfix notification-meta">
-                                <li class="pull-left notification-sender">You have 5 message unread</li>
-                                <li class="pull-right notification-time">1 min ago</li>
-                            </ul>
-                            <p>
-                                <a href="#">Anjelina Mewlo, Jack Flip</a> and <a href="#">3 others</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="alert alert-warning ">
-                        <span class="alert-icon"><i class="fa fa-bell-o"></i></span>
-                        <div class="notification-info">
-                            <ul class="clearfix notification-meta">
-                                <li class="pull-left notification-sender">Domain Renew Deadline 7 days ahead</li>
-                                <li class="pull-right notification-time">5 Days Ago</li>
-                            </ul>
-                            <p>
-                                Next 5 July Thursday is the last day
-                            </p>
-                        </div>
-                    </div>
-                    <div class="alert alert-info clearfix">
-                        <span class="alert-icon"><i class="fa fa-envelope-o"></i></span>
-                        <div class="notification-info">
-                            <ul class="clearfix notification-meta">
-                                <li class="pull-left notification-sender"><span><a href="#">Jonathan Smith</a></span>
-                                    send you a mail </li>
-                                <li class="pull-right notification-time">1 min ago</li>
-                            </ul>
-                            <p>
-                                Urgent meeting for next proposal
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--notification end-->
-            </div>
-        </div>
-        <div class="clearfix"> </div>
-    </div>
     <!-- tasks -->
     <div class="agile-last-grids">
-        <div class="col-md-4 agile-last-left">
+        <div class="col-md-6 agile-last-left agile-last-right">
             <div class="agile-last-grid">
                 <div class="area-grids-heading">
-                    <h3>Monthly</h3>
-                </div>
-                <div id="graph7"></div>
-                <script>
-                    Morris.Area({
-                        element: 'graph7',
-                        data: [{
-                                x: '2013-03-30 22:00:00',
-                                y: 3,
-                                z: 3
-                            },
-                            {
-                                x: '2013-03-31 00:00:00',
-                                y: 2,
-                                z: 0
-                            },
-                            {
-                                x: '2013-03-31 02:00:00',
-                                y: 0,
-                                z: 2
-                            },
-                            {
-                                x: '2013-03-31 04:00:00',
-                                y: 4,
-                                z: 4
-                            }
-                        ],
-                        xkey: 'x',
-                        ykeys: ['y', 'z'],
-                        labels: ['Y', 'Z']
-                    });
-                </script>
-
-            </div>
-        </div>
-        <div class="col-md-4 agile-last-left agile-last-middle">
-            <div class="agile-last-grid">
-                <div class="area-grids-heading">
-                    <h3>Daily</h3>
-                </div>
-                <div id="graph8"></div>
-                <script>
-                    /* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
-                    var day_data = [{
-                            "period": "2016-10-01",
-                            "licensed": 3407,
-                            "sorned": 660
-                        },
-                        {
-                            "period": "2016-09-30",
-                            "licensed": 3351,
-                            "sorned": 629
-                        },
-                        {
-                            "period": "2016-09-29",
-                            "licensed": 3269,
-                            "sorned": 618
-                        },
-                        {
-                            "period": "2016-09-20",
-                            "licensed": 3246,
-                            "sorned": 661
-                        },
-                        {
-                            "period": "2016-09-19",
-                            "licensed": 3257,
-                            "sorned": 667
-                        },
-                        {
-                            "period": "2016-09-18",
-                            "licensed": 3248,
-                            "sorned": 627
-                        },
-                        {
-                            "period": "2016-09-17",
-                            "licensed": 3171,
-                            "sorned": 660
-                        },
-                        {
-                            "period": "2016-09-16",
-                            "licensed": 3171,
-                            "sorned": 676
-                        },
-                        {
-                            "period": "2016-09-15",
-                            "licensed": 3201,
-                            "sorned": 656
-                        },
-                        {
-                            "period": "2016-09-10",
-                            "licensed": 3215,
-                            "sorned": 622
-                        }
-                    ];
-                    Morris.Bar({
-                        element: 'graph8',
-                        data: day_data,
-                        xkey: 'period',
-                        ykeys: ['licensed', 'sorned'],
-                        labels: ['Licensed', 'SORN'],
-                        xLabelAngle: 60
-                    });
-                </script>
-            </div>
-        </div>
-        <div class="col-md-4 agile-last-left agile-last-right">
-            <div class="agile-last-grid">
-                <div class="area-grids-heading">
-                    <h3>Yearly</h3>
+                    <h3>Doanh Thu Của 5 Năm Gần Nhất</h3>
                 </div>
                 <div id="graph9"></div>
                 <script>
-                    var day_data = [{
-                            "elapsed": "I",
-                            "value": 34
-                        },
-                        {
-                            "elapsed": "II",
-                            "value": 24
-                        },
-                        {
-                            "elapsed": "III",
-                            "value": 3
-                        },
-                        {
-                            "elapsed": "IV",
-                            "value": 12
-                        },
-                        {
-                            "elapsed": "V",
-                            "value": 13
-                        },
-                        {
-                            "elapsed": "VI",
-                            "value": 22
-                        },
-                        {
-                            "elapsed": "VII",
-                            "value": 5
-                        },
-                        {
-                            "elapsed": "VIII",
-                            "value": 26
-                        },
-                        {
-                            "elapsed": "IX",
-                            "value": 12
-                        },
-                        {
-                            "elapsed": "X",
-                            "value": 19
-                        }
-                    ];
+                    let revenueByYearArray = @json($revenueByYearArray);
+                    const revenueByYear = Object.entries(revenueByYearArray).map(([key, value]) => {
+                        const obj = {};
+                        obj['elapsed'] = key;
+                        obj['value'] = value
+                        return obj;
+                    });
+
+                    console.log(revenueByYear);
+                    var day_data = revenueByYear;
                     Morris.Line({
                         element: 'graph9',
                         data: day_data,
@@ -575,6 +326,35 @@
                     });
                 </script>
 
+            </div>
+        </div>
+
+        <div class="col-md-6 agile-last-left agile-last-right">
+            <div class="agile-last-grid">
+                <div class="area-grids-heading">
+                    <h3>Tổng Số Đơn Hàng Của 5 Năm Gần Nhất</h3>
+                </div>
+                <div id="graph10"></div>
+                <script>
+                    let orderNumberByYearArray = @json($orderNumberByYearArray);
+                    const orderNumberByYear = Object.entries(orderNumberByYearArray).map(([key, value]) => {
+                        const obj = {};
+                        obj['elapsed'] = key;
+                        obj['value'] = value
+                        return obj;
+                    });
+
+                    console.log(orderNumberByYear);
+                    var day_data = orderNumberByYear;
+                    Morris.Line({
+                        element: 'graph10',
+                        data: day_data,
+                        xkey: 'elapsed',
+                        ykeys: ['value'],
+                        labels: ['value'],
+                        parseTime: false
+                    });
+                </script>
             </div>
         </div>
         <div class="clearfix"> </div>
@@ -688,4 +468,9 @@
         </div>
         <div class="clearfix"> </div>
     </div>
+    <script>
+        function formatNumber(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+    </script>
 @endsection

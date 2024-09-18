@@ -153,4 +153,24 @@ class OrderService
     {
         return $this->orderRepository->getTotalAmountByDate(self::ORDER_STATUS_RECEIVED);
     }
+
+    public function totalRevenueByMonth($yearNow, $monthNow, $status)
+    {
+        return $this->orderRepository->totalRevenueByMonth($yearNow, $monthNow, $status);
+    }
+
+    public function countOrderByMonth($yearNow, $monthNow, $status)
+    {
+        return $this->orderRepository->countOrderByMonth($yearNow, $monthNow, $status);
+    }
+
+    public function totalRevenueByYear($yearNow, $status)
+    {
+        return $this->orderRepository->totalRevenueByYear($yearNow, $status);
+    }
+
+    public function countOrderByYear($yearNow, $status)
+    {
+        return $this->orderRepository->countOrderByYear($yearNow, $status);
+    }
 }

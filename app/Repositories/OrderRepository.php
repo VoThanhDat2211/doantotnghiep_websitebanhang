@@ -67,4 +67,31 @@ class OrderRepository
             ->whereMonth('created_at', $currentMonth)
             ->pluck('total_amount')->toArray();
     }
+
+    public function totalRevenueByMonth($yearNow, $monthNow, $status)
+    {
+        return $this->order::whereYear("created_at", $yearNow)->whereMonth("created_at", $monthNow)
+            ->where('status', $status)->sum('total_amount');
+    }
+
+    public function countOrderByMonth($yearNow, $monthNow, $status)
+    {
+        return $this->order::whereYear("created_at", $yearNow)
+            ->whereMonth("created_at", $monthNow)
+            ->where('status', $status)
+            ->count();
+    }
+
+    public function totalRevenueByYear($yearNow, $status)
+    {
+        return $this->order::whereYear("created_at", $yearNow)
+            ->where('status', $status)->sum('total_amount');
+    }
+
+    public function countOrderByYear($yearNow, $status)
+    {
+        return $this->order::whereYear("created_at", $yearNow)
+            ->where('status', $status)
+            ->count();
+    }
 }

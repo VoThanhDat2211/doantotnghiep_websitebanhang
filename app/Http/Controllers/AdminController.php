@@ -64,9 +64,19 @@ class AdminController extends Controller
         $quantityOrder = $this->orderService->countByDate();
         $totalAmounts = $this->orderService->getTotalAmountByDate();
         $revenue = array_sum($totalAmounts);
+        $yearNow = now()->year;
+        $revenueByYearArray = [];
+        $orderNumberByYearArray = [];
+        for ($i = $yearNow; $i > $yearNow - 5;$i--) {
+            $revenueByYearArray[$i] = (int)$this->orderService->totalRevenueByYear($i, 4);
+            $orderNumberByYearArray[$i] = (int)$this->orderService->countOrderByYear($i, 4);
+        }
+
         return view('admin.dashboard',['quantityCustomer' => $quantityCustomer,
                                                     'quantityOrder' => $quantityOrder,
                                                     'revenue' => $revenue,
+                                                    'revenueByYearArray' => $revenueByYearArray,
+                                                    'orderNumberByYearArray' => $orderNumberByYearArray
     ]);
     }
 
