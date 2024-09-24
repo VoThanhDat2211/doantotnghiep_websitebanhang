@@ -23,8 +23,9 @@ class OrderFactory extends Factory
         return [
             'order_code' => $this->faker->unique()->bothify('ORD###???'), 
             'customer_id' => Customer::inRandomOrder()->first(), 
-            'status' => $this->faker->randomElement([1, 2, 3, 4, 5, 6]),
+            'status' => $this->faker->randomElement([4]),
             'total_amount' => $this->faker->randomFloat(0, 150000, 2000000),
+            'created_at' => $this->faker->dateTimeBetween('2020-01-01', '2024-9-31'),
         ];
     }
 

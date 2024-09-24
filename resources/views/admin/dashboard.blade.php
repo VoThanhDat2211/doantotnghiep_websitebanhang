@@ -5,6 +5,14 @@
         .market-update-gd {
             margin-bottom: 28px;
         }
+
+        .agile-last-grids {
+            margin-top: 60px;
+        }
+
+        .agile-Updating-grids, .agile-bottom-grid, .agile-last-grid {
+            background: #fff;
+        }
     </style>
     <div class="market-updates">
         <div class=" col-md-6 market-update-gd">
@@ -92,14 +100,6 @@
         let massPopChart2;
 
         async function createChart(yearSelected) {
-            {{--  if (massPopChart) {
-                massPopChart.destroy();
-            }
-
-            if (massPopChart2) {
-                massPopChart2.destroy();
-            }  --}}
-
             let countData = [];
             let revenueData = [];
             try {
@@ -281,7 +281,7 @@
                 let yearSelect = currentYear;
                 yearSelectElement.append($('<option  selected/>').val(`${currentYear}`).text(`${currentYear}`));
 
-                for (var i = currentYear - 1; i >= startYear; i--) {
+                for (var i = currentYear - 1; i > startYear; i--) {
                     yearSelectElement.append($('<option />').val(i).text(i));
                 }
 
@@ -302,7 +302,7 @@
         <div class="col-md-6 agile-last-left agile-last-right">
             <div class="agile-last-grid">
                 <div class="area-grids-heading">
-                    <h3>Doanh Thu Của 5 Năm Gần Nhất</h3>
+                    <h3>Doanh Thu Hàng Năm</h3>
                 </div>
                 <div id="graph9"></div>
                 <script>
@@ -332,7 +332,7 @@
         <div class="col-md-6 agile-last-left agile-last-right">
             <div class="agile-last-grid">
                 <div class="area-grids-heading">
-                    <h3>Tổng Số Đơn Hàng Của 5 Năm Gần Nhất</h3>
+                    <h3>Số Đơn Hàng Hàng Năm</h3>
                 </div>
                 <div id="graph10"></div>
                 <script>
@@ -361,47 +361,6 @@
     </div>
     <!-- //tasks -->
     <div class="agileits-w3layouts-stats">
-        <div class="col-md-4 stats-info widget">
-            <div class="stats-info-agileits">
-                <div class="stats-title">
-                    <h4 class="title">Browser Stats</h4>
-                </div>
-                <div class="stats-body">
-                    <ul class="list-unstyled">
-                        <li>GoogleChrome <span class="pull-right">85%</span>
-                            <div class="progress progress-striped active progress-right">
-                                <div class="bar green" style="width:85%;"></div>
-                            </div>
-                        </li>
-                        <li>Firefox <span class="pull-right">35%</span>
-                            <div class="progress progress-striped active progress-right">
-                                <div class="bar yellow" style="width:35%;"></div>
-                            </div>
-                        </li>
-                        <li>Internet Explorer <span class="pull-right">78%</span>
-                            <div class="progress progress-striped active progress-right">
-                                <div class="bar red" style="width:78%;"></div>
-                            </div>
-                        </li>
-                        <li>Safari <span class="pull-right">50%</span>
-                            <div class="progress progress-striped active progress-right">
-                                <div class="bar blue" style="width:50%;"></div>
-                            </div>
-                        </li>
-                        <li>Opera <span class="pull-right">80%</span>
-                            <div class="progress progress-striped active progress-right">
-                                <div class="bar light-blue" style="width:80%;"></div>
-                            </div>
-                        </li>
-                        <li class="last">Others <span class="pull-right">60%</span>
-                            <div class="progress progress-striped active progress-right">
-                                <div class="bar orange" style="width:60%;"></div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <div class="col-md-8 stats-info stats-last widget-shadow">
             <div class="stats-last-agile">
                 <table class="table stats-table ">
