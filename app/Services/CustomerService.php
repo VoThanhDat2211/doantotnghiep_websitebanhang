@@ -51,6 +51,11 @@ class CustomerService
         }
     }
 
+    public function delete($id)
+    {
+        return $this->customerRepository->delete($id);
+    }
+
     public function getAll()
     {
         return $this->customerRepository->getAll();

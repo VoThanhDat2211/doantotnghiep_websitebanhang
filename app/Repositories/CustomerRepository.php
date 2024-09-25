@@ -43,6 +43,11 @@ class CustomerRepository
         return $customer->update(['password' => $password]);
     }
 
+    public function delete($id)
+    {
+        $customer = $this->customer->find($id);
+        return $customer->delete();
+    }
 
     public function getByUserName($username)
     {
@@ -75,5 +80,4 @@ class CustomerRepository
     {
         return $this->customer->where('email', $email)->where('id', '!=', $customerId)->exists();
     }
-
 }

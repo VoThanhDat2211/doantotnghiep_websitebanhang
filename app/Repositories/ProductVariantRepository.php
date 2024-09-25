@@ -28,7 +28,7 @@ class ProductVariantRepository
 
     public function delete($productVariant)
     {
-        return $productVariant->delete($productVariant);
+        return $productVariant->delete();
     }
 
     public function getproductVariantExists($productId,$color,$size)

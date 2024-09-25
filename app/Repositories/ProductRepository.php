@@ -74,10 +74,11 @@ class ProductRepository
         return $this->product->where('category_id', $categoryId)->paginate(16);
     }
 
+    // top san pham theo so don hang
     public function getTopProductOrderByMonth($yearNow, $monthNow, $status)
     {
         $query = DB::table('products as p')
-            ->select('p.name', DB::raw('SUM(order) as total_quantity_by_product'))
+            ->select('p.(*)', DB::raw('COUNT(p.id) as quantity_order, SUM(ol.quantity) as sum_quantity, SUM(o.total_amount) as sum_total_amount'))
             ->join('product_variants as pv', 'on','p.id = pv.product_id')
             ->join('order_lines as ol','on', 'pv.id = ol.product_variant_id')
             ->join('orders as o', function ($join, $status, $yearNow, $monthNow) {
@@ -87,26 +88,50 @@ class ProductRepository
                 $join->whereMonth('created_at', $monthNow);
             })
             ->groupBy('p.id')
-            ->orderByDesc('total_quantity_by_product')
-            ->limit(5)
+            ->orderByDesc('quantity_order')
+            ->limit(20)
             ->get();
 
         return $query;
     }
 
+    
+    // top san pham theo doanh thu
     public function getTopProductRevenueByMonth($yearNow, $monthNow, $status)
     {
         $query = DB::table('products as p')
-            ->select('p.name', DB::raw('SUM(subquery.total_price) as total_price_by_product'))
-            ->join(DB::raw('(SELECT   ol.product_variant_id, sum((ol.quantity * ol.price)) AS total_price
-               FROM order_lines ol
-               INNER JOIN orders o ON ol.order_id = o.id
-               WHERE YEAR(o.order_date) = ? AND MONTH(o.order_date) = ?  AND o.status = ? 
-               GROUP BY ol.product_variant_id) AS subquery'), 'pv.id', '=', 'subquery.product_variant_id')
-            ->setBindings([$yearNow, $monthNow, $status])
-            ->groupBy('pv.product_id')
-            ->orderByDesc('total_price_by_product')
-            ->limit(5)
+            ->select('p.(*)', DB::raw('COUNT(p.id) as quantity_order, SUM(ol.quantity) as sum_quantity, SUM(o.total_amount) as sum_total_amount'))
+            ->join('product_variants as pv', 'on', 'p.id = pv.product_id')
+            ->join('order_lines as ol', 'on', 'pv.id = ol.product_variant_id')
+            ->join('orders as o', function ($join, $status, $yearNow, $monthNow) {
+                $join->on('ol.order_id', '=', 'o.id');
+                $join->where('status', $status);
+                $join->whereYear('created_at', $yearNow);
+                $join->whereMonth('created_at', $monthNow);
+            })
+            ->groupBy('p.id')
+            ->orderByDesc('sum_total_amount')
+            ->limit(20)
+            ->get();
+
+        return $query;
+    }
+
+    public function getBestSellingProducts($yearNow, $monthNow, $status)
+    {
+        $query = DB::table('products as p')
+            ->select('p.(*)', DB::raw('COUNT(p.id) as quantity_order, SUM(ol.quantity) as sum_quantity, SUM(o.total_amount) as sum_total_amount'))
+            ->join('product_variants as pv', 'on', 'p.id = pv.product_id')
+            ->join('order_lines as ol', 'on', 'pv.id = ol.product_variant_id')
+            ->join('orders as o', function ($join, $status, $yearNow, $monthNow) {
+                $join->on('ol.order_id', '=', 'o.id');
+                $join->where('status', $status);
+                $join->whereYear('created_at', $yearNow);
+                $join->whereMonth('created_at', $monthNow);
+            })
+            ->groupBy('p.id')
+            ->orderByDesc('sum_quantity')
+            ->limit(20)
             ->get();
 
         return $query;

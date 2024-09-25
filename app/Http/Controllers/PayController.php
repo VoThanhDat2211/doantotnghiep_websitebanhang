@@ -80,7 +80,7 @@ class PayController extends Controller
         
         $vnp_TxnRef = rand(1,1000); 
         $vnp_OrderInfo = $_POST['order_desc'];
-        $vnp_OrderType = $_POST['order_type'];
+        $vnp_OrderType = 'billpayment';
         $vnp_Amount = session()->get('total_payment_online') * 100;
         $vnp_Locale = $_POST['language'];
         $vnp_BankCode = $_POST['bank_code'];
@@ -96,7 +96,7 @@ class PayController extends Controller
             "vnp_IpAddr" => $vnp_IpAddr,
             "vnp_Locale" => $vnp_Locale,
             "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => 'billpayment',
+            "vnp_OrderType" => $vnp_OrderType,
             "vnp_ReturnUrl" => $vnp_Returnurl,
             "vnp_TxnRef" => $vnp_TxnRef,
             "vnp_ExpireDate"=>$vnp_ExpireDate,

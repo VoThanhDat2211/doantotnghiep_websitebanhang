@@ -50,6 +50,7 @@ Route::prefix('admin')->group(function () {
     // customer
     Route::prefix('customer')->middleware('auth:admin')->group(function () {
         Route::get('/list', [CustomerController::class, 'index'])->name('admin-customer-list');
+        Route::delete('/lock-account', [AdminController::class, 'lockAccount'])->name('admin-lock-account');
     });
 
     // voucher

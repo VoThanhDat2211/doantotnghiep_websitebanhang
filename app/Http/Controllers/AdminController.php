@@ -191,4 +191,23 @@ class AdminController extends Controller
             return redirect()->route('admin-category-list')->with('result', $result);
         }
     }
+
+    public function lockAccount(Request $request)
+    {
+        $customerId = $request->input('id');
+        $resultDelete = $this->customerService->delete($customerId);
+        if ($resultDelete) {
+            $result = [
+                $message = "Khóa tài khoản thành công",
+                $status = 'success',
+            ];
+            return redirect()->route('admin-category-list')->with('result', $result);
+        } else {
+            $result = [
+                $message = "Khóa tài khoản thất bại",
+                $status = 'error',
+            ];
+            return redirect()->route('admin-customer-list')->with('result', $result);
+        }
+    }
 }

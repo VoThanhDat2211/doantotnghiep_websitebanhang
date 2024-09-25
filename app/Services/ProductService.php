@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProductService
 {
+    const ORDER_STATUS_RECEIVED = 4;
     protected $productRepository;
     public function __construct(ProductRepository $productRepository)
     {
@@ -80,6 +81,33 @@ class ProductService
     public function getByCategory($categoryId)
     {
         return $this->productRepository->getByCategory($categoryId);
+    }
+
+    // top san pham theo so don hang
+    public function getTopProductOrderByMonth($yearNow, $monthNow, $status)
+    {
+        $yearNow = now()->year;
+        $monthNow = now()->month;
+        $status = self::ORDER_STATUS_RECEIVED;
+        return $this->productRepository->getTopProductOrderByMonth($yearNow, $monthNow, $status);
+    }
+
+
+    // top san pham theo doanh thu
+    public function getTopProductRevenueByMonth($yearNow, $monthNow, $status)
+    {
+        $yearNow = now()->year;
+        $monthNow = now()->month;
+        $status = self::ORDER_STATUS_RECEIVED;
+        return $this->productRepository->getTopProductRevenueByMonth($yearNow, $monthNow, $status);
+    }
+
+    public function getBestSellingProducts($yearNow, $monthNow, $status)
+    {
+        $yearNow = now()->year;
+        $monthNow = now()->month;
+        $status = self::ORDER_STATUS_RECEIVED;
+        return $this->productRepository->getBestSellingProducts($yearNow, $monthNow, $status);
     }
 
 }
