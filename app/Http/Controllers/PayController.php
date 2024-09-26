@@ -102,7 +102,7 @@ class PayController extends Controller
     {
         $vnp_Url = env('VNP_URL');
         $vnp_Returnurl = route('handle-after-payment-online');
-        $vnp_TmnCode = env('VNP_TMNCODE');
+        $vnp_TmnCode = env('VNP_TMN_CODE');
         $vnp_HashSecret = env('VNP_HASH_SECRET');
 
         $vnp_TxnRef = rand(1, 1000);
@@ -155,6 +155,7 @@ class PayController extends Controller
             $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
+
         return redirect($vnp_Url);
 
     }

@@ -79,7 +79,8 @@ class ProductRepository
     {
         $query = DB::table('products as p')
             ->select(
-                'p.*',
+                'p.id',
+                'p.name',
                 DB::raw('COUNT(p.id) as quantity_order'),
                 DB::raw('SUM(ol.quantity) as sum_quantity'),
                 DB::raw('SUM(o.total_amount) as sum_total_amount')
@@ -92,7 +93,7 @@ class ProductRepository
                 $join->whereYear('o.created_at', '=', $yearNow);
                 $join->whereMonth('o.created_at', '=', $monthNow);
             })
-            ->groupBy('p.id')
+            ->groupBy('p.id','p.name')
             ->orderByDesc('quantity_order')
             ->limit(20)
             ->get();
@@ -106,7 +107,8 @@ class ProductRepository
     {
         $query = DB::table('products as p')
             ->select(
-                'p.*',
+                'p.id',
+                'p.name',
                 DB::raw('COUNT(p.id) as quantity_order'),
                 DB::raw('SUM(ol.quantity) as sum_quantity'),
                 DB::raw('SUM(o.total_amount) as sum_total_amount')
@@ -119,7 +121,7 @@ class ProductRepository
                 $join->whereYear('o.created_at', '=', $yearNow);
                 $join->whereMonth('o.created_at', '=', $monthNow);
             })
-            ->groupBy('p.id')
+            ->groupBy('p.id','p.name')
             ->orderByDesc('sum_total_amount')
             ->limit(20)
             ->get();
@@ -131,7 +133,8 @@ class ProductRepository
     {
         $query = DB::table('products as p')
             ->select(
-                'p.*',
+                'p.id',
+                'p.name',
                 DB::raw('COUNT(p.id) as quantity_order'),
                 DB::raw('SUM(ol.quantity) as sum_quantity'),
                 DB::raw('SUM(o.total_amount) as sum_total_amount')
@@ -144,7 +147,7 @@ class ProductRepository
                 $join->whereYear('o.created_at', '=', $yearNow);
                 $join->whereMonth('o.created_at', '=', $monthNow);
             })
-            ->groupBy('p.id')
+            ->groupBy('p.id','p.name')
             ->orderByDesc('sum_quantity')
             ->limit(20)
             ->get();
