@@ -18,6 +18,11 @@ class ProductVariantService
         return $this->productVariantRepository->getById($id);
     }
 
+    public function getByIdForUpdate($id)
+    {
+        return $this->productVariantRepository->getByIdForUpdate($id);
+    }
+
     public function create($data)
     {
         return $this->productVariantRepository->create($data);

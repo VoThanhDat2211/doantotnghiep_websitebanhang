@@ -60,6 +60,8 @@ class PayService
                 $status = 'error',
             ];
             return redirect()->route('user-cart')->with('result', $result);
+        } finally {
+            $this->forgetSessionWhenPaymentOnline();
         }
     }
 
@@ -86,6 +88,8 @@ class PayService
             $productVariant = $this->productVariantRepository->getById($productVariantId);
             $productId = $productVariant->product->id;
             return redirect()->route('product-detail', ['id' => $productId])->with('result', $result);
+        } finally {
+            $this->forgetSessionWhenPaymentOnline();
         }
     }
 
@@ -269,5 +273,13 @@ class PayService
         $this->updateQuantityProduct($productVariant->product,$dataOrderLine['quantity']);
         $this->updateQuantityProductVariant($productVariant, $dataOrderLine['quantity']);
         return $orderLineInsert;
+    }
+
+    private function forgetSessionWhenPaymentOnline()
+    {
+        session()->forget('type');
+        session()->forget('data_to_create_order');
+        session()->forget('voucher_to_create_order');
+        session()->forget('vnp_ResponseCode');
     }
 }

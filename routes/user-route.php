@@ -27,12 +27,14 @@ Route::prefix('/user')->middleware('auth')->group(function () {
     Route::get('/checkout-by-cart', [FrontendController::class, 'getPayByCart'])->name('user-pay-by-cart');
     Route::get('/handle-checkout-by-cart', [CartController::class, 'handleCheckoutByCart'])->name('handle-checkout-by-cart');
     Route::post('/create-pay', [PayController::class, 'create'])->name('create-pay');
+    Route::get('/create-pay-online', [PayController::class, 'createOrderWhenPaymentOnline'])->name('create-pay-online');
     Route::delete('{id}/delete-cart-item',[CartController::class,'delete'])->name('delete-cart-item');
     Route::get('/order-history',[FrontendController::class,'getOrderHistory'])->name('order-history');
     Route::get('{order_id}/cancle-order',[OrderController::class,'cancleOrder'])->name('cancle-order');
     Route::get('{order_id}/receive-order', [OrderController::class, 'receiveOrder'])->name('receive-order');
 //    Route::get('payment-online', [PayController::class, 'paymentOnline'])->name('payment-online');
     Route::post('payment-online', [PayController::class, 'createPaymentOnline'])->name('create-payment-online');
+    Route::get('handle-after-payment-online', [PayController::class, 'handleAfterPaymentOnline'])->name('handle-after-payment-online');
     Route::get('account-infor', [FrontendController::class, 'getInforCustomer'])->name('account-infor');
     Route::put('update-username', [CustomerController::class, 'updateUsername'])->name('update-username');
     Route::put('update-email', [CustomerController::class, 'updateEmail'])->name('update-email');

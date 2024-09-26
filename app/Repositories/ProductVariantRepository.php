@@ -16,6 +16,11 @@ class ProductVariantRepository
         return $this->productVariant->find($id);
     }
 
+    public function getByIdForUpdate($id)
+    {
+        return $this->productVariant->where('id', $id)->lockForUpdate()->first();
+    }
+
     public function create($data)
     {
         return $this->productVariant->create($data);

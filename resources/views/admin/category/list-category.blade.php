@@ -42,7 +42,7 @@
                         <tr>
                             <th class="text-center">STT</th>
                             <th class="text-center">Tên Danh Mục</th>
-                            <th class="text-center">Loại danh mục</th>
+                            <th class="text-center">Thể Loại</th>
                             <th class="text-center" style="">Tùy Chọn</th>
                         </tr>
                     </thead>

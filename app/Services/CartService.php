@@ -31,6 +31,7 @@ class CartService
             return $result;
         } catch(Exception $e) {
             DB::rollBack();
+            dd($e->getMessage());
         }
     }
 

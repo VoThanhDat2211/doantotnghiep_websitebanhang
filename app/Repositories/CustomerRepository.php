@@ -13,14 +13,19 @@ class CustomerRepository
         $this->customer = $customer;
     }
 
+    public function getById($id)
+    {
+        return $this->customer->find($id);
+    }
+
     public function getAll()
     {
-        return $this->customer->paginate(30);
+        return $this->customer->where('status','active')->paginate(30);
     }
 
     public function countCustomer()
     {
-        return $this->customer->count();
+        return $this->customer->where('status','active')->count();
     }
 
     public function create(array $data)
@@ -41,6 +46,11 @@ class CustomerRepository
     public function updatePassword($customer, $password)
     {
         return $customer->update(['password' => $password]);
+    }
+
+    public function updateStatus($customer, $status)
+    { 
+        return $customer->update(['status' => $status]);
     }
 
     public function delete($id)

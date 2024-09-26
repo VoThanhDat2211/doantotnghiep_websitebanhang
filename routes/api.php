@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartApiController;
 use App\Http\Controllers\FrontendControllerApi;
 use App\Http\Controllers\ProductVariantApiController;
+use App\Http\Controllers\TestApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,7 @@ Route::get('/get-remain-quantity', [ProductVariantApiController::class, 'getRema
 Route::get('/get-new-value', [CartApiController::class, 'getNewValue'])->name('get-new-value');
 Route::get('/get-voucher', [FrontendControllerApi::class, 'getByVoucherCodeCondition'])->name('get-voucher');
 Route::get('/get-statistic-by-year', [FrontendControllerApi::class, 'getStatisticByYear'])->name('get-statistic-by-year');
+Route::get('/get-top-product', [FrontendControllerApi::class, 'topProductsDashboard'])->name('get-top-product');
+Route::get('/get-product-variant-by-id', [TestApiController::class, 'getProductVariantById'])->name('get-product-variant-by-id');
+Route::get('/test-request-concurrent', [TestApiController::class, 'checkAndUpdateQuantityProductVariant'])->name('test-request-concurrent');
+Route::get('/update-remain-quantity', [TestApiController::class, 'updateRemainQuantity'])->name('update-remain-quantity');

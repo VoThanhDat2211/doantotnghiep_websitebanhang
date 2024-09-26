@@ -10,8 +10,16 @@
             margin-top: 60px;
         }
 
-        .agile-Updating-grids, .agile-bottom-grid, .agile-last-grid {
+        .agile-Updating-grids,
+        .agile-bottom-grid,
+        .agile-last-grid {
             background: #fff;
+        }
+
+        .header-table {
+            padding-bottom: 14px;
+            font-size: 18px;
+            font-weight: 700;
         }
     </style>
     <div class="market-updates">
@@ -274,25 +282,23 @@
 
 
         }
-            $(document).ready(function() {
-                var yearSelectElement = $('#year-select');
-                var currentYear = new Date().getFullYear();
-                var startYear = currentYear - 5;
-                let yearSelect = currentYear;
-                yearSelectElement.append($('<option  selected/>').val(`${currentYear}`).text(`${currentYear}`));
+        $(document).ready(function() {
+            var yearSelectElement = $('#year-select');
+            var currentYear = new Date().getFullYear();
+            var startYear = currentYear - 5;
+            let yearSelect = currentYear;
+            yearSelectElement.append($('<option  selected/>').val(`${currentYear}`).text(`${currentYear}`));
 
-                for (var i = currentYear - 1; i > startYear; i--) {
-                    yearSelectElement.append($('<option />').val(i).text(i));
-                }
+            for (var i = currentYear - 1; i > startYear; i--) {
+                yearSelectElement.append($('<option />').val(i).text(i));
+            }
 
-                $('#year-select').on('change', function() {
+            $('#year-select').on('change', function() {
                 yearSelect = $('#year-select').val();
                 createChart(yearSelect);
             });
-                 createChart(yearSelect);
-            });
-
-            
+            createChart(yearSelect);
+        });
     </script>
 
 
@@ -361,73 +367,88 @@
     </div>
     <!-- //tasks -->
     <div class="agileits-w3layouts-stats">
-        <div class="col-md-8 stats-info stats-last widget-shadow">
+        <div class="col-md-12 stats-info stats-last widget-shadow">
             <div class="stats-last-agile">
-                <table class="table stats-table ">
-                    <thead>
-                        <tr>
-                            <th>S.NO</th>
-                            <th>PRODUCT</th>
-                            <th>STATUS</th>
-                            <th>PROGRESS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Lorem ipsum</td>
-                            <td><span class="label label-success">In progress</span></td>
-                            <td>
-                                <h5>85% <i class="fa fa-level-up"></i></h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Aliquam</td>
-                            <td><span class="label label-warning">New</span></td>
-                            <td>
-                                <h5>35% <i class="fa fa-level-up"></i></h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Lorem ipsum</td>
-                            <td><span class="label label-danger">Overdue</span></td>
-                            <td>
-                                <h5 class="down">40% <i class="fa fa-level-down"></i></h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>Aliquam</td>
-                            <td><span class="label label-info">Out of stock</span></td>
-                            <td>
-                                <h5>100% <i class="fa fa-level-up"></i></h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>Lorem ipsum</td>
-                            <td><span class="label label-success">In progress</span></td>
-                            <td>
-                                <h5 class="down">10% <i class="fa fa-level-down"></i></h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td>Aliquam</td>
-                            <td><span class="label label-warning">New</span></td>
-                            <td>
-                                <h5>38% <i class="fa fa-level-up"></i></h5>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="header-table">TOP SẢN PHẨM TRONG THÁNG THEO <span class="fs-1">
+                        <select id="option" class="p-1 fs-1" name="type">
+                            <option value="1">Số Đơn Hàng</option>
+                            <option value="2">Doanh Thu</option>
+                            <option value="3">Số Lượng Đã Bán</option>
+                        </select>
+                </div>
+                @if (isset($topProductsOrderByMonth))
+                    @php
+                        $increment = 0;
+                    @endphp
+                    <table class="table stats-table ">
+                        <thead>
+                            <tr>
+                                <th class="text-center">STT</th>
+                                <th class="text-center">TÊN SẢN PHẨM</th>
+                                <th class="text-center">SỐ ĐƠN HÀNG</th>
+                                <th class="text-center">DOANH THU(VND)</th>
+                                <th class="text-center">SỐ LƯỢNG ĐÃ BÁN</th>
+                            </tr>
+                        </thead>
+                        <tbody id='top-products'>
+                            @foreach ($topProductsOrderByMonth as $item)
+                                <tr>
+                                    <th class="text-center">{{ ++$increment }}</th>
+                                    <td class="text-center">{{ $item->name }}</td>
+                                    <td class="text-center">{{ $item->quantity_order }}</td>
+                                    <td class="text-center">
+                                        {{ priceFormat($item->sum_total_amount) }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ priceFormat($item->sum_quantity) }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
             </div>
         </div>
         <div class="clearfix"> </div>
     </div>
     <script>
+        $(document).ready(function() {
+            $('#option').on('change', function() {
+                let type = $('#option').val();
+                getTopProducts(type);
+            });
+
+            async function getTopProducts(type) {
+                let url = "{{ route('get-top-product') }}";
+                try {
+                    let response = await axios.get(url, {
+                        params: {
+                            type: type,
+                        }
+                    });
+                    let topProducts = response.data.topProducts;
+                    let tbody = $('#top-products');
+                    tbody.empty();
+                    let increment = 0;
+                    $.each(topProducts, function(index, item) {
+                        increment++;
+                        let row = `
+                                <tr>
+                                    <th class="text-center">${increment}</th>
+                                    <td class="text-center">${item.name}</td>
+                                    <td class="text-center">${item.quantity_order}</td>
+                                    <td class="text-center">${formatNumber(item.sum_total_amount)}</td>
+                                    <td class="text-center">${formatNumber(item.sum_quantity)}</td>
+                                </tr>
+                            `;
+                        tbody.append(row);
+                    });
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        });
+
         function formatNumber(number) {
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }

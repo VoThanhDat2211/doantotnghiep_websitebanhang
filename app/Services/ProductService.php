@@ -84,7 +84,7 @@ class ProductService
     }
 
     // top san pham theo so don hang
-    public function getTopProductOrderByMonth($yearNow, $monthNow, $status)
+    public function getTopProductOrderByMonth()
     {
         $yearNow = now()->year;
         $monthNow = now()->month;
@@ -94,7 +94,7 @@ class ProductService
 
 
     // top san pham theo doanh thu
-    public function getTopProductRevenueByMonth($yearNow, $monthNow, $status)
+    public function getTopProductRevenueByMonth()
     {
         $yearNow = now()->year;
         $monthNow = now()->month;
@@ -102,7 +102,7 @@ class ProductService
         return $this->productRepository->getTopProductRevenueByMonth($yearNow, $monthNow, $status);
     }
 
-    public function getBestSellingProducts($yearNow, $monthNow, $status)
+    public function getBestSellingProducts()
     {
         $yearNow = now()->year;
         $monthNow = now()->month;

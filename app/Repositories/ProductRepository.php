@@ -78,14 +78,19 @@ class ProductRepository
     public function getTopProductOrderByMonth($yearNow, $monthNow, $status)
     {
         $query = DB::table('products as p')
-            ->select('p.(*)', DB::raw('COUNT(p.id) as quantity_order, SUM(ol.quantity) as sum_quantity, SUM(o.total_amount) as sum_total_amount'))
-            ->join('product_variants as pv', 'on','p.id = pv.product_id')
-            ->join('order_lines as ol','on', 'pv.id = ol.product_variant_id')
-            ->join('orders as o', function ($join, $status, $yearNow, $monthNow) {
+            ->select(
+                'p.*',
+                DB::raw('COUNT(p.id) as quantity_order'),
+                DB::raw('SUM(ol.quantity) as sum_quantity'),
+                DB::raw('SUM(o.total_amount) as sum_total_amount')
+            )
+            ->join('product_variants as pv', 'p.id', '=', 'pv.product_id')
+            ->join('order_lines as ol', 'pv.id', '=', 'ol.product_variant_id')
+            ->join('orders as o', function ($join) use ($status, $yearNow, $monthNow) {
                 $join->on('ol.order_id', '=', 'o.id');
-                $join->where('status', $status);
-                $join->whereYear('created_at', $yearNow);
-                $join->whereMonth('created_at', $monthNow);
+                $join->where('o.status', '=', $status); 
+                $join->whereYear('o.created_at', '=', $yearNow);
+                $join->whereMonth('o.created_at', '=', $monthNow);
             })
             ->groupBy('p.id')
             ->orderByDesc('quantity_order')
@@ -100,14 +105,19 @@ class ProductRepository
     public function getTopProductRevenueByMonth($yearNow, $monthNow, $status)
     {
         $query = DB::table('products as p')
-            ->select('p.(*)', DB::raw('COUNT(p.id) as quantity_order, SUM(ol.quantity) as sum_quantity, SUM(o.total_amount) as sum_total_amount'))
-            ->join('product_variants as pv', 'on', 'p.id = pv.product_id')
-            ->join('order_lines as ol', 'on', 'pv.id = ol.product_variant_id')
-            ->join('orders as o', function ($join, $status, $yearNow, $monthNow) {
+            ->select(
+                'p.*',
+                DB::raw('COUNT(p.id) as quantity_order'),
+                DB::raw('SUM(ol.quantity) as sum_quantity'),
+                DB::raw('SUM(o.total_amount) as sum_total_amount')
+            )
+            ->join('product_variants as pv', 'p.id', '=', 'pv.product_id')
+            ->join('order_lines as ol', 'pv.id', '=', 'ol.product_variant_id')
+            ->join('orders as o', function ($join) use ($status, $yearNow, $monthNow) {
                 $join->on('ol.order_id', '=', 'o.id');
-                $join->where('status', $status);
-                $join->whereYear('created_at', $yearNow);
-                $join->whereMonth('created_at', $monthNow);
+                $join->where('o.status', '=', $status); 
+                $join->whereYear('o.created_at', '=', $yearNow);
+                $join->whereMonth('o.created_at', '=', $monthNow);
             })
             ->groupBy('p.id')
             ->orderByDesc('sum_total_amount')
@@ -120,14 +130,19 @@ class ProductRepository
     public function getBestSellingProducts($yearNow, $monthNow, $status)
     {
         $query = DB::table('products as p')
-            ->select('p.(*)', DB::raw('COUNT(p.id) as quantity_order, SUM(ol.quantity) as sum_quantity, SUM(o.total_amount) as sum_total_amount'))
-            ->join('product_variants as pv', 'on', 'p.id = pv.product_id')
-            ->join('order_lines as ol', 'on', 'pv.id = ol.product_variant_id')
-            ->join('orders as o', function ($join, $status, $yearNow, $monthNow) {
+            ->select(
+                'p.*',
+                DB::raw('COUNT(p.id) as quantity_order'),
+                DB::raw('SUM(ol.quantity) as sum_quantity'),
+                DB::raw('SUM(o.total_amount) as sum_total_amount')
+            )
+            ->join('product_variants as pv', 'p.id', '=', 'pv.product_id')
+            ->join('order_lines as ol', 'pv.id', '=', 'ol.product_variant_id')
+            ->join('orders as o', function ($join) use ($status, $yearNow, $monthNow) {
                 $join->on('ol.order_id', '=', 'o.id');
-                $join->where('status', $status);
-                $join->whereYear('created_at', $yearNow);
-                $join->whereMonth('created_at', $monthNow);
+                $join->where('o.status', '=', $status); 
+                $join->whereYear('o.created_at', '=', $yearNow);
+                $join->whereMonth('o.created_at', '=', $monthNow);
             })
             ->groupBy('p.id')
             ->orderByDesc('sum_quantity')

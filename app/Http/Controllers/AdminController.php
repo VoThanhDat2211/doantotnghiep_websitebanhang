@@ -8,6 +8,7 @@ use App\Http\Requests\LoginFormRequest;
 use App\Services\CategoryService;
 use App\Services\CustomerService;
 use App\Services\OrderService;
+use App\Services\ProductService;
 
 ;
 use Illuminate\Http\Request;
@@ -17,19 +18,23 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
+use Database\Seeders\ProductSeeder;
 class AdminController extends Controller
 {
     protected $categoryService;
     protected $orderService;
     protected $customerService;
+    protected $productService;
     public function __construct(CategoryService $categoryService,
                                 OrderService $orderService,
-                                CustomerService $customerService,                           
+                                CustomerService $customerService,  
+                                ProductService $productService                         
     )
     {
         $this->categoryService = $categoryService;
         $this->customerService = $customerService;
         $this->orderService = $orderService;
+        $this->productService = $productService;
     }
     public function getLogin() : View
     {
@@ -71,12 +76,14 @@ class AdminController extends Controller
             $revenueByYearArray[$i] = (int)$this->orderService->totalRevenueByYear($i, 4);
             $orderNumberByYearArray[$i] = (int)$this->orderService->countOrderByYear($i, 4);
         }
-
+        $topProductsOrderByMonth = $this->productService->getTopProductOrderByMonth();
+       
         return view('admin.dashboard',['quantityCustomer' => $quantityCustomer,
                                                     'quantityOrder' => $quantityOrder,
                                                     'revenue' => $revenue,
                                                     'revenueByYearArray' => $revenueByYearArray,
-                                                    'orderNumberByYearArray' => $orderNumberByYearArray
+                                                    'orderNumberByYearArray' => $orderNumberByYearArray,
+                                                    'topProductsOrderByMonth' => $topProductsOrderByMonth,
     ]);
     }
 
@@ -195,13 +202,15 @@ class AdminController extends Controller
     public function lockAccount(Request $request)
     {
         $customerId = $request->input('id');
-        $resultDelete = $this->customerService->delete($customerId);
-        if ($resultDelete) {
+        $status = 'lock';
+        $customer = $this->customerService->getById($customerId);
+        $resultLock = $this->customerService->updateStatus($customer,$status);
+        if ($resultLock) {
             $result = [
                 $message = "Khóa tài khoản thành công",
                 $status = 'success',
             ];
-            return redirect()->route('admin-category-list')->with('result', $result);
+            return redirect()->route('admin-customer-list')->with('result', $result);
         } else {
             $result = [
                 $message = "Khóa tài khoản thất bại",

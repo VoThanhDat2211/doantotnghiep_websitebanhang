@@ -13,6 +13,11 @@ class CustomerService
         $this->customerRepository = $customerRepository;
     }
 
+    public function getById($id)
+    {
+        return $this->customerRepository->getById($id);
+    }
+
     public function create(array $data)
     {
         return $this->customerRepository->create($data);
@@ -35,6 +40,17 @@ class CustomerService
         try {
             DB::commit();
             return $this->customerRepository->updateEmail($customer, $email);
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
+    }
+
+    public function updateStatus($customer, $status)
+    {
+        DB::beginTransaction();
+        try {
+            DB::commit();
+            return $this->customerRepository->updateStatus($customer, $status);
         } catch (Exception $e) {
             DB::rollBack();
         }
