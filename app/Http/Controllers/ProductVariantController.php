@@ -60,8 +60,9 @@ class ProductVariantController extends Controller
         if (is_null($product)) {
             return redirect()->route('error-404');
         }
+        $sizes = config('variant.size');
 
-        return view('admin.product-variant.form-create', ['productId' => $productId]);
+        return view('admin.product-variant.form-create', ['productId' => $productId, 'sizes' => $sizes]);
     }
 
     public function store(CreateProductVariantRequest $request)
@@ -99,6 +100,9 @@ class ProductVariantController extends Controller
             $dataImage['image_path'] = $resultCreate->image_path;
             $dataImage['product_id'] = $resultCreate->product->id;
             $this->imageProductService->create($dataImage);
+            $product = $resultCreate->product;
+            $product->remain_quantity += $resultCreate->remain_quantity;
+            $product->save();
 
             $result = [
                 $message = "Thêm biến thể thành công",
@@ -150,13 +154,16 @@ class ProductVariantController extends Controller
             $data["image_path"] = $this->handleFileImage($image_path);
         }
 
+        $remainQuantityOld = $productVariant->remain_quantity;
         $resultUpdate = $this->productVariantService->update($data, $productVariant);
         if ($resultUpdate) {
+            $product->remain_quantity = $product->remain_quantity - $remainQuantityOld + $resultUpdate->remain_quantity;
+            $product->save();
             $result = [
                 $message = "Sửa biến thể thành công",
                 $status = 'success',
             ];
-            return redirect()->route('admin-product-variant-list', ['id' => $productId])->with('result', $result);
+            return redirect()->route('admin-product-variant-list', ['id' => $productId])->with('result', value: $result);
         } else {
             $result = [
                 $message = "Sửa biến thể thất bại",
@@ -175,9 +182,11 @@ class ProductVariantController extends Controller
         if (is_null($product) || is_null($productVariant)) {
             return redirect()->route('error-404');
         }
-
+        $remainQuantityOld = $productVariant->remain_quantity;
         $resultDelete = $this->productVariantService->delete($productVariant);
         if ($resultDelete) {
+            $product->remain_quantity -= $remainQuantityOld;
+            $product->save();
             $result = [
                 $message = "Xóa biến thể thành công",
                 $status = 'success',

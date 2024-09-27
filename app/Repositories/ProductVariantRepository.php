@@ -28,7 +28,8 @@ class ProductVariantRepository
 
     public function update(array $data, $productVariant)
     {
-        return $productVariant->update($data);
+        $productVariant->update($data);
+        return $productVariant;
     }
 
     public function delete($productVariant)

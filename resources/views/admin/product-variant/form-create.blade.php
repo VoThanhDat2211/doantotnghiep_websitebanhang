@@ -31,23 +31,20 @@
                             <div class="form-group">
                                 <label for="size" class="control-label col-lg-12">Size <span
                                         style="color: red">*</span></label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" id="size" name="size" type="text" required
-                                        value="{{ old('size') }}">
-                                    @error('size')
-                                        <span class="error">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="price" class="control-label col-lg-12">Giá <span
-                                        style="color: red">*</span></label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" id="price" name="price" type="number" min="0"
-                                        value="{{ old('price') }}">
-                                    @error('price')
-                                        <span class="error">{{ $message }}</span>
-                                    @enderror
+                                <div class="col-lg-7">
+                                        <select class="form-control" id="size" required name="size">
+                                            @if (isset($sizes))
+                                                @foreach ($sizes as $key => $size)
+                                                    <option value="{{ $category->id }}"
+                                                        @if ($category->id == $product->category_id) selected @endif>
+                                                        {{ $category->name }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        @error('size')
+                                            <span class="error">{{ $message }}</span>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="form-group">

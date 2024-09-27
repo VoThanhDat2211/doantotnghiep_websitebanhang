@@ -110,7 +110,7 @@
                                         <h2>{{ $product->name }}</h2>
                                         <div class="price">
                                             @if ($product->discount != 0)
-                                                 <span class="price-origin">₫{{ priceFormat($product->price) }}</span>
+                                                <span class="price-origin">₫{{ priceFormat($product->price) }}</span>
                                             @endif
                                             <span
                                                 class="price-sale mx-2">₫{{ priceFormat(priceDiscount($product->price, $product->discount)) }}</span>
@@ -305,13 +305,24 @@
             $('.cart_quantity_input').on('blur', function() {
                 let inputValue = parseInt($('.cart_quantity_input').val());
                 let remainQuantity = $('.remain-quantity').data()['remain_quantity'];
-                if (Number.isNaN(inputValue)) {
+                console.log(colorItem);
+                console.log(sizeItem);
+                if (colorItem === null || sizeItem === null) {
                     $('.cart_quantity_input').val(1);
+                } else {
+                    if (Number.isNaN(inputValue)) {
+                        $('.cart_quantity_input').val(1);
+                    }
+
+                    if (inputValue > remainQuantity) {
+                        $('.cart_quantity_input').val(remainQuantity)
+                    }
+
+                    if(inputValue < 1) {
+                         $('.cart_quantity_input').val(1);
+                    }
                 }
 
-                if (inputValue > remainQuantity) {
-                    $('.cart_quantity_input').val(remainQuantity)
-                }
             });
             // Lấy dữ liệu khi chọn màu
             let colorItem = null;
@@ -326,6 +337,7 @@
                 getImageAndSize(productId, color);
             });
 
+            let sizeItem = null;
             $('.list-size').on('click', '.size-item', function(e) {
                 if (colorItem !== null) {
                     $('.size-item').removeClass('size-active');
@@ -334,10 +346,10 @@
                     let productId = colorItem.data('product-id');
                     let color = colorItem.data('color');
                     let size = $(this).data('size');
+                    sizeItem = size;
                     getQuantity(productId, color, size);
                 }
             });
-
 
             // hàm thay đổi image & size
             async function getImageAndSize(productId, color) {

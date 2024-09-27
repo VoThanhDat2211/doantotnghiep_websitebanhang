@@ -61,12 +61,12 @@ class ProductRepository
 
     public function getByCategories(array $categoryIds)
     {
-        return  Product::whereIn('category_id', $categoryIds)->paginate(16);
+        return  Product::whereIn('category_id', $categoryIds)->whereHas('productVariants')->orderByDesc('created_at')->paginate(16);
     }
 
     public function getByCategoriesAndName(array $categoryIds, $productName)
     {
-        return Product::whereIn('category_id', $categoryIds)->where('name','like','%' . $productName . '%')->paginate(16);
+        return Product::whereIn('category_id', $categoryIds)->whereHas('productVariants')->where('name','like','%' . $productName . '%')->orderByDesc('created_at')->paginate(16);
     } 
 
     public function getByCategory($categoryId)
