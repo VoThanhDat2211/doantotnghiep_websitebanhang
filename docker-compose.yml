@@ -1,0 +1,54 @@
+version: '2.2'
+services:
+    nginx:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile.nginx
+            args:
+                PHP_FPM_SERVER: php
+                PHP_FPM_PORT: 9000
+        ports:
+            - ${DOCKER_NGINX_EXTERNAL_PORT-8000}:80
+        depends_on:
+            - php
+        volumes:
+            - .:/var/www/
+        networks:
+            - backend
+
+    php:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+            args:
+                XDEBUG: "true"
+        volumes:
+            - .:/var/www/
+            - ./docker/php.ini:/usr/local/etc/php/conf.d/php.ini
+        environment:
+            APP_ENV: local
+        networks:
+            - backend
+
+    mysql:
+        image: mysql:latest
+        volumes:
+            - mysqldb:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: dstore
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+        ports:
+            - "3310:3306"
+        command: [ 'mysqld']
+        networks:
+            - backend
+
+volumes:
+    mysqldb:
+        driver: local
+
+
+networks:
+    backend:
+        driver: "bridge"
