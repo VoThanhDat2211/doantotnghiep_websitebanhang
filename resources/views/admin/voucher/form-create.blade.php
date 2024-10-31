@@ -34,7 +34,9 @@
                                     <select class="form-control" id="voucher_type" required name="voucher_type">
                                         @if (isset($voucherTypeArray))
                                             @foreach ($voucherTypeArray as $key => $voucherType)
-                                                <option value="{{ $key }}">{{ $voucherType }}</option>
+                                                <option value="{{ $key }}"
+                                                    {{ old('voucher_type') == $key ? 'selected' : '' }}>{{ $voucherType }}
+                                                </option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -47,8 +49,8 @@
                                 <label for="quantity" class="control-label col-lg-12">Số lượng voucher <span
                                         style="color: red">*</span></label>
                                 <div class="col-lg-7">
-                                    <input class="form-control" id="quantity" name="quantity" type="number"
-                                        min="0" value="{{ old('quantity') }}" required>
+                                    <input class="form-control" id="quantity" name="quantity" type="number" min="0"
+                                        value="{{ old('quantity') }}" required>
                                     @error('quantity')
                                         <span class="error">{{ $message }}</span>
                                     @enderror
@@ -56,7 +58,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="value" class="control-label col-lg-12">Giá trị voucher(%)<span
-                                                style="color: red">*</span></label></label>
+                                        style="color: red">*</span></label></label>
                                 <div class="col-lg-7">
                                     <input class="form-control" id="value" name="value" type="number" min="0"
                                         max="100" value="{{ old('value') }}" required>
@@ -70,10 +72,9 @@
                                     <div class="col-lg-6">
                                         <label for="start_date" class="control-label col-lg-12">Ngày bắt đầu <span
                                                 style="color: red">*</span></label>
-                                        <div class="col-lg-9">
-                                            <input class="form-control" id="start_date" name="start_date"
-                                                type="date" min="0" value="{{ old('start_date') }}"
-                                                required>
+                                        <div class="col-lg-12">
+                                            <input class="form-control" id="start_date" name="start_date" type="date"
+                                                min="0" value="{{ old('start_date') }}" required>
                                             @error('start_date')
                                                 <span class="error">{{ $message }}</span>
                                             @enderror
@@ -82,10 +83,9 @@
                                     <div class="col-lg-6 ">
                                         <label for="end_date" class="control-label col-lg-12">Ngày kết thúc <span
                                                 style="color: red">*</span></label>
-                                        <div class="col-lg-9">
-                                            <input class="form-control" id="end_date" name="end_date"
-                                                type="date" min="0" value="{{ old('end_date') }}"
-                                                required>
+                                        <div class="col-lg-12">
+                                            <input class="form-control" id="end_date" name="end_date" type="date"
+                                                min="0" value="{{ old('end_date') }}" required>
                                             @error('end_date')
                                                 <span class="error">{{ $message }}</span>
                                             @enderror

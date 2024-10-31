@@ -76,29 +76,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="product_variant" class="control-label col-lg-12">Biến thể sản phẩm mặc
-                                        định</label>
-                                    <div class="col-lg-12">
-                                        <select class="form-control" id="product_variant" required
-                                            name="default_product_variant_id">
-                                            @if (isset($productVariants))
-                                                @foreach ($productVariants as $productVariant)
-                                                    <option value="{{ $productVariant->id }}"
-                                                        @if ($productVariant->id == $product->default_product_variant_id) selected @endif>
-                                                        {{ $productVariant->name }},
-                                                        {{ $productVariant->color }}-{{ $productVariant->size }}
-                                                    </option>
-                                                @endforeach
-                                            @else
-                                                <option value="0">Không có biến thể sản phẩm</option>
-                                            @endif
-                                        </select>
-                                        @error('default_product_variant_id')
-                                            <span class="error">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
+
                                 <div class="form-group">
                                     <div class="col-lg-12 text-center mt-12">
                                         <button class="btn btn-primary" type="submit">Lưu</button>

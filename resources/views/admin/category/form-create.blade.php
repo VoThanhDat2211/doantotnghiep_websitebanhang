@@ -5,7 +5,7 @@
     <div class="redirect-common text-end">
         <a href="{{ route('admin-category-list') }}" class="btn btn-primary link-redirect-common">DANH SÁCH DANH MỤC</a>
     </div>
-    
+
     <div class="row mt-form-common">
         <div class="col-lg-12">
             <section class="panel">
@@ -33,9 +33,12 @@
                                         style="color: red">*</span>)</label>
                                 <div class="col-lg-7">
                                     <select class="form-control" id="cname" required name="parent_category">
-                                        <option value="1">Thời Trang Nam</option>
-                                        <option value="2">Thời Trang Nữ</option>
-                                        <option value="3">Đồ Thể Thao</option>
+                                        <option value="1" {{ old('parent_category') == '1' ? 'selected' : '' }}>Thời
+                                            Trang Nam</option>
+                                        <option value="2" {{ old('parent_category') == '2' ? 'selected' : '' }}>Thời
+                                            Trang Nữ</option>
+                                        <option value="3" {{ old('parent_category') == '3' ? 'selected' : '' }}>Đồ Thể
+                                            Thao</option>
                                     </select>
                                     @error('parent_category')
                                         <span class="error">{{ $message }}</span>

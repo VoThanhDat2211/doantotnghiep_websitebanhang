@@ -34,7 +34,10 @@
                                     <select class="form-control" id="category" required name="category_id">
                                         @if (isset($categories))
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                <option value="{{ $category->id }}"
+                                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->name }}
+                                                </option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -75,7 +78,7 @@
                                 <label for="price" class="control-label col-lg-12">Giá tiền(VNĐ)</label>
                                 <div class="col-lg-7">
                                     <input class="form-control" id="price" name="price" type="number" min="0"
-                                     value="{{ old('price') }}">
+                                        value="{{ old('price') }}">
                                     @error('price')
                                         <span class="error">{{ $message }}</span>
                                     @enderror

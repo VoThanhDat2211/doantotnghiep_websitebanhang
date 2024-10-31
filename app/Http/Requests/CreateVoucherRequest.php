@@ -56,11 +56,11 @@ class CreateVoucherRequest extends FormRequest
             'voucher_type.in' => 'Dữ liệu không hợp lệ !',
             'start_date.required' => 'Ngày bắt đầu không được để trống !',
             'start_date.date' => 'Dữ liệu không hợp lệ !',
-            'start_date.after_or_equal' => 'Dữ liệu không hợp lệ !',
-            'start_date.before' => 'Dữ liệu không hợp lệ !',
+            'start_date.after_or_equal' => 'Ngày bắt đầu phải lớn hơn hoặc bằng ngày hôm nay !',
+            'start_date.before' => 'Ngày bắt đầu    nhỏ hơn ngày kết thúc !',
             'end_date.required' => 'Ngày kết thúc không được để trống !',
             'end_date.date' => 'Dữ liệu không hợp lệ !',
-            'end_date.after' => 'Dữ liệu không hợp lệ !',
+            'end_date.after' => 'Ngày kết thúc lớn hơn ngày bắt đầu !',
         ];
     }
 }
